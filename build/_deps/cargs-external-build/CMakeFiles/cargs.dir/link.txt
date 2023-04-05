@@ -1,0 +1,1 @@
+/usr/bin/cc -fPIC -O3 -DNDEBUG -shared -Wl,-soname,libcargs.so -o libcargs.so CMakeFiles/cargs.dir/src/cargs.c.o 

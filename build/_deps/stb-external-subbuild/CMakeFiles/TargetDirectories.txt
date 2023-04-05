@@ -1,0 +1,3 @@
+/home/tesscat/tracer/build/_deps/stb-external-subbuild/CMakeFiles/stb-external-populate.dir
+/home/tesscat/tracer/build/_deps/stb-external-subbuild/CMakeFiles/edit_cache.dir
+/home/tesscat/tracer/build/_deps/stb-external-subbuild/CMakeFiles/rebuild_cache.dir

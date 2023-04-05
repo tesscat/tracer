@@ -1,0 +1,46 @@
+{
+	"sources" : 
+	[
+		{
+			"file" : "/home/tesscat/tracer/build/_deps/sfml-external-subbuild/CMakeFiles/sfml-external-populate"
+		},
+		{
+			"file" : "/home/tesscat/tracer/build/_deps/sfml-external-subbuild/CMakeFiles/sfml-external-populate.rule"
+		},
+		{
+			"file" : "/home/tesscat/tracer/build/_deps/sfml-external-subbuild/CMakeFiles/sfml-external-populate-complete.rule"
+		},
+		{
+			"file" : "/home/tesscat/tracer/build/_deps/sfml-external-subbuild/sfml-external-populate-prefix/src/sfml-external-populate-stamp/sfml-external-populate-build.rule"
+		},
+		{
+			"file" : "/home/tesscat/tracer/build/_deps/sfml-external-subbuild/sfml-external-populate-prefix/src/sfml-external-populate-stamp/sfml-external-populate-configure.rule"
+		},
+		{
+			"file" : "/home/tesscat/tracer/build/_deps/sfml-external-subbuild/sfml-external-populate-prefix/src/sfml-external-populate-stamp/sfml-external-populate-download.rule"
+		},
+		{
+			"file" : "/home/tesscat/tracer/build/_deps/sfml-external-subbuild/sfml-external-populate-prefix/src/sfml-external-populate-stamp/sfml-external-populate-install.rule"
+		},
+		{
+			"file" : "/home/tesscat/tracer/build/_deps/sfml-external-subbuild/sfml-external-populate-prefix/src/sfml-external-populate-stamp/sfml-external-populate-mkdir.rule"
+		},
+		{
+			"file" : "/home/tesscat/tracer/build/_deps/sfml-external-subbuild/sfml-external-populate-prefix/src/sfml-external-populate-stamp/sfml-external-populate-patch.rule"
+		},
+		{
+			"file" : "/home/tesscat/tracer/build/_deps/sfml-external-subbuild/sfml-external-populate-prefix/src/sfml-external-populate-stamp/sfml-external-populate-test.rule"
+		},
+		{
+			"file" : "/home/tesscat/tracer/build/_deps/sfml-external-subbuild/sfml-external-populate-prefix/src/sfml-external-populate-stamp/sfml-external-populate-update.rule"
+		}
+	],
+	"target" : 
+	{
+		"labels" : 
+		[
+			"sfml-external-populate"
+		],
+		"name" : "sfml-external-populate"
+	}
+}

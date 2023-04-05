@@ -1,0 +1,1 @@
+/usr/bin/cc -fPIC -O3 -DNDEBUG -shared -Wl,-soname,libOpenCLUtils.so -o libOpenCLUtils.so CMakeFiles/OpenCLUtils.dir/src/Utils/Utils.c.o  -Wl,-rpath,:::::::::::::::::::::::::::::::::::::::::::::::::: -lm /usr/lib/libOpenCL.so 

@@ -1,0 +1,46 @@
+{
+	"sources" : 
+	[
+		{
+			"file" : "/home/tesscat/tracer/build/_deps/glew-external-subbuild/CMakeFiles/glew-external-populate"
+		},
+		{
+			"file" : "/home/tesscat/tracer/build/_deps/glew-external-subbuild/CMakeFiles/glew-external-populate.rule"
+		},
+		{
+			"file" : "/home/tesscat/tracer/build/_deps/glew-external-subbuild/CMakeFiles/glew-external-populate-complete.rule"
+		},
+		{
+			"file" : "/home/tesscat/tracer/build/_deps/glew-external-subbuild/glew-external-populate-prefix/src/glew-external-populate-stamp/glew-external-populate-build.rule"
+		},
+		{
+			"file" : "/home/tesscat/tracer/build/_deps/glew-external-subbuild/glew-external-populate-prefix/src/glew-external-populate-stamp/glew-external-populate-configure.rule"
+		},
+		{
+			"file" : "/home/tesscat/tracer/build/_deps/glew-external-subbuild/glew-external-populate-prefix/src/glew-external-populate-stamp/glew-external-populate-download.rule"
+		},
+		{
+			"file" : "/home/tesscat/tracer/build/_deps/glew-external-subbuild/glew-external-populate-prefix/src/glew-external-populate-stamp/glew-external-populate-install.rule"
+		},
+		{
+			"file" : "/home/tesscat/tracer/build/_deps/glew-external-subbuild/glew-external-populate-prefix/src/glew-external-populate-stamp/glew-external-populate-mkdir.rule"
+		},
+		{
+			"file" : "/home/tesscat/tracer/build/_deps/glew-external-subbuild/glew-external-populate-prefix/src/glew-external-populate-stamp/glew-external-populate-patch.rule"
+		},
+		{
+			"file" : "/home/tesscat/tracer/build/_deps/glew-external-subbuild/glew-external-populate-prefix/src/glew-external-populate-stamp/glew-external-populate-test.rule"
+		},
+		{
+			"file" : "/home/tesscat/tracer/build/_deps/glew-external-subbuild/glew-external-populate-prefix/src/glew-external-populate-stamp/glew-external-populate-update.rule"
+		}
+	],
+	"target" : 
+	{
+		"labels" : 
+		[
+			"glew-external-populate"
+		],
+		"name" : "glew-external-populate"
+	}
+}
