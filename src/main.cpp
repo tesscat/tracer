@@ -142,15 +142,15 @@ int main() {
 
   // cl_mem_flags flags = CL_MEM_READ_WRITE;
 
-  int width = 256;
-  int height = 256;
+  int width = 800;
+  int height = 800;
 
   std::vector<double> image (width * height * 4, 1.0);
   std::cout << "Image is " << sizeof(double) * width * height * 4 << " bytes big, with 4x" << sizeof(double) << " bytes per pixel\n";
   
-  int sphCount = 3;
-  std::vector<std::vector<double>> sphCenters = {{3.0, 0.0, 10.0}, {-3.0, 0.0, 10.0}, {0.0, 5.0, 10.0}};
-  std::vector<int> sphMatIndexes = {0, 1, 2};
+  int sphCount = 4;
+  std::vector<std::vector<double>> sphCenters = {{3.0, 0.0, 10.0}, {-3.0, 0.0, 10.0}, {0.0, 1.0, 10.0}, {0.0, -401.0, 10}};
+  std::vector<int> sphMatIndexes = {0, 1, 2, 3};
   std::vector<cl_double> sphCentersFlat;// (sphCenters.size() * 3, 0);
   for (auto sphCenter : sphCenters) {
     for (double coord: sphCenter) {
@@ -159,11 +159,12 @@ int main() {
     // sphCentersFlat.insert(sphCentersFlat.end(), sphCenter.begin(), sphCenter.end());
   }
   std::cout << "Length of sphere centers flattened: " << sphCentersFlat.size() << "\n";
-  std::vector<cl_double> sphRadii = {1.0, 1.0, 1.0};
+  std::vector<cl_double> sphRadii = {1.0, 1.0, 1.5, 400};
   
   Material m1;
   Material m2;
   Material m3;
+  Material m4;
   m1.albedo.r = 1.0;
   m1.albedo.g = 1.0;
   m1.albedo.b = 1.0;
@@ -174,10 +175,19 @@ int main() {
   m3.emission.r = 3.0;
   m3.emission.g = 3.0;
   m3.emission.b = 3.0;
+  m4.albedo.r = 0.0;
+  m4.albedo.g = 0.0;
+  m4.albedo.b = 0.0;
+  m4.emission.r = 0.0;
+  m4.emission.g = 0.0;
+  m4.emission.b = 0.0;
+  m4.reflection.r = 1.0;
+  m4.reflection.g = 1.0;
+  m4.reflection.b = 1.0;
   // m3.emission.g = 1.0;
   // m3.emission.b = 1.0;
   
-  std::vector<Material> materials = {m1, m2, m3};
+  std::vector<Material> materials = {m1, m2, m3, m4};
   std::vector<double> materialsFlat;
   for (auto material: materials) {
     std::vector<double> flat = material.Flatten();

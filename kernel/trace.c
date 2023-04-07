@@ -1,32 +1,32 @@
 // #pragma OPENCL EXTENSION cl_khr_spir : enable
 // #pragma OPENCL EXTENSION cl_khr_il_program : enable
-
-uint wang_hash(uint seed)
-{
-    seed = (seed ^ 61) ^ (seed >> 16);
-    seed *= 9;
-    seed = seed ^ (seed >> 4);
-    seed *= 0x27d4eb2d;
-    seed = seed ^ (seed >> 15);
-    return seed;
-}
-
-float rand(float seed) {
-  // pipe float p;
-  return wang_hash(4294967295*seed)/(float)4294967295;
-}
-
-double3 randSphPos(float seed) {
-  double3 out = {1, 1, 1};
-  out.z = seed;
-  while (length(out) > 1) {
-    out.x = rand(out.z);
-    out.y = rand(out.x);
-    out.z = rand(out.y);
-  }
-
-  return out;
-}
+//
+// uint wang_hash(uint seed)
+// {
+//     seed = (seed ^ 61) ^ (seed >> 16);
+//     seed *= 9;
+//     seed = seed ^ (seed >> 4);
+//     seed *= 0x27d4eb2d;
+//     seed = seed ^ (seed >> 15);
+//     return seed;
+// }
+//
+// float rand(float seed) {
+//   // pipe float p;
+//   return wang_hash(4294967295*seed)/(float)4294967295;
+// }
+//
+// double3 randSphPos(float seed) {
+//   double3 out = {1, 1, 1};
+//   out.z = seed;
+//   while (length(out) > 1) {
+//     out.x = rand(out.z);
+//     out.y = rand(out.x);
+//     out.z = rand(out.y);
+//   }
+//
+//   return out;
+// }
 
 double2 fibLattice(double i, double N) {
   double x = i/1.618033988749;
@@ -49,15 +49,15 @@ double hitSphere(const double3 center, const double radius, const double3 rayOri
   if (discriminant < 0) {return -1.0;}
   else {return (-half_b - sqrt(discriminant))/a;}
 }
-
-typedef struct ColourTrace {
-  double16 rAlb;
-  double16 gAlb;
-  double16 bAlb;
-  double16 rEmi;
-  double16 gEmi;
-  double16 bEmi;
-} ColourTrace;
+//
+// typedef struct ColourTrace {
+//   double16 rAlb;
+//   double16 gAlb;
+//   double16 bAlb;
+//   double16 rEmi;
+//   double16 gEmi;
+//   double16 bEmi;
+// } ColourTrace;
 
 typedef struct State {
   global const double* sphereCenters;
@@ -71,30 +71,30 @@ typedef struct State {
   int maxDepth;
   int iters;
 } State;
-
-typedef struct Ray {
-  ColourTrace trace;
-  double3 orig;
-  double3 dir;
-} Ray;
-
+//
+// typedef struct Ray {
+//   ColourTrace trace;
+//   double3 orig;
+//   double3 dir;
+// } Ray;
+//
 // subrays ^ (depth - 1) total iters
 // iter / (subrays ^ (depth - 1) / subrays) floor of for first
 // (iter % (sub ^ (depth - 1 - myDepth))) / / (subrays ^ (depth - 1 - myDepth) / subRays) floor for myDepth
-
-double3 finishTrace(ColourTrace trace, int bounces) {
-  double3 result = {0.0, 0.0, 0.0};
-  for (int i = bounces - 1; i >= 0; i--) {
-    result.x *= trace.rAlb[i];
-    result.y *= trace.gAlb[i];
-    result.z *= trace.bAlb[i];
-
-    result.x += trace.rEmi[i];
-    result.y += trace.gEmi[i];
-    result.z += trace.bEmi[i];
-  }
-  return result;
-}
+//
+// double3 finishTrace(ColourTrace trace, int bounces) {
+//   double3 result = {0.0, 0.0, 0.0};
+//   for (int i = bounces - 1; i >= 0; i--) {
+//     result.x *= trace.rAlb[i];
+//     result.y *= trace.gAlb[i];
+//     result.z *= trace.bAlb[i];
+//
+//     result.x += trace.rEmi[i];
+//     result.y += trace.gEmi[i];
+//     result.z += trace.bEmi[i];
+//   }
+//   return result;
+// }
 
 // TODO: nicer recursion
 double3 castRay(double3 orig_, double3 dir_,
@@ -103,7 +103,7 @@ double3 castRay(double3 orig_, double3 dir_,
   // global const double* sphereRadii,
   // global const double* materials,
   // global const int* materialIndexes,
-  ColourTrace trace,
+  // ColourTrace trace,
   private State* state,
   // int depth,
   // int iters,
@@ -265,24 +265,24 @@ kernel void trace(
   global double* sphereRadii,
   global double* materials,
   global int* objMaterialIndexes,
-  global uint* image
+  global double* image
 )
 {
   State state;
-  ColourTrace trace;
+  // ColourTrace trace;
   state.materials = materials;
   state.sphereCenters = sphereCenters;
   state.matIndexes = objMaterialIndexes;
   state.sphereRadii = sphereRadii;
   state.sphCount = sphCount;
   state.image = image;
-  state.maxDepth = 3;
+  state.maxDepth = 2;
   const double focalLength = 1;
   double3 rayOrig = {0, 0, 0};
 
   // int bounceCount = 3;
 
-  state.subRays = 20;
+  state.subRays = 300;
 
   int iters = pow((double)state.subRays, state.maxDepth - 1);
   state.iters = iters;
@@ -305,7 +305,7 @@ kernel void trace(
   for (int i = 0; i < iters; i++) {
     // seed = wang_hash(4294967295 * (x/w) * i) + wang_hash(4294967295 * (y/h) * i);
     // result += castRay(rayOrig, rayDir, sphCount, sphereCenters, sphereRadii, materials, objMaterialIndexes, bounceCount, iters, subRays, i, seed);
-    result += castRay(rayOrig, rayDir, trace, &state, i); // , iters, i, seed);
+    result += castRay(rayOrig, rayDir, &state, i); // , iters, i, seed);
   }
 
   result /= iters;
