@@ -6,5 +6,5 @@ C_DEFINES = -DCL_ENABLE_LAYERS -DCL_TARGET_OPENCL_VERSION=300 -DOPENCL_ICD_LOADE
 
 C_INCLUDES = -I/home/tesscat/tracer/build/vendor/OpenCL-SDK/external/OpenCL-ICD-Loader -I/home/tesscat/tracer/vendor/OpenCL-SDK/external/OpenCL-ICD-Loader/loader -I/home/tesscat/tracer/vendor/OpenCL-SDK/external/OpenCL-Headers
 
-C_FLAGS = -O3 -DNDEBUG -fPIC -std=gnu99
+C_FLAGS = -g -fPIC -std=gnu99
 

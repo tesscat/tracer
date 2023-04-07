@@ -96,17 +96,17 @@ vendor/OpenCL-SDK/bin/conwaycpp: /usr/lib/libOpenCL.so
 vendor/OpenCL-SDK/bin/conwaycpp: vendor/OpenCL-SDK/lib/libOpenCLSDK.so
 vendor/OpenCL-SDK/bin/conwaycpp: vendor/OpenCL-SDK/lib/libOpenCLSDKCpp.so
 vendor/OpenCL-SDK/bin/conwaycpp: _deps/cargs-external-build/libcargs.so
-vendor/OpenCL-SDK/bin/conwaycpp: vendor/OpenCL-SDK/lib/libOpenCLUtilsCpp.so
-vendor/OpenCL-SDK/bin/conwaycpp: vendor/OpenCL-SDK/lib/libOpenCLUtils.so
+vendor/OpenCL-SDK/bin/conwaycpp: vendor/OpenCL-SDK/lib/libOpenCLUtilsCppd.so
+vendor/OpenCL-SDK/bin/conwaycpp: vendor/OpenCL-SDK/lib/libOpenCLUtilsd.so
 vendor/OpenCL-SDK/bin/conwaycpp: /usr/lib/libOpenCL.so
-vendor/OpenCL-SDK/bin/conwaycpp: vendor/OpenCL-SDK/lib/libglew.a
+vendor/OpenCL-SDK/bin/conwaycpp: vendor/OpenCL-SDK/lib/libglewd.a
 vendor/OpenCL-SDK/bin/conwaycpp: /usr/lib/libXext.so
 vendor/OpenCL-SDK/bin/conwaycpp: /usr/lib/libX11.so
 vendor/OpenCL-SDK/bin/conwaycpp: /usr/lib/libGLU.so
 vendor/OpenCL-SDK/bin/conwaycpp: /usr/lib/libGL.so
-vendor/OpenCL-SDK/bin/conwaycpp: vendor/OpenCL-SDK/lib/libsfml-graphics.so.2.5.1
-vendor/OpenCL-SDK/bin/conwaycpp: vendor/OpenCL-SDK/lib/libsfml-window.so.2.5.1
-vendor/OpenCL-SDK/bin/conwaycpp: vendor/OpenCL-SDK/lib/libsfml-system.so.2.5.1
+vendor/OpenCL-SDK/bin/conwaycpp: vendor/OpenCL-SDK/lib/libsfml-graphics-d.so.2.5.1
+vendor/OpenCL-SDK/bin/conwaycpp: vendor/OpenCL-SDK/lib/libsfml-window-d.so.2.5.1
+vendor/OpenCL-SDK/bin/conwaycpp: vendor/OpenCL-SDK/lib/libsfml-system-d.so.2.5.1
 vendor/OpenCL-SDK/bin/conwaycpp: vendor/OpenCL-SDK/samples/extensions/khr/conway/CMakeFiles/conwaycpp.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/tesscat/tracer/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable ../../../../bin/conwaycpp"
 	cd /home/tesscat/tracer/build/vendor/OpenCL-SDK/samples/extensions/khr/conway && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/conwaycpp.dir/link.txt --verbose=$(VERBOSE)

@@ -12,7 +12,7 @@ if(NOT DEFINED CMAKE_INSTALL_CONFIG_NAME)
     string(REGEX REPLACE "^[^A-Za-z0-9_]+" ""
            CMAKE_INSTALL_CONFIG_NAME "${BUILD_TYPE}")
   else()
-    set(CMAKE_INSTALL_CONFIG_NAME "Release")
+    set(CMAKE_INSTALL_CONFIG_NAME "Debug")
   endif()
   message(STATUS "Install configuration: \"${CMAKE_INSTALL_CONFIG_NAME}\"")
 endif()
@@ -44,8 +44,8 @@ endif()
 
 if(CMAKE_INSTALL_COMPONENT STREQUAL "bin" OR NOT CMAKE_INSTALL_COMPONENT)
   foreach(file
-      "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/libsfml-system.so.2.5.1"
-      "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/libsfml-system.so.2.5"
+      "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/libsfml-system-d.so.2.5.1"
+      "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/libsfml-system-d.so.2.5"
       )
     if(EXISTS "${file}" AND
        NOT IS_SYMLINK "${file}")
@@ -55,12 +55,12 @@ if(CMAKE_INSTALL_COMPONENT STREQUAL "bin" OR NOT CMAKE_INSTALL_COMPONENT)
     endif()
   endforeach()
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib" TYPE SHARED_LIBRARY FILES
-    "/home/tesscat/tracer/build/vendor/OpenCL-SDK/lib/libsfml-system.so.2.5.1"
-    "/home/tesscat/tracer/build/vendor/OpenCL-SDK/lib/libsfml-system.so.2.5"
+    "/home/tesscat/tracer/build/vendor/OpenCL-SDK/lib/libsfml-system-d.so.2.5.1"
+    "/home/tesscat/tracer/build/vendor/OpenCL-SDK/lib/libsfml-system-d.so.2.5"
     )
   foreach(file
-      "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/libsfml-system.so.2.5.1"
-      "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/libsfml-system.so.2.5"
+      "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/libsfml-system-d.so.2.5.1"
+      "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/libsfml-system-d.so.2.5"
       )
     if(EXISTS "${file}" AND
        NOT IS_SYMLINK "${file}")
@@ -76,21 +76,21 @@ if(CMAKE_INSTALL_COMPONENT STREQUAL "bin" OR NOT CMAKE_INSTALL_COMPONENT)
 endif()
 
 if(CMAKE_INSTALL_COMPONENT STREQUAL "bin" OR NOT CMAKE_INSTALL_COMPONENT)
-  if(EXISTS "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/libsfml-system.so" AND
-     NOT IS_SYMLINK "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/libsfml-system.so")
+  if(EXISTS "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/libsfml-system-d.so" AND
+     NOT IS_SYMLINK "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/libsfml-system-d.so")
     file(RPATH_CHECK
-         FILE "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/libsfml-system.so"
+         FILE "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/libsfml-system-d.so"
          RPATH "/home/tesscat/tracer/vendor/OpenCL-SDK/install/lib")
   endif()
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib" TYPE SHARED_LIBRARY FILES "/home/tesscat/tracer/build/vendor/OpenCL-SDK/lib/libsfml-system.so")
-  if(EXISTS "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/libsfml-system.so" AND
-     NOT IS_SYMLINK "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/libsfml-system.so")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib" TYPE SHARED_LIBRARY FILES "/home/tesscat/tracer/build/vendor/OpenCL-SDK/lib/libsfml-system-d.so")
+  if(EXISTS "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/libsfml-system-d.so" AND
+     NOT IS_SYMLINK "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/libsfml-system-d.so")
     file(RPATH_CHANGE
-         FILE "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/libsfml-system.so"
+         FILE "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/libsfml-system-d.so"
          OLD_RPATH "::::::::::::::::::::::::::::::::::::::::::::::::::"
          NEW_RPATH "/home/tesscat/tracer/vendor/OpenCL-SDK/install/lib")
     if(CMAKE_INSTALL_DO_STRIP)
-      execute_process(COMMAND "/usr/bin/strip" "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/libsfml-system.so")
+      execute_process(COMMAND "/usr/bin/strip" "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/libsfml-system-d.so")
     endif()
   endif()
 endif()

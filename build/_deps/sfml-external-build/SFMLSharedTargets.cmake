@@ -105,25 +105,25 @@ set_target_properties(Freetype PROPERTIES
   INTERFACE_LINK_LIBRARIES "/usr/lib/libfreetype.so"
 )
 
-# Import target "sfml-system" for configuration "Release"
-set_property(TARGET sfml-system APPEND PROPERTY IMPORTED_CONFIGURATIONS RELEASE)
+# Import target "sfml-system" for configuration "Debug"
+set_property(TARGET sfml-system APPEND PROPERTY IMPORTED_CONFIGURATIONS DEBUG)
 set_target_properties(sfml-system PROPERTIES
-  IMPORTED_LOCATION_RELEASE "/home/tesscat/tracer/build/vendor/OpenCL-SDK/lib/libsfml-system.so.2.5.1"
-  IMPORTED_SONAME_RELEASE "libsfml-system.so.2.5"
+  IMPORTED_LOCATION_DEBUG "/home/tesscat/tracer/build/vendor/OpenCL-SDK/lib/libsfml-system-d.so.2.5.1"
+  IMPORTED_SONAME_DEBUG "libsfml-system-d.so.2.5"
   )
 
-# Import target "sfml-window" for configuration "Release"
-set_property(TARGET sfml-window APPEND PROPERTY IMPORTED_CONFIGURATIONS RELEASE)
+# Import target "sfml-window" for configuration "Debug"
+set_property(TARGET sfml-window APPEND PROPERTY IMPORTED_CONFIGURATIONS DEBUG)
 set_target_properties(sfml-window PROPERTIES
-  IMPORTED_LOCATION_RELEASE "/home/tesscat/tracer/build/vendor/OpenCL-SDK/lib/libsfml-window.so.2.5.1"
-  IMPORTED_SONAME_RELEASE "libsfml-window.so.2.5"
+  IMPORTED_LOCATION_DEBUG "/home/tesscat/tracer/build/vendor/OpenCL-SDK/lib/libsfml-window-d.so.2.5.1"
+  IMPORTED_SONAME_DEBUG "libsfml-window-d.so.2.5"
   )
 
-# Import target "sfml-graphics" for configuration "Release"
-set_property(TARGET sfml-graphics APPEND PROPERTY IMPORTED_CONFIGURATIONS RELEASE)
+# Import target "sfml-graphics" for configuration "Debug"
+set_property(TARGET sfml-graphics APPEND PROPERTY IMPORTED_CONFIGURATIONS DEBUG)
 set_target_properties(sfml-graphics PROPERTIES
-  IMPORTED_LOCATION_RELEASE "/home/tesscat/tracer/build/vendor/OpenCL-SDK/lib/libsfml-graphics.so.2.5.1"
-  IMPORTED_SONAME_RELEASE "libsfml-graphics.so.2.5"
+  IMPORTED_LOCATION_DEBUG "/home/tesscat/tracer/build/vendor/OpenCL-SDK/lib/libsfml-graphics-d.so.2.5.1"
+  IMPORTED_SONAME_DEBUG "libsfml-graphics-d.so.2.5"
   )
 
 # This file does not depend on other imported targets which have

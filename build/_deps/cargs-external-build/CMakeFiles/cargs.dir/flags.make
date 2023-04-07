@@ -6,5 +6,5 @@ C_DEFINES = -Dcargs_EXPORTS
 
 C_INCLUDES = -I/home/tesscat/tracer/build/_deps/cargs-external-src/include
 
-C_FLAGS = -O3 -DNDEBUG -fPIC -Wall -Werror -Wextra -Wpedantic -std=gnu11
+C_FLAGS = -g -fPIC -Wall -Werror -Wextra -Wpedantic -std=gnu11
 

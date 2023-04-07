@@ -85,7 +85,6 @@ _deps/sfml-external-build/src/SFML/Window/CMakeFiles/sfml-window.dir/Clipboard.c
   /usr/include/bits/struct_mutex.h \
   /usr/include/bits/struct_rwlock.h \
   /usr/include/alloca.h \
-  /usr/include/bits/stdlib-bsearch.h \
   /usr/include/bits/stdlib-float.h \
   /usr/include/c++/12.2.1/bits/std_abs.h \
   /usr/include/c++/12.2.1/locale \
@@ -137,7 +136,6 @@ _deps/sfml-external-build/src/SFML/Window/CMakeFiles/sfml-window.dir/Clipboard.c
   /usr/include/bits/types/struct_FILE.h \
   /usr/include/bits/types/cookie_io_functions_t.h \
   /usr/include/bits/stdio_lim.h \
-  /usr/include/bits/stdio.h \
   /usr/include/c++/12.2.1/cerrno \
   /usr/include/errno.h \
   /usr/include/bits/errno.h \
@@ -271,7 +269,6 @@ _deps/sfml-external-build/src/SFML/Window/CMakeFiles/sfml-window.dir/Context.cpp
   /usr/include/bits/struct_mutex.h \
   /usr/include/bits/struct_rwlock.h \
   /usr/include/alloca.h \
-  /usr/include/bits/stdlib-bsearch.h \
   /usr/include/bits/stdlib-float.h \
   /usr/include/c++/12.2.1/bits/std_abs.h \
   _deps/sfml-external-src/include/SFML/System/ThreadLocalPtr.inl
@@ -388,7 +385,6 @@ _deps/sfml-external-build/src/SFML/Window/CMakeFiles/sfml-window.dir/GlContext.c
   /usr/include/bits/struct_mutex.h \
   /usr/include/bits/struct_rwlock.h \
   /usr/include/alloca.h \
-  /usr/include/bits/stdlib-bsearch.h \
   /usr/include/bits/stdlib-float.h \
   /usr/include/c++/12.2.1/bits/std_abs.h \
   _deps/sfml-external-src/include/SFML/System/ThreadLocalPtr.inl \
@@ -492,7 +488,6 @@ _deps/sfml-external-build/src/SFML/Window/CMakeFiles/sfml-window.dir/GlContext.c
   /usr/include/bits/types/struct_FILE.h \
   /usr/include/bits/types/cookie_io_functions_t.h \
   /usr/include/bits/stdio_lim.h \
-  /usr/include/bits/stdio.h \
   /usr/include/c++/12.2.1/cerrno \
   /usr/include/errno.h \
   /usr/include/bits/errno.h \
@@ -657,7 +652,6 @@ _deps/sfml-external-build/src/SFML/Window/CMakeFiles/sfml-window.dir/Joystick.cp
   /usr/include/bits/struct_mutex.h \
   /usr/include/bits/struct_rwlock.h \
   /usr/include/alloca.h \
-  /usr/include/bits/stdlib-bsearch.h \
   /usr/include/bits/stdlib-float.h \
   /usr/include/c++/12.2.1/bits/std_abs.h \
   /usr/include/c++/12.2.1/locale \
@@ -709,7 +703,6 @@ _deps/sfml-external-build/src/SFML/Window/CMakeFiles/sfml-window.dir/Joystick.cp
   /usr/include/bits/types/struct_FILE.h \
   /usr/include/bits/types/cookie_io_functions_t.h \
   /usr/include/bits/stdio_lim.h \
-  /usr/include/bits/stdio.h \
   /usr/include/c++/12.2.1/cerrno \
   /usr/include/errno.h \
   /usr/include/bits/errno.h \
@@ -885,7 +878,6 @@ _deps/sfml-external-build/src/SFML/Window/CMakeFiles/sfml-window.dir/JoystickMan
   /usr/include/bits/struct_mutex.h \
   /usr/include/bits/struct_rwlock.h \
   /usr/include/alloca.h \
-  /usr/include/bits/stdlib-bsearch.h \
   /usr/include/bits/stdlib-float.h \
   /usr/include/c++/12.2.1/bits/std_abs.h \
   /usr/include/c++/12.2.1/locale \
@@ -937,7 +929,6 @@ _deps/sfml-external-build/src/SFML/Window/CMakeFiles/sfml-window.dir/JoystickMan
   /usr/include/bits/types/struct_FILE.h \
   /usr/include/bits/types/cookie_io_functions_t.h \
   /usr/include/bits/stdio_lim.h \
-  /usr/include/bits/stdio.h \
   /usr/include/c++/12.2.1/cerrno \
   /usr/include/errno.h \
   /usr/include/bits/errno.h \
@@ -1155,7 +1146,6 @@ _deps/sfml-external-build/src/SFML/Window/CMakeFiles/sfml-window.dir/Mouse.cpp.o
   /usr/include/bits/struct_mutex.h \
   /usr/include/bits/struct_rwlock.h \
   /usr/include/alloca.h \
-  /usr/include/bits/stdlib-bsearch.h \
   /usr/include/bits/stdlib-float.h \
   /usr/include/c++/12.2.1/bits/std_abs.h \
   /usr/include/c++/12.2.1/locale \
@@ -1196,7 +1186,6 @@ _deps/sfml-external-build/src/SFML/Window/CMakeFiles/sfml-window.dir/Mouse.cpp.o
   /usr/include/bits/types/struct_FILE.h \
   /usr/include/bits/types/cookie_io_functions_t.h \
   /usr/include/bits/stdio_lim.h \
-  /usr/include/bits/stdio.h \
   /usr/include/c++/12.2.1/cerrno \
   /usr/include/errno.h \
   /usr/include/bits/errno.h \
@@ -1424,7 +1413,6 @@ _deps/sfml-external-build/src/SFML/Window/CMakeFiles/sfml-window.dir/SensorManag
   /usr/include/bits/select.h \
   /usr/include/bits/types/sigset_t.h \
   /usr/include/alloca.h \
-  /usr/include/bits/stdlib-bsearch.h \
   /usr/include/bits/stdlib-float.h \
   /usr/include/c++/12.2.1/bits/std_abs.h \
   /usr/include/c++/12.2.1/cstdio \
@@ -1434,7 +1422,6 @@ _deps/sfml-external-build/src/SFML/Window/CMakeFiles/sfml-window.dir/SensorManag
   /usr/include/bits/types/struct_FILE.h \
   /usr/include/bits/types/cookie_io_functions_t.h \
   /usr/include/bits/stdio_lim.h \
-  /usr/include/bits/stdio.h \
   /usr/include/c++/12.2.1/cerrno \
   /usr/include/errno.h \
   /usr/include/bits/errno.h \
@@ -1559,7 +1546,6 @@ _deps/sfml-external-build/src/SFML/Window/CMakeFiles/sfml-window.dir/Unix/Clipbo
   /usr/include/bits/struct_mutex.h \
   /usr/include/bits/struct_rwlock.h \
   /usr/include/alloca.h \
-  /usr/include/bits/stdlib-bsearch.h \
   /usr/include/bits/stdlib-float.h \
   /usr/include/c++/12.2.1/bits/std_abs.h \
   /usr/include/c++/12.2.1/locale \
@@ -1611,7 +1597,6 @@ _deps/sfml-external-build/src/SFML/Window/CMakeFiles/sfml-window.dir/Unix/Clipbo
   /usr/include/bits/types/struct_FILE.h \
   /usr/include/bits/types/cookie_io_functions_t.h \
   /usr/include/bits/stdio_lim.h \
-  /usr/include/bits/stdio.h \
   /usr/include/c++/12.2.1/cerrno \
   /usr/include/errno.h \
   /usr/include/bits/errno.h \
@@ -1823,7 +1808,6 @@ _deps/sfml-external-build/src/SFML/Window/CMakeFiles/sfml-window.dir/Unix/Cursor
   /usr/include/bits/waitflags.h \
   /usr/include/bits/waitstatus.h \
   /usr/include/alloca.h \
-  /usr/include/bits/stdlib-bsearch.h \
   /usr/include/bits/stdlib-float.h \
   /usr/include/c++/12.2.1/bits/std_abs.h \
   /usr/include/c++/12.2.1/cstdio \
@@ -1833,7 +1817,6 @@ _deps/sfml-external-build/src/SFML/Window/CMakeFiles/sfml-window.dir/Unix/Cursor
   /usr/include/bits/types/struct_FILE.h \
   /usr/include/bits/types/cookie_io_functions_t.h \
   /usr/include/bits/stdio_lim.h \
-  /usr/include/bits/stdio.h \
   /usr/include/c++/12.2.1/cerrno \
   /usr/include/errno.h \
   /usr/include/bits/errno.h \
@@ -2001,7 +1984,6 @@ _deps/sfml-external-build/src/SFML/Window/CMakeFiles/sfml-window.dir/Unix/Displa
   /usr/include/bits/select.h \
   /usr/include/bits/types/sigset_t.h \
   /usr/include/alloca.h \
-  /usr/include/bits/stdlib-bsearch.h \
   /usr/include/bits/stdlib-float.h \
   /usr/include/c++/12.2.1/bits/std_abs.h \
   /usr/include/c++/12.2.1/cstdio \
@@ -2011,7 +1993,6 @@ _deps/sfml-external-build/src/SFML/Window/CMakeFiles/sfml-window.dir/Unix/Displa
   /usr/include/bits/types/struct_FILE.h \
   /usr/include/bits/types/cookie_io_functions_t.h \
   /usr/include/bits/stdio_lim.h \
-  /usr/include/bits/stdio.h \
   /usr/include/c++/12.2.1/cerrno \
   /usr/include/errno.h \
   /usr/include/bits/errno.h \
@@ -2147,7 +2128,6 @@ _deps/sfml-external-build/src/SFML/Window/CMakeFiles/sfml-window.dir/Unix/GlxCon
   /usr/include/bits/struct_mutex.h \
   /usr/include/bits/struct_rwlock.h \
   /usr/include/alloca.h \
-  /usr/include/bits/stdlib-bsearch.h \
   /usr/include/bits/stdlib-float.h \
   /usr/include/c++/12.2.1/bits/std_abs.h \
   /usr/include/c++/12.2.1/locale \
@@ -2199,7 +2179,6 @@ _deps/sfml-external-build/src/SFML/Window/CMakeFiles/sfml-window.dir/Unix/GlxCon
   /usr/include/bits/types/struct_FILE.h \
   /usr/include/bits/types/cookie_io_functions_t.h \
   /usr/include/bits/stdio_lim.h \
-  /usr/include/bits/stdio.h \
   /usr/include/c++/12.2.1/cerrno \
   /usr/include/errno.h \
   /usr/include/bits/errno.h \
@@ -2433,7 +2412,6 @@ _deps/sfml-external-build/src/SFML/Window/CMakeFiles/sfml-window.dir/Unix/GlxExt
   /usr/include/bits/types/locale_t.h \
   /usr/include/bits/types/__locale_t.h \
   /usr/include/alloca.h \
-  /usr/include/bits/stdlib-bsearch.h \
   /usr/include/bits/stdlib-float.h \
   /usr/include/c++/12.2.1/bits/std_abs.h \
   /usr/include/c++/12.2.1/cstring \
@@ -2505,7 +2483,6 @@ _deps/sfml-external-build/src/SFML/Window/CMakeFiles/sfml-window.dir/Unix/GlxExt
   /usr/include/bits/types/struct_FILE.h \
   /usr/include/bits/types/cookie_io_functions_t.h \
   /usr/include/bits/stdio_lim.h \
-  /usr/include/bits/stdio.h \
   /usr/include/c++/12.2.1/cerrno \
   /usr/include/errno.h \
   /usr/include/bits/errno.h \
@@ -2632,7 +2609,6 @@ _deps/sfml-external-build/src/SFML/Window/CMakeFiles/sfml-window.dir/Unix/InputI
   /usr/include/bits/struct_mutex.h \
   /usr/include/bits/struct_rwlock.h \
   /usr/include/alloca.h \
-  /usr/include/bits/stdlib-bsearch.h \
   /usr/include/bits/stdlib-float.h \
   /usr/include/c++/12.2.1/bits/std_abs.h \
   /usr/include/c++/12.2.1/locale \
@@ -2673,7 +2649,6 @@ _deps/sfml-external-build/src/SFML/Window/CMakeFiles/sfml-window.dir/Unix/InputI
   /usr/include/bits/types/struct_FILE.h \
   /usr/include/bits/types/cookie_io_functions_t.h \
   /usr/include/bits/stdio_lim.h \
-  /usr/include/bits/stdio.h \
   /usr/include/c++/12.2.1/cerrno \
   /usr/include/errno.h \
   /usr/include/bits/errno.h \
@@ -2836,7 +2811,6 @@ _deps/sfml-external-build/src/SFML/Window/CMakeFiles/sfml-window.dir/Unix/Joysti
   /usr/include/bits/struct_mutex.h \
   /usr/include/bits/struct_rwlock.h \
   /usr/include/alloca.h \
-  /usr/include/bits/stdlib-bsearch.h \
   /usr/include/bits/stdlib-float.h \
   /usr/include/c++/12.2.1/bits/std_abs.h \
   /usr/include/c++/12.2.1/locale \
@@ -2888,7 +2862,6 @@ _deps/sfml-external-build/src/SFML/Window/CMakeFiles/sfml-window.dir/Unix/Joysti
   /usr/include/bits/types/struct_FILE.h \
   /usr/include/bits/types/cookie_io_functions_t.h \
   /usr/include/bits/stdio_lim.h \
-  /usr/include/bits/stdio.h \
   /usr/include/c++/12.2.1/cerrno \
   /usr/include/errno.h \
   /usr/include/bits/errno.h \
@@ -3149,7 +3122,6 @@ _deps/sfml-external-build/src/SFML/Window/CMakeFiles/sfml-window.dir/Unix/VideoM
   /usr/include/bits/waitflags.h \
   /usr/include/bits/waitstatus.h \
   /usr/include/alloca.h \
-  /usr/include/bits/stdlib-bsearch.h \
   /usr/include/bits/stdlib-float.h \
   /usr/include/c++/12.2.1/bits/std_abs.h \
   /usr/include/c++/12.2.1/cstdio \
@@ -3159,7 +3131,6 @@ _deps/sfml-external-build/src/SFML/Window/CMakeFiles/sfml-window.dir/Unix/VideoM
   /usr/include/bits/types/struct_FILE.h \
   /usr/include/bits/types/cookie_io_functions_t.h \
   /usr/include/bits/stdio_lim.h \
-  /usr/include/bits/stdio.h \
   /usr/include/c++/12.2.1/cerrno \
   /usr/include/errno.h \
   /usr/include/bits/errno.h \
@@ -3317,7 +3288,6 @@ _deps/sfml-external-build/src/SFML/Window/CMakeFiles/sfml-window.dir/Unix/Window
   /usr/include/bits/struct_mutex.h \
   /usr/include/bits/struct_rwlock.h \
   /usr/include/alloca.h \
-  /usr/include/bits/stdlib-bsearch.h \
   /usr/include/bits/stdlib-float.h \
   /usr/include/c++/12.2.1/bits/std_abs.h \
   /usr/include/c++/12.2.1/locale \
@@ -3369,7 +3339,6 @@ _deps/sfml-external-build/src/SFML/Window/CMakeFiles/sfml-window.dir/Unix/Window
   /usr/include/bits/types/struct_FILE.h \
   /usr/include/bits/types/cookie_io_functions_t.h \
   /usr/include/bits/stdio_lim.h \
-  /usr/include/bits/stdio.h \
   /usr/include/c++/12.2.1/cerrno \
   /usr/include/errno.h \
   /usr/include/bits/errno.h \
@@ -3665,7 +3634,6 @@ _deps/sfml-external-build/src/SFML/Window/CMakeFiles/sfml-window.dir/VideoMode.c
   /usr/include/bits/struct_mutex.h \
   /usr/include/bits/struct_rwlock.h \
   /usr/include/alloca.h \
-  /usr/include/bits/stdlib-bsearch.h \
   /usr/include/bits/stdlib-float.h \
   /usr/include/c++/12.2.1/bits/std_abs.h \
   /usr/include/c++/12.2.1/functional \
@@ -3787,7 +3755,6 @@ _deps/sfml-external-build/src/SFML/Window/CMakeFiles/sfml-window.dir/Window.cpp.
   /usr/include/bits/struct_mutex.h \
   /usr/include/bits/struct_rwlock.h \
   /usr/include/alloca.h \
-  /usr/include/bits/stdlib-bsearch.h \
   /usr/include/bits/stdlib-float.h \
   /usr/include/c++/12.2.1/bits/std_abs.h \
   /usr/include/c++/12.2.1/locale \
@@ -3828,7 +3795,6 @@ _deps/sfml-external-build/src/SFML/Window/CMakeFiles/sfml-window.dir/Window.cpp.
   /usr/include/bits/types/struct_FILE.h \
   /usr/include/bits/types/cookie_io_functions_t.h \
   /usr/include/bits/stdio_lim.h \
-  /usr/include/bits/stdio.h \
   /usr/include/c++/12.2.1/cerrno \
   /usr/include/errno.h \
   /usr/include/bits/errno.h \
@@ -4036,7 +4002,6 @@ _deps/sfml-external-build/src/SFML/Window/CMakeFiles/sfml-window.dir/WindowImpl.
   /usr/include/bits/struct_mutex.h \
   /usr/include/bits/struct_rwlock.h \
   /usr/include/alloca.h \
-  /usr/include/bits/stdlib-bsearch.h \
   /usr/include/bits/stdlib-float.h \
   /usr/include/c++/12.2.1/bits/std_abs.h \
   /usr/include/c++/12.2.1/locale \
@@ -4088,7 +4053,6 @@ _deps/sfml-external-build/src/SFML/Window/CMakeFiles/sfml-window.dir/WindowImpl.
   /usr/include/bits/types/struct_FILE.h \
   /usr/include/bits/types/cookie_io_functions_t.h \
   /usr/include/bits/stdio_lim.h \
-  /usr/include/bits/stdio.h \
   /usr/include/c++/12.2.1/cerrno \
   /usr/include/errno.h \
   /usr/include/bits/errno.h \
@@ -4433,15 +4397,9 @@ _deps/sfml-external-src/src/SFML/Window/GlResource.cpp:
 
 /usr/include/GL/glxext.h:
 
-/usr/include/X11/keysym.h:
-
-/usr/include/X11/Xutil.h:
-
 /usr/include/c++/12.2.1/ext/alloc_traits.h:
 
 /usr/include/c++/12.2.1/bits/basic_string.h:
-
-/usr/include/bits/stdio.h:
 
 /usr/include/c++/12.2.1/bits/refwrap.h:
 
@@ -4565,8 +4523,6 @@ _deps/sfml-external-src/src/SFML/Window/Unix/InputImpl.cpp:
 
 /usr/include/endian.h:
 
-/usr/include/bits/stdlib-bsearch.h:
-
 /usr/include/c++/12.2.1/x86_64-pc-linux-gnu/bits/cpu_defines.h:
 
 /usr/include/c++/12.2.1/bits/functexcept.h:
@@ -4652,6 +4608,10 @@ _deps/sfml-external-src/src/SFML/Window/GlContext.hpp:
 _deps/sfml-external-src/include/SFML/Config.hpp:
 
 /usr/include/c++/12.2.1/bits/exception_defines.h:
+
+/usr/include/c++/12.2.1/bits/alloc_traits.h:
+
+/usr/include/c++/12.2.1/bits/codecvt.h:
 
 _deps/sfml-external-src/include/SFML/Window/Clipboard.hpp:
 
@@ -4794,10 +4754,6 @@ _deps/sfml-external-src/include/SFML/Window/Cursor.hpp:
 /usr/include/c++/12.2.1/utility:
 
 /usr/include/bits/types.h:
-
-/usr/include/c++/12.2.1/bits/alloc_traits.h:
-
-/usr/include/c++/12.2.1/bits/codecvt.h:
 
 /usr/include/c++/12.2.1/cstdio:
 
@@ -4979,6 +4935,8 @@ _deps/sfml-external-src/include/SFML/System/Vector2.hpp:
 
 _deps/sfml-external-src/include/SFML/System/Vector2.inl:
 
+/usr/include/X11/keysym.h:
+
 _deps/sfml-external-src/src/SFML/Window/CursorImpl.hpp:
 
 _deps/sfml-external-src/include/SFML/System/Err.hpp:
@@ -5034,3 +4992,5 @@ _deps/sfml-external-src/src/SFML/Window/Unix/GlxExtensions.cpp:
 _deps/sfml-external-src/include/SFML/System/Utf.hpp:
 
 /usr/include/assert.h:
+
+/usr/include/X11/Xutil.h:

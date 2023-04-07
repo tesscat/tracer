@@ -1,1 +1,1 @@
-/usr/bin/c++  -std=c++20 -O3 -DNDEBUG CMakeFiles/test13.dir/test13.cpp.o -o test13 
+/usr/bin/c++  -std=c++20 -g CMakeFiles/test13.dir/test13.cpp.o -o test13 

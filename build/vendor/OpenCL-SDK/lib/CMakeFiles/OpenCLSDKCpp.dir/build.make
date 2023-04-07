@@ -140,19 +140,19 @@ vendor/OpenCL-SDK/lib/libOpenCLSDKCpp.so: vendor/OpenCL-SDK/lib/CMakeFiles/OpenC
 vendor/OpenCL-SDK/lib/libOpenCLSDKCpp.so: vendor/OpenCL-SDK/lib/CMakeFiles/OpenCLSDKCpp.dir/src/SDK/InteropContext.cpp.o
 vendor/OpenCL-SDK/lib/libOpenCLSDKCpp.so: vendor/OpenCL-SDK/lib/CMakeFiles/OpenCLSDKCpp.dir/src/SDK/InteropWindow.cpp.o
 vendor/OpenCL-SDK/lib/libOpenCLSDKCpp.so: vendor/OpenCL-SDK/lib/CMakeFiles/OpenCLSDKCpp.dir/build.make
-vendor/OpenCL-SDK/lib/libOpenCLSDKCpp.so: vendor/OpenCL-SDK/lib/libOpenCLUtilsCpp.so
+vendor/OpenCL-SDK/lib/libOpenCLSDKCpp.so: vendor/OpenCL-SDK/lib/libOpenCLUtilsCppd.so
 vendor/OpenCL-SDK/lib/libOpenCLSDKCpp.so: /usr/lib/libGL.so
-vendor/OpenCL-SDK/lib/libOpenCLSDKCpp.so: vendor/OpenCL-SDK/lib/libglew.a
+vendor/OpenCL-SDK/lib/libOpenCLSDKCpp.so: vendor/OpenCL-SDK/lib/libglewd.a
 vendor/OpenCL-SDK/lib/libOpenCLSDKCpp.so: /usr/lib/libGLU.so
-vendor/OpenCL-SDK/lib/libOpenCLSDKCpp.so: vendor/OpenCL-SDK/lib/libsfml-graphics.so.2.5.1
+vendor/OpenCL-SDK/lib/libOpenCLSDKCpp.so: vendor/OpenCL-SDK/lib/libsfml-graphics-d.so.2.5.1
 vendor/OpenCL-SDK/lib/libOpenCLSDKCpp.so: /usr/lib/libOpenCL.so
-vendor/OpenCL-SDK/lib/libOpenCLSDKCpp.so: vendor/OpenCL-SDK/lib/libOpenCLUtils.so
+vendor/OpenCL-SDK/lib/libOpenCLSDKCpp.so: vendor/OpenCL-SDK/lib/libOpenCLUtilsd.so
 vendor/OpenCL-SDK/lib/libOpenCLSDKCpp.so: /usr/lib/libOpenCL.so
 vendor/OpenCL-SDK/lib/libOpenCLSDKCpp.so: /usr/lib/libXext.so
 vendor/OpenCL-SDK/lib/libOpenCLSDKCpp.so: /usr/lib/libX11.so
 vendor/OpenCL-SDK/lib/libOpenCLSDKCpp.so: /usr/lib/libGL.so
-vendor/OpenCL-SDK/lib/libOpenCLSDKCpp.so: vendor/OpenCL-SDK/lib/libsfml-window.so.2.5.1
-vendor/OpenCL-SDK/lib/libOpenCLSDKCpp.so: vendor/OpenCL-SDK/lib/libsfml-system.so.2.5.1
+vendor/OpenCL-SDK/lib/libOpenCLSDKCpp.so: vendor/OpenCL-SDK/lib/libsfml-window-d.so.2.5.1
+vendor/OpenCL-SDK/lib/libOpenCLSDKCpp.so: vendor/OpenCL-SDK/lib/libsfml-system-d.so.2.5.1
 vendor/OpenCL-SDK/lib/libOpenCLSDKCpp.so: vendor/OpenCL-SDK/lib/CMakeFiles/OpenCLSDKCpp.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/tesscat/tracer/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Linking CXX shared library libOpenCLSDKCpp.so"
 	cd /home/tesscat/tracer/build/vendor/OpenCL-SDK/lib && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/OpenCLSDKCpp.dir/link.txt --verbose=$(VERBOSE)

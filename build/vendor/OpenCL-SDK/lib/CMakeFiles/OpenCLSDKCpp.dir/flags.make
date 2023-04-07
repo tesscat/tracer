@@ -6,5 +6,5 @@ CXX_DEFINES = -DCL_HPP_ENABLE_EXCEPTIONS -DCL_HPP_TARGET_OPENCL_VERSION=300 -DGL
 
 CXX_INCLUDES = -I/usr/include/stb -I/home/tesscat/tracer/vendor/OpenCL-SDK/lib/include -I/home/tesscat/tracer/build/vendor/OpenCL-SDK/lib -I/home/tesscat/tracer/vendor/OpenCL-SDK/external/OpenCL-CLHPP/include -I/home/tesscat/tracer/vendor/OpenCL-SDK/external/OpenCL-Headers -I/home/tesscat/tracer/build/_deps/glew-external-src/include -I/home/tesscat/tracer/build/_deps/sfml-external-src/include
 
-CXX_FLAGS =  -std=c++20 -O3 -DNDEBUG -fPIC -std=gnu++14
+CXX_FLAGS =  -std=c++20 -g -fPIC -std=gnu++14
 

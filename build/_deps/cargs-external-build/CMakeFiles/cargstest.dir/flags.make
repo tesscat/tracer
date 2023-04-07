@@ -6,5 +6,5 @@ C_DEFINES =
 
 C_INCLUDES = -I/home/tesscat/tracer/build/_deps/cargs-external-src/include
 
-C_FLAGS = -O3 -DNDEBUG -Wall -Werror -Wextra -Wpedantic -std=gnu11
+C_FLAGS = -g -Wall -Werror -Wextra -Wpedantic -std=gnu11
 

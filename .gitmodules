@@ -1,15 +1,7 @@
-[submodule "vendor/glfw"]
-	path = vendor/glfw
-	url = https://github.com/glfw/glfw
-[submodule "vendor/opencl"]
-	path = vendor/opencl
+
+[submodule "vendor/OpenCL-SDK"]
+	path = vendor/OpenCL-SDK
 	url = https://github.com/KhronosGroup/OpenCL-SDK
-[submodule "vendor/cargs"]
-	path = vendor/cargs
-	url = https://github.com/likle/cargs
-[submodule "vendor/tclap"]
-	path = vendor/tclap
-	url = https://github.com/mirror/tclap
 [submodule "vendor/stb"]
 	path = vendor/stb
 	url = https://github.com/nothings/stb

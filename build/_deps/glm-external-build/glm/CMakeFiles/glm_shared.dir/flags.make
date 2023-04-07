@@ -6,5 +6,5 @@ CXX_DEFINES = -Dglm_shared_EXPORTS
 
 CXX_INCLUDES = -I/home/tesscat/tracer/build/_deps/glm-external-src/glm/..
 
-CXX_FLAGS =  -std=c++20 -O3 -DNDEBUG -fPIC -std=gnu++14
+CXX_FLAGS =  -std=c++20 -g -fPIC -std=gnu++14
 

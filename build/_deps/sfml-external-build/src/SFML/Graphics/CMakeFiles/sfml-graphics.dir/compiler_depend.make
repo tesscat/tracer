@@ -96,7 +96,6 @@ _deps/sfml-external-build/src/SFML/Graphics/CMakeFiles/sfml-graphics.dir/CircleS
   /usr/include/bits/struct_mutex.h \
   /usr/include/bits/struct_rwlock.h \
   /usr/include/alloca.h \
-  /usr/include/bits/stdlib-bsearch.h \
   /usr/include/bits/stdlib-float.h \
   /usr/include/c++/12.2.1/bits/std_abs.h \
   _deps/sfml-external-src/include/SFML/Graphics/Rect.inl \
@@ -216,7 +215,6 @@ _deps/sfml-external-build/src/SFML/Graphics/CMakeFiles/sfml-graphics.dir/Color.c
   /usr/include/bits/struct_mutex.h \
   /usr/include/bits/struct_rwlock.h \
   /usr/include/alloca.h \
-  /usr/include/bits/stdlib-bsearch.h \
   /usr/include/bits/stdlib-float.h \
   /usr/include/c++/12.2.1/bits/std_abs.h
 
@@ -309,7 +307,6 @@ _deps/sfml-external-build/src/SFML/Graphics/CMakeFiles/sfml-graphics.dir/ConvexS
   /usr/include/bits/struct_mutex.h \
   /usr/include/bits/struct_rwlock.h \
   /usr/include/alloca.h \
-  /usr/include/bits/stdlib-bsearch.h \
   /usr/include/bits/stdlib-float.h \
   /usr/include/c++/12.2.1/bits/std_abs.h \
   _deps/sfml-external-src/include/SFML/Graphics/Rect.inl \
@@ -422,7 +419,6 @@ _deps/sfml-external-build/src/SFML/Graphics/CMakeFiles/sfml-graphics.dir/Font.cp
   /usr/include/bits/struct_mutex.h \
   /usr/include/bits/struct_rwlock.h \
   /usr/include/alloca.h \
-  /usr/include/bits/stdlib-bsearch.h \
   /usr/include/bits/stdlib-float.h \
   /usr/include/c++/12.2.1/bits/std_abs.h \
   _deps/sfml-external-src/include/SFML/Graphics/Rect.inl \
@@ -476,7 +472,6 @@ _deps/sfml-external-build/src/SFML/Graphics/CMakeFiles/sfml-graphics.dir/Font.cp
   /usr/include/bits/types/struct_FILE.h \
   /usr/include/bits/types/cookie_io_functions_t.h \
   /usr/include/bits/stdio_lim.h \
-  /usr/include/bits/stdio.h \
   /usr/include/c++/12.2.1/cerrno \
   /usr/include/errno.h \
   /usr/include/bits/errno.h \
@@ -753,7 +748,6 @@ _deps/sfml-external-build/src/SFML/Graphics/CMakeFiles/sfml-graphics.dir/GLCheck
   /usr/include/bits/select.h \
   /usr/include/bits/types/sigset_t.h \
   /usr/include/alloca.h \
-  /usr/include/bits/stdlib-bsearch.h \
   /usr/include/bits/stdlib-float.h \
   /usr/include/c++/12.2.1/bits/std_abs.h \
   /usr/include/c++/12.2.1/cstdio \
@@ -763,7 +757,6 @@ _deps/sfml-external-build/src/SFML/Graphics/CMakeFiles/sfml-graphics.dir/GLCheck
   /usr/include/bits/types/struct_FILE.h \
   /usr/include/bits/types/cookie_io_functions_t.h \
   /usr/include/bits/stdio_lim.h \
-  /usr/include/bits/stdio.h \
   /usr/include/c++/12.2.1/cerrno \
   /usr/include/errno.h \
   /usr/include/bits/errno.h \
@@ -944,7 +937,6 @@ _deps/sfml-external-build/src/SFML/Graphics/CMakeFiles/sfml-graphics.dir/GLExten
   /usr/include/bits/select.h \
   /usr/include/bits/types/sigset_t.h \
   /usr/include/alloca.h \
-  /usr/include/bits/stdlib-bsearch.h \
   /usr/include/bits/stdlib-float.h \
   /usr/include/c++/12.2.1/bits/std_abs.h \
   /usr/include/c++/12.2.1/cstdio \
@@ -954,7 +946,6 @@ _deps/sfml-external-build/src/SFML/Graphics/CMakeFiles/sfml-graphics.dir/GLExten
   /usr/include/bits/types/struct_FILE.h \
   /usr/include/bits/types/cookie_io_functions_t.h \
   /usr/include/bits/stdio_lim.h \
-  /usr/include/bits/stdio.h \
   /usr/include/c++/12.2.1/cerrno \
   /usr/include/errno.h \
   /usr/include/bits/errno.h \
@@ -1099,7 +1090,6 @@ _deps/sfml-external-build/src/SFML/Graphics/CMakeFiles/sfml-graphics.dir/Glsl.cp
   /usr/include/bits/struct_mutex.h \
   /usr/include/bits/struct_rwlock.h \
   /usr/include/alloca.h \
-  /usr/include/bits/stdlib-bsearch.h \
   /usr/include/bits/stdlib-float.h \
   /usr/include/c++/12.2.1/bits/std_abs.h \
   _deps/sfml-external-src/include/SFML/Graphics/Rect.inl \
@@ -1193,7 +1183,6 @@ _deps/sfml-external-build/src/SFML/Graphics/CMakeFiles/sfml-graphics.dir/Image.c
   /usr/include/bits/struct_mutex.h \
   /usr/include/bits/struct_rwlock.h \
   /usr/include/alloca.h \
-  /usr/include/bits/stdlib-bsearch.h \
   /usr/include/bits/stdlib-float.h \
   /usr/include/c++/12.2.1/bits/std_abs.h \
   _deps/sfml-external-src/include/SFML/Graphics/Rect.inl \
@@ -1244,7 +1233,6 @@ _deps/sfml-external-build/src/SFML/Graphics/CMakeFiles/sfml-graphics.dir/Image.c
   /usr/include/bits/types/struct_FILE.h \
   /usr/include/bits/types/cookie_io_functions_t.h \
   /usr/include/bits/stdio_lim.h \
-  /usr/include/bits/stdio.h \
   /usr/include/c++/12.2.1/cerrno \
   /usr/include/errno.h \
   /usr/include/bits/errno.h \
@@ -1432,7 +1420,6 @@ _deps/sfml-external-build/src/SFML/Graphics/CMakeFiles/sfml-graphics.dir/ImageLo
   /usr/include/bits/struct_mutex.h \
   /usr/include/bits/struct_rwlock.h \
   /usr/include/alloca.h \
-  /usr/include/bits/stdlib-bsearch.h \
   /usr/include/bits/stdlib-float.h \
   /usr/include/c++/12.2.1/bits/std_abs.h \
   /usr/include/c++/12.2.1/cstdio \
@@ -1442,7 +1429,6 @@ _deps/sfml-external-build/src/SFML/Graphics/CMakeFiles/sfml-graphics.dir/ImageLo
   /usr/include/bits/types/struct_FILE.h \
   /usr/include/bits/types/cookie_io_functions_t.h \
   /usr/include/bits/stdio_lim.h \
-  /usr/include/bits/stdio.h \
   /usr/include/c++/12.2.1/cerrno \
   /usr/include/errno.h \
   /usr/include/bits/errno.h \
@@ -1627,7 +1613,6 @@ _deps/sfml-external-build/src/SFML/Graphics/CMakeFiles/sfml-graphics.dir/Rectang
   /usr/include/bits/struct_mutex.h \
   /usr/include/bits/struct_rwlock.h \
   /usr/include/alloca.h \
-  /usr/include/bits/stdlib-bsearch.h \
   /usr/include/bits/stdlib-float.h \
   /usr/include/c++/12.2.1/bits/std_abs.h \
   _deps/sfml-external-src/include/SFML/Graphics/Rect.inl \
@@ -1752,7 +1737,6 @@ _deps/sfml-external-build/src/SFML/Graphics/CMakeFiles/sfml-graphics.dir/RenderS
   /usr/include/bits/struct_mutex.h \
   /usr/include/bits/struct_rwlock.h \
   /usr/include/alloca.h \
-  /usr/include/bits/stdlib-bsearch.h \
   /usr/include/bits/stdlib-float.h \
   /usr/include/c++/12.2.1/bits/std_abs.h \
   _deps/sfml-external-src/include/SFML/Graphics/Rect.inl \
@@ -1843,7 +1827,6 @@ _deps/sfml-external-build/src/SFML/Graphics/CMakeFiles/sfml-graphics.dir/RenderT
   /usr/include/bits/struct_mutex.h \
   /usr/include/bits/struct_rwlock.h \
   /usr/include/alloca.h \
-  /usr/include/bits/stdlib-bsearch.h \
   /usr/include/bits/stdlib-float.h \
   /usr/include/c++/12.2.1/bits/std_abs.h \
   _deps/sfml-external-src/include/SFML/Graphics/Rect.inl \
@@ -1918,7 +1901,6 @@ _deps/sfml-external-build/src/SFML/Graphics/CMakeFiles/sfml-graphics.dir/RenderT
   /usr/include/bits/types/struct_FILE.h \
   /usr/include/bits/types/cookie_io_functions_t.h \
   /usr/include/bits/stdio_lim.h \
-  /usr/include/bits/stdio.h \
   /usr/include/c++/12.2.1/cerrno \
   /usr/include/errno.h \
   /usr/include/bits/errno.h \
@@ -2086,7 +2068,6 @@ _deps/sfml-external-build/src/SFML/Graphics/CMakeFiles/sfml-graphics.dir/RenderT
   /usr/include/bits/struct_mutex.h \
   /usr/include/bits/struct_rwlock.h \
   /usr/include/alloca.h \
-  /usr/include/bits/stdlib-bsearch.h \
   /usr/include/bits/stdlib-float.h \
   /usr/include/c++/12.2.1/bits/std_abs.h \
   _deps/sfml-external-src/include/SFML/Graphics/Rect.inl \
@@ -2137,7 +2118,6 @@ _deps/sfml-external-build/src/SFML/Graphics/CMakeFiles/sfml-graphics.dir/RenderT
   /usr/include/bits/types/struct_FILE.h \
   /usr/include/bits/types/cookie_io_functions_t.h \
   /usr/include/bits/stdio_lim.h \
-  /usr/include/bits/stdio.h \
   /usr/include/c++/12.2.1/cerrno \
   /usr/include/errno.h \
   /usr/include/bits/errno.h \
@@ -2387,7 +2367,6 @@ _deps/sfml-external-build/src/SFML/Graphics/CMakeFiles/sfml-graphics.dir/RenderT
   /usr/include/bits/select.h \
   /usr/include/bits/types/sigset_t.h \
   /usr/include/alloca.h \
-  /usr/include/bits/stdlib-bsearch.h \
   /usr/include/bits/stdlib-float.h \
   /usr/include/c++/12.2.1/bits/std_abs.h \
   /usr/include/c++/12.2.1/cstdio \
@@ -2397,7 +2376,6 @@ _deps/sfml-external-build/src/SFML/Graphics/CMakeFiles/sfml-graphics.dir/RenderT
   /usr/include/bits/types/struct_FILE.h \
   /usr/include/bits/types/cookie_io_functions_t.h \
   /usr/include/bits/stdio_lim.h \
-  /usr/include/bits/stdio.h \
   /usr/include/c++/12.2.1/cerrno \
   /usr/include/errno.h \
   /usr/include/bits/errno.h \
@@ -2539,7 +2517,6 @@ _deps/sfml-external-build/src/SFML/Graphics/CMakeFiles/sfml-graphics.dir/RenderT
   /usr/include/bits/struct_mutex.h \
   /usr/include/bits/struct_rwlock.h \
   /usr/include/alloca.h \
-  /usr/include/bits/stdlib-bsearch.h \
   /usr/include/bits/stdlib-float.h \
   /usr/include/c++/12.2.1/bits/std_abs.h \
   _deps/sfml-external-src/include/SFML/Graphics/Rect.inl \
@@ -2580,7 +2557,6 @@ _deps/sfml-external-build/src/SFML/Graphics/CMakeFiles/sfml-graphics.dir/RenderT
   /usr/include/bits/types/struct_FILE.h \
   /usr/include/bits/types/cookie_io_functions_t.h \
   /usr/include/bits/stdio_lim.h \
-  /usr/include/bits/stdio.h \
   /usr/include/c++/12.2.1/cerrno \
   /usr/include/errno.h \
   /usr/include/bits/errno.h \
@@ -2741,7 +2717,6 @@ _deps/sfml-external-build/src/SFML/Graphics/CMakeFiles/sfml-graphics.dir/RenderW
   /usr/include/bits/struct_mutex.h \
   /usr/include/bits/struct_rwlock.h \
   /usr/include/alloca.h \
-  /usr/include/bits/stdlib-bsearch.h \
   /usr/include/bits/stdlib-float.h \
   /usr/include/c++/12.2.1/bits/std_abs.h \
   _deps/sfml-external-src/include/SFML/Graphics/Rect.inl \
@@ -2801,7 +2776,6 @@ _deps/sfml-external-build/src/SFML/Graphics/CMakeFiles/sfml-graphics.dir/RenderW
   /usr/include/bits/types/struct_FILE.h \
   /usr/include/bits/types/cookie_io_functions_t.h \
   /usr/include/bits/stdio_lim.h \
-  /usr/include/bits/stdio.h \
   /usr/include/c++/12.2.1/cerrno \
   /usr/include/errno.h \
   /usr/include/bits/errno.h \
@@ -2986,7 +2960,6 @@ _deps/sfml-external-build/src/SFML/Graphics/CMakeFiles/sfml-graphics.dir/Shader.
   /usr/include/bits/struct_mutex.h \
   /usr/include/bits/struct_rwlock.h \
   /usr/include/alloca.h \
-  /usr/include/bits/stdlib-bsearch.h \
   /usr/include/bits/stdlib-float.h \
   /usr/include/c++/12.2.1/bits/std_abs.h \
   _deps/sfml-external-src/include/SFML/Graphics/Rect.inl \
@@ -3053,7 +3026,6 @@ _deps/sfml-external-build/src/SFML/Graphics/CMakeFiles/sfml-graphics.dir/Shader.
   /usr/include/bits/types/struct_FILE.h \
   /usr/include/bits/types/cookie_io_functions_t.h \
   /usr/include/bits/stdio_lim.h \
-  /usr/include/bits/stdio.h \
   /usr/include/c++/12.2.1/cerrno \
   /usr/include/errno.h \
   /usr/include/bits/errno.h \
@@ -3223,7 +3195,6 @@ _deps/sfml-external-build/src/SFML/Graphics/CMakeFiles/sfml-graphics.dir/Shape.c
   /usr/include/bits/struct_mutex.h \
   /usr/include/bits/struct_rwlock.h \
   /usr/include/alloca.h \
-  /usr/include/bits/stdlib-bsearch.h \
   /usr/include/bits/stdlib-float.h \
   /usr/include/c++/12.2.1/bits/std_abs.h \
   _deps/sfml-external-src/include/SFML/Graphics/Rect.inl \
@@ -3292,7 +3263,6 @@ _deps/sfml-external-build/src/SFML/Graphics/CMakeFiles/sfml-graphics.dir/Shape.c
   /usr/include/bits/types/struct_FILE.h \
   /usr/include/bits/types/cookie_io_functions_t.h \
   /usr/include/bits/stdio_lim.h \
-  /usr/include/bits/stdio.h \
   /usr/include/c++/12.2.1/cerrno \
   /usr/include/errno.h \
   /usr/include/bits/errno.h \
@@ -3450,7 +3420,6 @@ _deps/sfml-external-build/src/SFML/Graphics/CMakeFiles/sfml-graphics.dir/Sprite.
   /usr/include/bits/struct_mutex.h \
   /usr/include/bits/struct_rwlock.h \
   /usr/include/alloca.h \
-  /usr/include/bits/stdlib-bsearch.h \
   /usr/include/bits/stdlib-float.h \
   /usr/include/c++/12.2.1/bits/std_abs.h \
   _deps/sfml-external-src/include/SFML/Graphics/Rect.inl \
@@ -3506,7 +3475,6 @@ _deps/sfml-external-build/src/SFML/Graphics/CMakeFiles/sfml-graphics.dir/Sprite.
   /usr/include/bits/types/struct_FILE.h \
   /usr/include/bits/types/cookie_io_functions_t.h \
   /usr/include/bits/stdio_lim.h \
-  /usr/include/bits/stdio.h \
   /usr/include/c++/12.2.1/cerrno \
   /usr/include/errno.h \
   /usr/include/bits/errno.h \
@@ -3620,7 +3588,6 @@ _deps/sfml-external-build/src/SFML/Graphics/CMakeFiles/sfml-graphics.dir/Text.cp
   /usr/include/bits/struct_mutex.h \
   /usr/include/bits/struct_rwlock.h \
   /usr/include/alloca.h \
-  /usr/include/bits/stdlib-bsearch.h \
   /usr/include/bits/stdlib-float.h \
   /usr/include/c++/12.2.1/bits/std_abs.h \
   _deps/sfml-external-src/include/SFML/Graphics/Rect.inl \
@@ -3677,7 +3644,6 @@ _deps/sfml-external-build/src/SFML/Graphics/CMakeFiles/sfml-graphics.dir/Text.cp
   /usr/include/bits/types/struct_FILE.h \
   /usr/include/bits/types/cookie_io_functions_t.h \
   /usr/include/bits/stdio_lim.h \
-  /usr/include/bits/stdio.h \
   /usr/include/c++/12.2.1/cerrno \
   /usr/include/errno.h \
   /usr/include/bits/errno.h \
@@ -3864,7 +3830,6 @@ _deps/sfml-external-build/src/SFML/Graphics/CMakeFiles/sfml-graphics.dir/Texture
   /usr/include/bits/struct_mutex.h \
   /usr/include/bits/struct_rwlock.h \
   /usr/include/alloca.h \
-  /usr/include/bits/stdlib-bsearch.h \
   /usr/include/bits/stdlib-float.h \
   /usr/include/c++/12.2.1/bits/std_abs.h \
   _deps/sfml-external-src/include/SFML/Graphics/Rect.inl \
@@ -3915,7 +3880,6 @@ _deps/sfml-external-build/src/SFML/Graphics/CMakeFiles/sfml-graphics.dir/Texture
   /usr/include/bits/types/struct_FILE.h \
   /usr/include/bits/types/cookie_io_functions_t.h \
   /usr/include/bits/stdio_lim.h \
-  /usr/include/bits/stdio.h \
   /usr/include/c++/12.2.1/cerrno \
   /usr/include/errno.h \
   /usr/include/bits/errno.h \
@@ -4130,7 +4094,6 @@ _deps/sfml-external-build/src/SFML/Graphics/CMakeFiles/sfml-graphics.dir/Transfo
   /usr/include/bits/struct_mutex.h \
   /usr/include/bits/struct_rwlock.h \
   /usr/include/alloca.h \
-  /usr/include/bits/stdlib-bsearch.h \
   /usr/include/bits/stdlib-float.h \
   /usr/include/c++/12.2.1/bits/std_abs.h \
   _deps/sfml-external-src/include/SFML/Graphics/Rect.inl \
@@ -4231,7 +4194,6 @@ _deps/sfml-external-build/src/SFML/Graphics/CMakeFiles/sfml-graphics.dir/Transfo
   /usr/include/bits/struct_mutex.h \
   /usr/include/bits/struct_rwlock.h \
   /usr/include/alloca.h \
-  /usr/include/bits/stdlib-bsearch.h \
   /usr/include/bits/stdlib-float.h \
   /usr/include/c++/12.2.1/bits/std_abs.h \
   _deps/sfml-external-src/include/SFML/Graphics/Rect.inl \
@@ -4343,7 +4305,6 @@ _deps/sfml-external-build/src/SFML/Graphics/CMakeFiles/sfml-graphics.dir/VertexA
   /usr/include/bits/struct_mutex.h \
   /usr/include/bits/struct_rwlock.h \
   /usr/include/alloca.h \
-  /usr/include/bits/stdlib-bsearch.h \
   /usr/include/bits/stdlib-float.h \
   /usr/include/c++/12.2.1/bits/std_abs.h \
   _deps/sfml-external-src/include/SFML/Graphics/Rect.inl \
@@ -4463,7 +4424,6 @@ _deps/sfml-external-build/src/SFML/Graphics/CMakeFiles/sfml-graphics.dir/VertexB
   /usr/include/bits/struct_mutex.h \
   /usr/include/bits/struct_rwlock.h \
   /usr/include/alloca.h \
-  /usr/include/bits/stdlib-bsearch.h \
   /usr/include/bits/stdlib-float.h \
   /usr/include/c++/12.2.1/bits/std_abs.h \
   _deps/sfml-external-src/include/SFML/Graphics/Rect.inl \
@@ -4557,7 +4517,6 @@ _deps/sfml-external-build/src/SFML/Graphics/CMakeFiles/sfml-graphics.dir/VertexB
   /usr/include/bits/types/struct_FILE.h \
   /usr/include/bits/types/cookie_io_functions_t.h \
   /usr/include/bits/stdio_lim.h \
-  /usr/include/bits/stdio.h \
   /usr/include/c++/12.2.1/cerrno \
   /usr/include/errno.h \
   /usr/include/bits/errno.h \
@@ -4674,7 +4633,6 @@ _deps/sfml-external-build/src/SFML/Graphics/CMakeFiles/sfml-graphics.dir/View.cp
   /usr/include/bits/struct_mutex.h \
   /usr/include/bits/struct_rwlock.h \
   /usr/include/alloca.h \
-  /usr/include/bits/stdlib-bsearch.h \
   /usr/include/bits/stdlib-float.h \
   /usr/include/c++/12.2.1/bits/std_abs.h \
   _deps/sfml-external-src/include/SFML/Graphics/Rect.inl \
@@ -4809,10 +4767,6 @@ _deps/sfml-external-src/src/SFML/Graphics/GLCheck.cpp:
 /usr/include/freetype2/ft2build.h:
 
 /usr/include/c++/12.2.1/bits/ostream.tcc:
-
-/usr/include/c++/12.2.1/bits/basic_ios.tcc:
-
-/usr/include/c++/12.2.1/bits/basic_ios.h:
 
 /usr/include/bits/fp-logb.h:
 
@@ -4968,9 +4922,17 @@ _deps/sfml-external-src/include/SFML/System/Clock.hpp:
 
 /usr/include/c++/12.2.1/exception:
 
+/usr/include/c++/12.2.1/x86_64-pc-linux-gnu/bits/cpu_defines.h:
+
 /usr/include/c++/12.2.1/bits/vector.tcc:
 
 /usr/include/c++/12.2.1/x86_64-pc-linux-gnu/bits/error_constants.h:
+
+_deps/sfml-external-src/src/SFML/Graphics/Glsl.cpp:
+
+/usr/include/c++/12.2.1/bits/invoke.h:
+
+/usr/include/bits/iscanonical.h:
 
 /usr/include/math.h:
 
@@ -5090,10 +5052,6 @@ _deps/sfml-external-src/include/SFML/System/Vector2.hpp:
 
 /usr/include/c++/12.2.1/bits/stl_map.h:
 
-/usr/include/c++/12.2.1/x86_64-pc-linux-gnu/bits/cpu_defines.h:
-
-/usr/include/bits/stdlib-bsearch.h:
-
 _deps/sfml-external-src/src/SFML/Graphics/RenderWindow.cpp:
 
 /usr/include/c++/12.2.1/ext/type_traits.h:
@@ -5179,12 +5137,6 @@ _deps/sfml-external-src/src/SFML/Graphics/GLLoader.cpp:
 _deps/sfml-external-src/include/SFML/System/Err.hpp:
 
 /usr/include/c++/12.2.1/bits/exception.h:
-
-_deps/sfml-external-src/src/SFML/Graphics/Glsl.cpp:
-
-/usr/include/c++/12.2.1/bits/invoke.h:
-
-/usr/include/bits/iscanonical.h:
 
 _deps/sfml-external-src/src/SFML/Graphics/Shader.cpp:
 
@@ -5295,8 +5247,6 @@ _deps/sfml-external-src/include/SFML/Graphics/Export.hpp:
 /usr/include/c++/12.2.1/x86_64-pc-linux-gnu/bits/ctype_inline.h:
 
 /usr/include/c++/12.2.1/bits/basic_string.h:
-
-/usr/include/bits/stdio.h:
 
 /usr/include/c++/12.2.1/cstdio:
 
@@ -5433,3 +5383,7 @@ _deps/sfml-external-src/include/SFML/System/String.inl:
 _deps/sfml-external-src/src/SFML/Graphics/GLCheck.hpp:
 
 _deps/sfml-external-src/src/SFML/Graphics/GLLoader.hpp:
+
+/usr/include/c++/12.2.1/bits/basic_ios.h:
+
+/usr/include/c++/12.2.1/bits/basic_ios.tcc:

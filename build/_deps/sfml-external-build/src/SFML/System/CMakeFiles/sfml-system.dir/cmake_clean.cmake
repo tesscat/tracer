@@ -1,8 +1,8 @@
 file(REMOVE_RECURSE
-  "../../../../../vendor/OpenCL-SDK/lib/libsfml-system.pdb"
-  "../../../../../vendor/OpenCL-SDK/lib/libsfml-system.so"
-  "../../../../../vendor/OpenCL-SDK/lib/libsfml-system.so.2.5"
-  "../../../../../vendor/OpenCL-SDK/lib/libsfml-system.so.2.5.1"
+  "../../../../../vendor/OpenCL-SDK/lib/libsfml-system-d.pdb"
+  "../../../../../vendor/OpenCL-SDK/lib/libsfml-system-d.so"
+  "../../../../../vendor/OpenCL-SDK/lib/libsfml-system-d.so.2.5"
+  "../../../../../vendor/OpenCL-SDK/lib/libsfml-system-d.so.2.5.1"
   "CMakeFiles/sfml-system.dir/Clock.cpp.o"
   "CMakeFiles/sfml-system.dir/Clock.cpp.o.d"
   "CMakeFiles/sfml-system.dir/Err.cpp.o"

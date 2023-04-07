@@ -140,7 +140,7 @@ vendor/OpenCL-SDK/lib/libOpenCLSDK.so: vendor/OpenCL-SDK/lib/CMakeFiles/OpenCLSD
 vendor/OpenCL-SDK/lib/libOpenCLSDK.so: vendor/OpenCL-SDK/lib/CMakeFiles/OpenCLSDK.dir/src/SDK/Image.c.o
 vendor/OpenCL-SDK/lib/libOpenCLSDK.so: vendor/OpenCL-SDK/lib/CMakeFiles/OpenCLSDK.dir/src/SDK/Random.c.o
 vendor/OpenCL-SDK/lib/libOpenCLSDK.so: vendor/OpenCL-SDK/lib/CMakeFiles/OpenCLSDK.dir/build.make
-vendor/OpenCL-SDK/lib/libOpenCLSDK.so: vendor/OpenCL-SDK/lib/libOpenCLUtils.so
+vendor/OpenCL-SDK/lib/libOpenCLSDK.so: vendor/OpenCL-SDK/lib/libOpenCLUtilsd.so
 vendor/OpenCL-SDK/lib/libOpenCLSDK.so: _deps/cargs-external-build/libcargs.so
 vendor/OpenCL-SDK/lib/libOpenCLSDK.so: /usr/lib/libOpenCL.so
 vendor/OpenCL-SDK/lib/libOpenCLSDK.so: vendor/OpenCL-SDK/lib/CMakeFiles/OpenCLSDK.dir/link.txt

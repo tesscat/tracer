@@ -55,11 +55,11 @@ set_target_properties(OpenCL::UtilsCpp PROPERTIES
   INTERFACE_LINK_LIBRARIES "OpenCL::HeadersCpp;OpenCL::Utils;OpenCL::OpenCL"
 )
 
-# Import target "OpenCL::UtilsCpp" for configuration "Release"
-set_property(TARGET OpenCL::UtilsCpp APPEND PROPERTY IMPORTED_CONFIGURATIONS RELEASE)
+# Import target "OpenCL::UtilsCpp" for configuration "Debug"
+set_property(TARGET OpenCL::UtilsCpp APPEND PROPERTY IMPORTED_CONFIGURATIONS DEBUG)
 set_target_properties(OpenCL::UtilsCpp PROPERTIES
-  IMPORTED_LOCATION_RELEASE "/home/tesscat/tracer/build/vendor/OpenCL-SDK/lib/libOpenCLUtilsCpp.so"
-  IMPORTED_SONAME_RELEASE "libOpenCLUtilsCpp.so"
+  IMPORTED_LOCATION_DEBUG "/home/tesscat/tracer/build/vendor/OpenCL-SDK/lib/libOpenCLUtilsCppd.so"
+  IMPORTED_SONAME_DEBUG "libOpenCLUtilsCppd.so"
   )
 
 # Make sure the targets which have been exported in some other

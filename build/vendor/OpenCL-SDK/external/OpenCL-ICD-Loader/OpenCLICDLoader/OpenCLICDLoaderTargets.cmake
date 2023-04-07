@@ -56,17 +56,17 @@ set_target_properties(OpenCL::OpenCL PROPERTIES
 # Create imported target OpenCL::cllayerinfo
 add_executable(OpenCL::cllayerinfo IMPORTED)
 
-# Import target "OpenCL::OpenCL" for configuration "Release"
-set_property(TARGET OpenCL::OpenCL APPEND PROPERTY IMPORTED_CONFIGURATIONS RELEASE)
+# Import target "OpenCL::OpenCL" for configuration "Debug"
+set_property(TARGET OpenCL::OpenCL APPEND PROPERTY IMPORTED_CONFIGURATIONS DEBUG)
 set_target_properties(OpenCL::OpenCL PROPERTIES
-  IMPORTED_LOCATION_RELEASE "/home/tesscat/tracer/build/vendor/OpenCL-SDK/external/OpenCL-ICD-Loader/libOpenCL.so.1.2"
-  IMPORTED_SONAME_RELEASE "libOpenCL.so.1"
+  IMPORTED_LOCATION_DEBUG "/home/tesscat/tracer/build/vendor/OpenCL-SDK/external/OpenCL-ICD-Loader/libOpenCL.so.1.2"
+  IMPORTED_SONAME_DEBUG "libOpenCL.so.1"
   )
 
-# Import target "OpenCL::cllayerinfo" for configuration "Release"
-set_property(TARGET OpenCL::cllayerinfo APPEND PROPERTY IMPORTED_CONFIGURATIONS RELEASE)
+# Import target "OpenCL::cllayerinfo" for configuration "Debug"
+set_property(TARGET OpenCL::cllayerinfo APPEND PROPERTY IMPORTED_CONFIGURATIONS DEBUG)
 set_target_properties(OpenCL::cllayerinfo PROPERTIES
-  IMPORTED_LOCATION_RELEASE "/home/tesscat/tracer/build/vendor/OpenCL-SDK/external/OpenCL-ICD-Loader/cllayerinfo"
+  IMPORTED_LOCATION_DEBUG "/home/tesscat/tracer/build/vendor/OpenCL-SDK/external/OpenCL-ICD-Loader/cllayerinfo"
   )
 
 # Make sure the targets which have been exported in some other

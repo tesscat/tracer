@@ -1,3 +1,3 @@
 file(REMOVE_RECURSE
-  "../../vendor/OpenCL-SDK/lib/libglew.a"
+  "../../vendor/OpenCL-SDK/lib/libglewd.a"
 )

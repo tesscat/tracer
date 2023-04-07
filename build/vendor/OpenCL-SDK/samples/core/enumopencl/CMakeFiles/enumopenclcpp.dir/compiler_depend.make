@@ -142,7 +142,6 @@ vendor/OpenCL-SDK/samples/core/enumopencl/CMakeFiles/enumopenclcpp.dir/main.cpp.
   /usr/include/bits/select.h \
   /usr/include/bits/types/sigset_t.h \
   /usr/include/alloca.h \
-  /usr/include/bits/stdlib-bsearch.h \
   /usr/include/bits/stdlib-float.h \
   /usr/include/c++/12.2.1/bits/std_abs.h \
   /usr/include/c++/12.2.1/cstdio \
@@ -152,7 +151,6 @@ vendor/OpenCL-SDK/samples/core/enumopencl/CMakeFiles/enumopenclcpp.dir/main.cpp.
   /usr/include/bits/types/struct_FILE.h \
   /usr/include/bits/types/cookie_io_functions_t.h \
   /usr/include/bits/stdio_lim.h \
-  /usr/include/bits/stdio.h \
   /usr/include/c++/12.2.1/cerrno \
   /usr/include/errno.h \
   /usr/include/bits/errno.h \
@@ -310,8 +308,6 @@ vendor/OpenCL-SDK/samples/core/enumopencl/CMakeFiles/enumopenclcpp.dir/main.cpp.
 /usr/include/stdio.h:
 
 /usr/include/c++/12.2.1/cstdio:
-
-/usr/include/bits/stdlib-bsearch.h:
 
 /usr/include/alloca.h:
 
@@ -524,8 +520,6 @@ vendor/OpenCL-SDK/samples/core/enumopencl/CMakeFiles/enumopenclcpp.dir/main.cpp.
 /usr/include/c++/12.2.1/x86_64-pc-linux-gnu/bits/gthr.h:
 
 /usr/include/c++/12.2.1/x86_64-pc-linux-gnu/bits/gthr-default.h:
-
-/usr/include/bits/stdio.h:
 
 /usr/include/c++/12.2.1/bits/basic_string.h:
 

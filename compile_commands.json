@@ -1,0 +1,62 @@
+[
+  {
+    "arguments": [
+      "/usr/bin/c++",
+      "-I/home/tesscat/tracer/include",
+      "-I/home/tesscat/tracer/vendor/OpenCL-SDK/lib/include",
+      "-I/home/tesscat/tracer/vendor/OpenCL-SDK/include/cpp",
+      "-I/home/tesscat/tracer/vendor",
+      "-std=c++20",
+      "-O3",
+      "-DNDEBUG",
+      "-std=gnu++20",
+      "-c",
+      "-o",
+      "CMakeFiles/tracer.dir/src/main.cpp.o",
+      "/home/tesscat/tracer/src/main.cpp"
+    ],
+    "directory": "/home/tesscat/tracer/build",
+    "file": "/home/tesscat/tracer/src/main.cpp",
+    "output": "/home/tesscat/tracer/build/CMakeFiles/tracer.dir/src/main.cpp.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/cc",
+      "-I/home/tesscat/tracer/build/_deps/cargs-external-src/include",
+      "-O3",
+      "-DNDEBUG",
+      "-Wall",
+      "-Werror",
+      "-Wextra",
+      "-Wpedantic",
+      "-std=gnu11",
+      "-c",
+      "-o",
+      "CMakeFiles/cargstest.dir/test/option_test.c.o",
+      "/home/tesscat/tracer/build/_deps/cargs-external-src/test/option_test.c"
+    ],
+    "directory": "/home/tesscat/tracer/build/_deps/cargs-external-build",
+    "file": "/home/tesscat/tracer/build/_deps/cargs-external-src/test/option_test.c",
+    "output": "/home/tesscat/tracer/build/_deps/cargs-external-build/CMakeFiles/cargstest.dir/test/option_test.c.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/cc",
+      "-I/home/tesscat/tracer/build/_deps/cargs-external-src/include",
+      "-O3",
+      "-DNDEBUG",
+      "-Wall",
+      "-Werror",
+      "-Wextra",
+      "-Wpedantic",
+      "-std=gnu11",
+      "-c",
+      "-o",
+      "CMakeFiles/cargstest.dir/test/main.c.o",
+      "/home/tesscat/tracer/build/_deps/cargs-external-src/test/main.c"
+    ],
+    "directory": "/home/tesscat/tracer/build/_deps/cargs-external-build",
+    "file": "/home/tesscat/tracer/build/_deps/cargs-external-src/test/main.c",
+    "output": "/home/tesscat/tracer/build/_deps/cargs-external-build/CMakeFiles/cargstest.dir/test/main.c.o"
+  }
+]

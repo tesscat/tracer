@@ -450,51 +450,51 @@ sfml__window_OBJECTS = \
 # External object files for target sfml-window
 sfml__window_EXTERNAL_OBJECTS =
 
-vendor/OpenCL-SDK/lib/libsfml-window.so.2.5.1: _deps/sfml-external-build/src/SFML/Window/CMakeFiles/sfml-window.dir/Clipboard.cpp.o
-vendor/OpenCL-SDK/lib/libsfml-window.so.2.5.1: _deps/sfml-external-build/src/SFML/Window/CMakeFiles/sfml-window.dir/Context.cpp.o
-vendor/OpenCL-SDK/lib/libsfml-window.so.2.5.1: _deps/sfml-external-build/src/SFML/Window/CMakeFiles/sfml-window.dir/Cursor.cpp.o
-vendor/OpenCL-SDK/lib/libsfml-window.so.2.5.1: _deps/sfml-external-build/src/SFML/Window/CMakeFiles/sfml-window.dir/GlContext.cpp.o
-vendor/OpenCL-SDK/lib/libsfml-window.so.2.5.1: _deps/sfml-external-build/src/SFML/Window/CMakeFiles/sfml-window.dir/GlResource.cpp.o
-vendor/OpenCL-SDK/lib/libsfml-window.so.2.5.1: _deps/sfml-external-build/src/SFML/Window/CMakeFiles/sfml-window.dir/Joystick.cpp.o
-vendor/OpenCL-SDK/lib/libsfml-window.so.2.5.1: _deps/sfml-external-build/src/SFML/Window/CMakeFiles/sfml-window.dir/JoystickManager.cpp.o
-vendor/OpenCL-SDK/lib/libsfml-window.so.2.5.1: _deps/sfml-external-build/src/SFML/Window/CMakeFiles/sfml-window.dir/Keyboard.cpp.o
-vendor/OpenCL-SDK/lib/libsfml-window.so.2.5.1: _deps/sfml-external-build/src/SFML/Window/CMakeFiles/sfml-window.dir/Mouse.cpp.o
-vendor/OpenCL-SDK/lib/libsfml-window.so.2.5.1: _deps/sfml-external-build/src/SFML/Window/CMakeFiles/sfml-window.dir/Touch.cpp.o
-vendor/OpenCL-SDK/lib/libsfml-window.so.2.5.1: _deps/sfml-external-build/src/SFML/Window/CMakeFiles/sfml-window.dir/Sensor.cpp.o
-vendor/OpenCL-SDK/lib/libsfml-window.so.2.5.1: _deps/sfml-external-build/src/SFML/Window/CMakeFiles/sfml-window.dir/SensorManager.cpp.o
-vendor/OpenCL-SDK/lib/libsfml-window.so.2.5.1: _deps/sfml-external-build/src/SFML/Window/CMakeFiles/sfml-window.dir/VideoMode.cpp.o
-vendor/OpenCL-SDK/lib/libsfml-window.so.2.5.1: _deps/sfml-external-build/src/SFML/Window/CMakeFiles/sfml-window.dir/Window.cpp.o
-vendor/OpenCL-SDK/lib/libsfml-window.so.2.5.1: _deps/sfml-external-build/src/SFML/Window/CMakeFiles/sfml-window.dir/WindowImpl.cpp.o
-vendor/OpenCL-SDK/lib/libsfml-window.so.2.5.1: _deps/sfml-external-build/src/SFML/Window/CMakeFiles/sfml-window.dir/Unix/CursorImpl.cpp.o
-vendor/OpenCL-SDK/lib/libsfml-window.so.2.5.1: _deps/sfml-external-build/src/SFML/Window/CMakeFiles/sfml-window.dir/Unix/ClipboardImpl.cpp.o
-vendor/OpenCL-SDK/lib/libsfml-window.so.2.5.1: _deps/sfml-external-build/src/SFML/Window/CMakeFiles/sfml-window.dir/Unix/Display.cpp.o
-vendor/OpenCL-SDK/lib/libsfml-window.so.2.5.1: _deps/sfml-external-build/src/SFML/Window/CMakeFiles/sfml-window.dir/Unix/InputImpl.cpp.o
-vendor/OpenCL-SDK/lib/libsfml-window.so.2.5.1: _deps/sfml-external-build/src/SFML/Window/CMakeFiles/sfml-window.dir/Unix/SensorImpl.cpp.o
-vendor/OpenCL-SDK/lib/libsfml-window.so.2.5.1: _deps/sfml-external-build/src/SFML/Window/CMakeFiles/sfml-window.dir/Unix/VideoModeImpl.cpp.o
-vendor/OpenCL-SDK/lib/libsfml-window.so.2.5.1: _deps/sfml-external-build/src/SFML/Window/CMakeFiles/sfml-window.dir/Unix/WindowImplX11.cpp.o
-vendor/OpenCL-SDK/lib/libsfml-window.so.2.5.1: _deps/sfml-external-build/src/SFML/Window/CMakeFiles/sfml-window.dir/Unix/GlxContext.cpp.o
-vendor/OpenCL-SDK/lib/libsfml-window.so.2.5.1: _deps/sfml-external-build/src/SFML/Window/CMakeFiles/sfml-window.dir/Unix/GlxExtensions.cpp.o
-vendor/OpenCL-SDK/lib/libsfml-window.so.2.5.1: _deps/sfml-external-build/src/SFML/Window/CMakeFiles/sfml-window.dir/Unix/JoystickImpl.cpp.o
-vendor/OpenCL-SDK/lib/libsfml-window.so.2.5.1: _deps/sfml-external-build/src/SFML/Window/CMakeFiles/sfml-window.dir/build.make
-vendor/OpenCL-SDK/lib/libsfml-window.so.2.5.1: vendor/OpenCL-SDK/lib/libsfml-system.so.2.5.1
-vendor/OpenCL-SDK/lib/libsfml-window.so.2.5.1: /usr/lib/libX11.so
-vendor/OpenCL-SDK/lib/libsfml-window.so.2.5.1: /usr/lib/libXrandr.so
-vendor/OpenCL-SDK/lib/libsfml-window.so.2.5.1: /usr/lib/libGL.so
-vendor/OpenCL-SDK/lib/libsfml-window.so.2.5.1: /usr/lib/libGLU.so
-vendor/OpenCL-SDK/lib/libsfml-window.so.2.5.1: /usr/lib/libudev.so
-vendor/OpenCL-SDK/lib/libsfml-window.so.2.5.1: _deps/sfml-external-build/src/SFML/Window/CMakeFiles/sfml-window.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/tesscat/tracer/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_26) "Linking CXX shared library ../../../../../vendor/OpenCL-SDK/lib/libsfml-window.so"
+vendor/OpenCL-SDK/lib/libsfml-window-d.so.2.5.1: _deps/sfml-external-build/src/SFML/Window/CMakeFiles/sfml-window.dir/Clipboard.cpp.o
+vendor/OpenCL-SDK/lib/libsfml-window-d.so.2.5.1: _deps/sfml-external-build/src/SFML/Window/CMakeFiles/sfml-window.dir/Context.cpp.o
+vendor/OpenCL-SDK/lib/libsfml-window-d.so.2.5.1: _deps/sfml-external-build/src/SFML/Window/CMakeFiles/sfml-window.dir/Cursor.cpp.o
+vendor/OpenCL-SDK/lib/libsfml-window-d.so.2.5.1: _deps/sfml-external-build/src/SFML/Window/CMakeFiles/sfml-window.dir/GlContext.cpp.o
+vendor/OpenCL-SDK/lib/libsfml-window-d.so.2.5.1: _deps/sfml-external-build/src/SFML/Window/CMakeFiles/sfml-window.dir/GlResource.cpp.o
+vendor/OpenCL-SDK/lib/libsfml-window-d.so.2.5.1: _deps/sfml-external-build/src/SFML/Window/CMakeFiles/sfml-window.dir/Joystick.cpp.o
+vendor/OpenCL-SDK/lib/libsfml-window-d.so.2.5.1: _deps/sfml-external-build/src/SFML/Window/CMakeFiles/sfml-window.dir/JoystickManager.cpp.o
+vendor/OpenCL-SDK/lib/libsfml-window-d.so.2.5.1: _deps/sfml-external-build/src/SFML/Window/CMakeFiles/sfml-window.dir/Keyboard.cpp.o
+vendor/OpenCL-SDK/lib/libsfml-window-d.so.2.5.1: _deps/sfml-external-build/src/SFML/Window/CMakeFiles/sfml-window.dir/Mouse.cpp.o
+vendor/OpenCL-SDK/lib/libsfml-window-d.so.2.5.1: _deps/sfml-external-build/src/SFML/Window/CMakeFiles/sfml-window.dir/Touch.cpp.o
+vendor/OpenCL-SDK/lib/libsfml-window-d.so.2.5.1: _deps/sfml-external-build/src/SFML/Window/CMakeFiles/sfml-window.dir/Sensor.cpp.o
+vendor/OpenCL-SDK/lib/libsfml-window-d.so.2.5.1: _deps/sfml-external-build/src/SFML/Window/CMakeFiles/sfml-window.dir/SensorManager.cpp.o
+vendor/OpenCL-SDK/lib/libsfml-window-d.so.2.5.1: _deps/sfml-external-build/src/SFML/Window/CMakeFiles/sfml-window.dir/VideoMode.cpp.o
+vendor/OpenCL-SDK/lib/libsfml-window-d.so.2.5.1: _deps/sfml-external-build/src/SFML/Window/CMakeFiles/sfml-window.dir/Window.cpp.o
+vendor/OpenCL-SDK/lib/libsfml-window-d.so.2.5.1: _deps/sfml-external-build/src/SFML/Window/CMakeFiles/sfml-window.dir/WindowImpl.cpp.o
+vendor/OpenCL-SDK/lib/libsfml-window-d.so.2.5.1: _deps/sfml-external-build/src/SFML/Window/CMakeFiles/sfml-window.dir/Unix/CursorImpl.cpp.o
+vendor/OpenCL-SDK/lib/libsfml-window-d.so.2.5.1: _deps/sfml-external-build/src/SFML/Window/CMakeFiles/sfml-window.dir/Unix/ClipboardImpl.cpp.o
+vendor/OpenCL-SDK/lib/libsfml-window-d.so.2.5.1: _deps/sfml-external-build/src/SFML/Window/CMakeFiles/sfml-window.dir/Unix/Display.cpp.o
+vendor/OpenCL-SDK/lib/libsfml-window-d.so.2.5.1: _deps/sfml-external-build/src/SFML/Window/CMakeFiles/sfml-window.dir/Unix/InputImpl.cpp.o
+vendor/OpenCL-SDK/lib/libsfml-window-d.so.2.5.1: _deps/sfml-external-build/src/SFML/Window/CMakeFiles/sfml-window.dir/Unix/SensorImpl.cpp.o
+vendor/OpenCL-SDK/lib/libsfml-window-d.so.2.5.1: _deps/sfml-external-build/src/SFML/Window/CMakeFiles/sfml-window.dir/Unix/VideoModeImpl.cpp.o
+vendor/OpenCL-SDK/lib/libsfml-window-d.so.2.5.1: _deps/sfml-external-build/src/SFML/Window/CMakeFiles/sfml-window.dir/Unix/WindowImplX11.cpp.o
+vendor/OpenCL-SDK/lib/libsfml-window-d.so.2.5.1: _deps/sfml-external-build/src/SFML/Window/CMakeFiles/sfml-window.dir/Unix/GlxContext.cpp.o
+vendor/OpenCL-SDK/lib/libsfml-window-d.so.2.5.1: _deps/sfml-external-build/src/SFML/Window/CMakeFiles/sfml-window.dir/Unix/GlxExtensions.cpp.o
+vendor/OpenCL-SDK/lib/libsfml-window-d.so.2.5.1: _deps/sfml-external-build/src/SFML/Window/CMakeFiles/sfml-window.dir/Unix/JoystickImpl.cpp.o
+vendor/OpenCL-SDK/lib/libsfml-window-d.so.2.5.1: _deps/sfml-external-build/src/SFML/Window/CMakeFiles/sfml-window.dir/build.make
+vendor/OpenCL-SDK/lib/libsfml-window-d.so.2.5.1: vendor/OpenCL-SDK/lib/libsfml-system-d.so.2.5.1
+vendor/OpenCL-SDK/lib/libsfml-window-d.so.2.5.1: /usr/lib/libX11.so
+vendor/OpenCL-SDK/lib/libsfml-window-d.so.2.5.1: /usr/lib/libXrandr.so
+vendor/OpenCL-SDK/lib/libsfml-window-d.so.2.5.1: /usr/lib/libGL.so
+vendor/OpenCL-SDK/lib/libsfml-window-d.so.2.5.1: /usr/lib/libGLU.so
+vendor/OpenCL-SDK/lib/libsfml-window-d.so.2.5.1: /usr/lib/libudev.so
+vendor/OpenCL-SDK/lib/libsfml-window-d.so.2.5.1: _deps/sfml-external-build/src/SFML/Window/CMakeFiles/sfml-window.dir/link.txt
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/tesscat/tracer/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_26) "Linking CXX shared library ../../../../../vendor/OpenCL-SDK/lib/libsfml-window-d.so"
 	cd /home/tesscat/tracer/build/_deps/sfml-external-build/src/SFML/Window && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/sfml-window.dir/link.txt --verbose=$(VERBOSE)
-	cd /home/tesscat/tracer/build/_deps/sfml-external-build/src/SFML/Window && $(CMAKE_COMMAND) -E cmake_symlink_library ../../../../../vendor/OpenCL-SDK/lib/libsfml-window.so.2.5.1 ../../../../../vendor/OpenCL-SDK/lib/libsfml-window.so.2.5 ../../../../../vendor/OpenCL-SDK/lib/libsfml-window.so
+	cd /home/tesscat/tracer/build/_deps/sfml-external-build/src/SFML/Window && $(CMAKE_COMMAND) -E cmake_symlink_library ../../../../../vendor/OpenCL-SDK/lib/libsfml-window-d.so.2.5.1 ../../../../../vendor/OpenCL-SDK/lib/libsfml-window-d.so.2.5 ../../../../../vendor/OpenCL-SDK/lib/libsfml-window-d.so
 
-vendor/OpenCL-SDK/lib/libsfml-window.so.2.5: vendor/OpenCL-SDK/lib/libsfml-window.so.2.5.1
-	@$(CMAKE_COMMAND) -E touch_nocreate vendor/OpenCL-SDK/lib/libsfml-window.so.2.5
+vendor/OpenCL-SDK/lib/libsfml-window-d.so.2.5: vendor/OpenCL-SDK/lib/libsfml-window-d.so.2.5.1
+	@$(CMAKE_COMMAND) -E touch_nocreate vendor/OpenCL-SDK/lib/libsfml-window-d.so.2.5
 
-vendor/OpenCL-SDK/lib/libsfml-window.so: vendor/OpenCL-SDK/lib/libsfml-window.so.2.5.1
-	@$(CMAKE_COMMAND) -E touch_nocreate vendor/OpenCL-SDK/lib/libsfml-window.so
+vendor/OpenCL-SDK/lib/libsfml-window-d.so: vendor/OpenCL-SDK/lib/libsfml-window-d.so.2.5.1
+	@$(CMAKE_COMMAND) -E touch_nocreate vendor/OpenCL-SDK/lib/libsfml-window-d.so
 
 # Rule to build all files generated by this target.
-_deps/sfml-external-build/src/SFML/Window/CMakeFiles/sfml-window.dir/build: vendor/OpenCL-SDK/lib/libsfml-window.so
+_deps/sfml-external-build/src/SFML/Window/CMakeFiles/sfml-window.dir/build: vendor/OpenCL-SDK/lib/libsfml-window-d.so
 .PHONY : _deps/sfml-external-build/src/SFML/Window/CMakeFiles/sfml-window.dir/build
 
 _deps/sfml-external-build/src/SFML/Window/CMakeFiles/sfml-window.dir/clean:

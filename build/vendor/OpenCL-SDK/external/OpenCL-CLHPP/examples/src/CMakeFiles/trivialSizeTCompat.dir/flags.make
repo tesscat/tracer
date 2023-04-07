@@ -6,5 +6,5 @@ CXX_DEFINES =
 
 CXX_INCLUDES = -I/home/tesscat/tracer/vendor/OpenCL-SDK/external/OpenCL-CLHPP/include -I/home/tesscat/tracer/vendor/OpenCL-SDK/external/OpenCL-Headers
 
-CXX_FLAGS =  -std=c++20 -O3 -DNDEBUG -std=gnu++11
+CXX_FLAGS =  -std=c++20 -g -std=gnu++11
 

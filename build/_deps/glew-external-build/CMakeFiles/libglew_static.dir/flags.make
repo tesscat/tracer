@@ -6,5 +6,5 @@ C_DEFINES = -DGLEW_NO_GLU -DGLEW_STATIC
 
 C_INCLUDES = -I/home/tesscat/tracer/build/_deps/glew-external-src/include
 
-C_FLAGS = -O3 -DNDEBUG -fPIC
+C_FLAGS = -g -fPIC
 

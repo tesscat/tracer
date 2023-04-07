@@ -77,8 +77,7 @@ _deps/sfml-external-build/src/SFML/Window/CMakeFiles/sfml-window.dir/VideoMode.c
  /usr/include/bits/pthreadtypes-arch.h \
  /usr/include/bits/atomic_wide_counter.h /usr/include/bits/struct_mutex.h \
  /usr/include/bits/struct_rwlock.h /usr/include/alloca.h \
- /usr/include/bits/stdlib-bsearch.h /usr/include/bits/stdlib-float.h \
- /usr/include/c++/12.2.1/bits/std_abs.h \
+ /usr/include/bits/stdlib-float.h /usr/include/c++/12.2.1/bits/std_abs.h \
  /usr/include/c++/12.2.1/functional /usr/include/c++/12.2.1/tuple \
  /usr/include/c++/12.2.1/bits/uses_allocator.h \
  /usr/include/c++/12.2.1/bits/std_function.h \

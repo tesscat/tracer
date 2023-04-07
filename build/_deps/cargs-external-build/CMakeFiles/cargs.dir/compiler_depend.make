@@ -30,7 +30,6 @@ _deps/cargs-external-build/CMakeFiles/cargs.dir/src/cargs.c.o: _deps/cargs-exter
   /usr/include/bits/stdio_lim.h \
   /usr/include/bits/floatn.h \
   /usr/include/bits/floatn-common.h \
-  /usr/include/bits/stdio.h \
   /usr/include/memory.h \
   /usr/include/string.h \
   /usr/include/bits/types/locale_t.h \
@@ -51,8 +50,6 @@ _deps/cargs-external-build/CMakeFiles/cargs.dir/src/cargs.c.o: _deps/cargs-exter
 _deps/cargs-external-src/include/cargs.h:
 
 /usr/include/gnu/stubs-64.h:
-
-/usr/include/bits/stdio.h:
 
 /usr/include/features.h:
 

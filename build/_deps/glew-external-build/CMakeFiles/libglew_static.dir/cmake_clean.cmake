@@ -1,6 +1,6 @@
 file(REMOVE_RECURSE
-  "../../vendor/OpenCL-SDK/lib/libglew.a"
-  "../../vendor/OpenCL-SDK/lib/libglew.pdb"
+  "../../vendor/OpenCL-SDK/lib/libglewd.a"
+  "../../vendor/OpenCL-SDK/lib/libglewd.pdb"
   "CMakeFiles/libglew_static.dir/src/glew.c.o"
   "CMakeFiles/libglew_static.dir/src/glew.c.o.d"
 )

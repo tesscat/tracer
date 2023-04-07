@@ -19,7 +19,7 @@ _deps/cargs-external-build/CMakeFiles/cargstest.dir/test/option_test.c.o: \
  /usr/include/bits/types/__fpos64_t.h /usr/include/bits/types/__FILE.h \
  /usr/include/bits/types/FILE.h /usr/include/bits/types/struct_FILE.h \
  /usr/include/bits/stdio_lim.h /usr/include/bits/floatn.h \
- /usr/include/bits/floatn-common.h /usr/include/bits/stdio.h \
+ /usr/include/bits/floatn-common.h \
  /usr/lib/gcc/x86_64-pc-linux-gnu/12.2.1/include-fixed/limits.h \
  /usr/lib/gcc/x86_64-pc-linux-gnu/12.2.1/include-fixed/syslimits.h \
  /usr/include/limits.h /usr/include/bits/posix1_lim.h \
@@ -44,4 +44,4 @@ _deps/cargs-external-build/CMakeFiles/cargstest.dir/test/option_test.c.o: \
  /usr/include/bits/pthreadtypes-arch.h \
  /usr/include/bits/atomic_wide_counter.h /usr/include/bits/struct_mutex.h \
  /usr/include/bits/struct_rwlock.h /usr/include/alloca.h \
- /usr/include/bits/stdlib-bsearch.h /usr/include/bits/stdlib-float.h
+ /usr/include/bits/stdlib-float.h

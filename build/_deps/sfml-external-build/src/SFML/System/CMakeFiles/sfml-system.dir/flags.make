@@ -6,5 +6,5 @@ CXX_DEFINES = -DSFML_SYSTEM_EXPORTS
 
 CXX_INCLUDES = -I/home/tesscat/tracer/build/_deps/sfml-external-src/include -I/home/tesscat/tracer/build/_deps/sfml-external-src/src
 
-CXX_FLAGS =  -std=c++20 -O3 -DNDEBUG -fPIC -fvisibility=hidden -std=gnu++14
+CXX_FLAGS =  -std=c++20 -g -fPIC -fvisibility=hidden -std=gnu++14
 

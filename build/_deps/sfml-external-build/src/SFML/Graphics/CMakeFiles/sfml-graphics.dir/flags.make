@@ -6,7 +6,7 @@ CXX_DEFINES = -DSFML_GRAPHICS_EXPORTS -DSTBI_FAILURE_USERMSG
 
 CXX_INCLUDES = -I/home/tesscat/tracer/build/_deps/sfml-external-src/include -I/home/tesscat/tracer/build/_deps/sfml-external-src/src -I/home/tesscat/tracer/build/_deps/sfml-external-src/extlibs/headers/stb_image -I/usr/include/freetype2
 
-CXX_FLAGS =  -std=c++20 -O3 -DNDEBUG -fPIC -fvisibility=hidden -std=gnu++14
+CXX_FLAGS =  -std=c++20 -g -fPIC -fvisibility=hidden -std=gnu++14
 
 # Custom flags: _deps/sfml-external-build/src/SFML/Graphics/CMakeFiles/sfml-graphics.dir/ImageLoader.cpp.o_FLAGS = -fno-strict-aliasing
 

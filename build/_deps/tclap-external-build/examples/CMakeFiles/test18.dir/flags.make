@@ -6,5 +6,5 @@ CXX_DEFINES =
 
 CXX_INCLUDES = -I/home/tesscat/tracer/build/_deps/tclap-external-src/examples/../include -I/home/tesscat/tracer/build/_deps/tclap-external-build
 
-CXX_FLAGS =  -std=c++20 -O3 -DNDEBUG -Wall -Wextra -Weffc++ -std=gnu++98
+CXX_FLAGS =  -std=c++20 -g -Wall -Wextra -Weffc++ -std=gnu++98
 

@@ -96,17 +96,17 @@ vendor/OpenCL-SDK/bin/saxpycpp: /usr/lib/libOpenCL.so
 vendor/OpenCL-SDK/bin/saxpycpp: vendor/OpenCL-SDK/lib/libOpenCLSDK.so
 vendor/OpenCL-SDK/bin/saxpycpp: vendor/OpenCL-SDK/lib/libOpenCLSDKCpp.so
 vendor/OpenCL-SDK/bin/saxpycpp: _deps/cargs-external-build/libcargs.so
-vendor/OpenCL-SDK/bin/saxpycpp: vendor/OpenCL-SDK/lib/libOpenCLUtilsCpp.so
-vendor/OpenCL-SDK/bin/saxpycpp: vendor/OpenCL-SDK/lib/libOpenCLUtils.so
+vendor/OpenCL-SDK/bin/saxpycpp: vendor/OpenCL-SDK/lib/libOpenCLUtilsCppd.so
+vendor/OpenCL-SDK/bin/saxpycpp: vendor/OpenCL-SDK/lib/libOpenCLUtilsd.so
 vendor/OpenCL-SDK/bin/saxpycpp: /usr/lib/libOpenCL.so
-vendor/OpenCL-SDK/bin/saxpycpp: vendor/OpenCL-SDK/lib/libglew.a
+vendor/OpenCL-SDK/bin/saxpycpp: vendor/OpenCL-SDK/lib/libglewd.a
 vendor/OpenCL-SDK/bin/saxpycpp: /usr/lib/libXext.so
 vendor/OpenCL-SDK/bin/saxpycpp: /usr/lib/libX11.so
 vendor/OpenCL-SDK/bin/saxpycpp: /usr/lib/libGLU.so
 vendor/OpenCL-SDK/bin/saxpycpp: /usr/lib/libGL.so
-vendor/OpenCL-SDK/bin/saxpycpp: vendor/OpenCL-SDK/lib/libsfml-graphics.so.2.5.1
-vendor/OpenCL-SDK/bin/saxpycpp: vendor/OpenCL-SDK/lib/libsfml-window.so.2.5.1
-vendor/OpenCL-SDK/bin/saxpycpp: vendor/OpenCL-SDK/lib/libsfml-system.so.2.5.1
+vendor/OpenCL-SDK/bin/saxpycpp: vendor/OpenCL-SDK/lib/libsfml-graphics-d.so.2.5.1
+vendor/OpenCL-SDK/bin/saxpycpp: vendor/OpenCL-SDK/lib/libsfml-window-d.so.2.5.1
+vendor/OpenCL-SDK/bin/saxpycpp: vendor/OpenCL-SDK/lib/libsfml-system-d.so.2.5.1
 vendor/OpenCL-SDK/bin/saxpycpp: vendor/OpenCL-SDK/samples/core/saxpy/CMakeFiles/saxpycpp.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/tesscat/tracer/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable ../../../bin/saxpycpp"
 	cd /home/tesscat/tracer/build/vendor/OpenCL-SDK/samples/core/saxpy && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/saxpycpp.dir/link.txt --verbose=$(VERBOSE)

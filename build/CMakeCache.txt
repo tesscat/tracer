@@ -34,7 +34,7 @@ CMAKE_ADDR2LINE:FILEPATH=/usr/bin/addr2line
 CMAKE_AR:FILEPATH=/usr/bin/ar
 
 //Choose the type of build (Debug or Release)
-CMAKE_BUILD_TYPE:STRING=Release
+CMAKE_BUILD_TYPE:STRING=Debug
 
 //Enable/Disable color output during build.
 CMAKE_COLOR_MAKEFILE:BOOL=ON
@@ -356,6 +356,9 @@ CTEST_SUBMIT_RETRY_DELAY:STRING=5
 
 //Maximum time allowed before CTest will kill the test.
 DART_TESTING_TIMEOUT:STRING=1500
+
+//No help, variable specified on the command line.
+DEBUG:UNINITIALIZED=1
 
 //No help, variable specified on the command line.
 DEPENDENCIES_FORCE_DOWNLOAD:UNINITIALIZED=1

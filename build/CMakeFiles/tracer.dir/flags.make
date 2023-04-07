@@ -4,7 +4,7 @@
 # compile CXX with /usr/bin/c++
 CXX_DEFINES = 
 
-CXX_INCLUDES = -I/home/tesscat/tracer/include -I/home/tesscat/tracer/vendor/OpenCL-SDK/include/cpp
+CXX_INCLUDES = -I/home/tesscat/tracer/include -I/home/tesscat/tracer/vendor/OpenCL-SDK/lib/include -I/home/tesscat/tracer/vendor/OpenCL-SDK/include/cpp -I/home/tesscat/tracer/vendor
 
-CXX_FLAGS =  -std=c++20 -O3 -DNDEBUG -std=gnu++20
+CXX_FLAGS =  -std=c++20 -g -std=gnu++20
 

@@ -315,36 +315,36 @@ sfml__system_OBJECTS = \
 # External object files for target sfml-system
 sfml__system_EXTERNAL_OBJECTS =
 
-vendor/OpenCL-SDK/lib/libsfml-system.so.2.5.1: _deps/sfml-external-build/src/SFML/System/CMakeFiles/sfml-system.dir/Clock.cpp.o
-vendor/OpenCL-SDK/lib/libsfml-system.so.2.5.1: _deps/sfml-external-build/src/SFML/System/CMakeFiles/sfml-system.dir/Err.cpp.o
-vendor/OpenCL-SDK/lib/libsfml-system.so.2.5.1: _deps/sfml-external-build/src/SFML/System/CMakeFiles/sfml-system.dir/Lock.cpp.o
-vendor/OpenCL-SDK/lib/libsfml-system.so.2.5.1: _deps/sfml-external-build/src/SFML/System/CMakeFiles/sfml-system.dir/Mutex.cpp.o
-vendor/OpenCL-SDK/lib/libsfml-system.so.2.5.1: _deps/sfml-external-build/src/SFML/System/CMakeFiles/sfml-system.dir/Sleep.cpp.o
-vendor/OpenCL-SDK/lib/libsfml-system.so.2.5.1: _deps/sfml-external-build/src/SFML/System/CMakeFiles/sfml-system.dir/String.cpp.o
-vendor/OpenCL-SDK/lib/libsfml-system.so.2.5.1: _deps/sfml-external-build/src/SFML/System/CMakeFiles/sfml-system.dir/Thread.cpp.o
-vendor/OpenCL-SDK/lib/libsfml-system.so.2.5.1: _deps/sfml-external-build/src/SFML/System/CMakeFiles/sfml-system.dir/ThreadLocal.cpp.o
-vendor/OpenCL-SDK/lib/libsfml-system.so.2.5.1: _deps/sfml-external-build/src/SFML/System/CMakeFiles/sfml-system.dir/Time.cpp.o
-vendor/OpenCL-SDK/lib/libsfml-system.so.2.5.1: _deps/sfml-external-build/src/SFML/System/CMakeFiles/sfml-system.dir/FileInputStream.cpp.o
-vendor/OpenCL-SDK/lib/libsfml-system.so.2.5.1: _deps/sfml-external-build/src/SFML/System/CMakeFiles/sfml-system.dir/MemoryInputStream.cpp.o
-vendor/OpenCL-SDK/lib/libsfml-system.so.2.5.1: _deps/sfml-external-build/src/SFML/System/CMakeFiles/sfml-system.dir/Unix/ClockImpl.cpp.o
-vendor/OpenCL-SDK/lib/libsfml-system.so.2.5.1: _deps/sfml-external-build/src/SFML/System/CMakeFiles/sfml-system.dir/Unix/MutexImpl.cpp.o
-vendor/OpenCL-SDK/lib/libsfml-system.so.2.5.1: _deps/sfml-external-build/src/SFML/System/CMakeFiles/sfml-system.dir/Unix/SleepImpl.cpp.o
-vendor/OpenCL-SDK/lib/libsfml-system.so.2.5.1: _deps/sfml-external-build/src/SFML/System/CMakeFiles/sfml-system.dir/Unix/ThreadImpl.cpp.o
-vendor/OpenCL-SDK/lib/libsfml-system.so.2.5.1: _deps/sfml-external-build/src/SFML/System/CMakeFiles/sfml-system.dir/Unix/ThreadLocalImpl.cpp.o
-vendor/OpenCL-SDK/lib/libsfml-system.so.2.5.1: _deps/sfml-external-build/src/SFML/System/CMakeFiles/sfml-system.dir/build.make
-vendor/OpenCL-SDK/lib/libsfml-system.so.2.5.1: _deps/sfml-external-build/src/SFML/System/CMakeFiles/sfml-system.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/tesscat/tracer/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_17) "Linking CXX shared library ../../../../../vendor/OpenCL-SDK/lib/libsfml-system.so"
+vendor/OpenCL-SDK/lib/libsfml-system-d.so.2.5.1: _deps/sfml-external-build/src/SFML/System/CMakeFiles/sfml-system.dir/Clock.cpp.o
+vendor/OpenCL-SDK/lib/libsfml-system-d.so.2.5.1: _deps/sfml-external-build/src/SFML/System/CMakeFiles/sfml-system.dir/Err.cpp.o
+vendor/OpenCL-SDK/lib/libsfml-system-d.so.2.5.1: _deps/sfml-external-build/src/SFML/System/CMakeFiles/sfml-system.dir/Lock.cpp.o
+vendor/OpenCL-SDK/lib/libsfml-system-d.so.2.5.1: _deps/sfml-external-build/src/SFML/System/CMakeFiles/sfml-system.dir/Mutex.cpp.o
+vendor/OpenCL-SDK/lib/libsfml-system-d.so.2.5.1: _deps/sfml-external-build/src/SFML/System/CMakeFiles/sfml-system.dir/Sleep.cpp.o
+vendor/OpenCL-SDK/lib/libsfml-system-d.so.2.5.1: _deps/sfml-external-build/src/SFML/System/CMakeFiles/sfml-system.dir/String.cpp.o
+vendor/OpenCL-SDK/lib/libsfml-system-d.so.2.5.1: _deps/sfml-external-build/src/SFML/System/CMakeFiles/sfml-system.dir/Thread.cpp.o
+vendor/OpenCL-SDK/lib/libsfml-system-d.so.2.5.1: _deps/sfml-external-build/src/SFML/System/CMakeFiles/sfml-system.dir/ThreadLocal.cpp.o
+vendor/OpenCL-SDK/lib/libsfml-system-d.so.2.5.1: _deps/sfml-external-build/src/SFML/System/CMakeFiles/sfml-system.dir/Time.cpp.o
+vendor/OpenCL-SDK/lib/libsfml-system-d.so.2.5.1: _deps/sfml-external-build/src/SFML/System/CMakeFiles/sfml-system.dir/FileInputStream.cpp.o
+vendor/OpenCL-SDK/lib/libsfml-system-d.so.2.5.1: _deps/sfml-external-build/src/SFML/System/CMakeFiles/sfml-system.dir/MemoryInputStream.cpp.o
+vendor/OpenCL-SDK/lib/libsfml-system-d.so.2.5.1: _deps/sfml-external-build/src/SFML/System/CMakeFiles/sfml-system.dir/Unix/ClockImpl.cpp.o
+vendor/OpenCL-SDK/lib/libsfml-system-d.so.2.5.1: _deps/sfml-external-build/src/SFML/System/CMakeFiles/sfml-system.dir/Unix/MutexImpl.cpp.o
+vendor/OpenCL-SDK/lib/libsfml-system-d.so.2.5.1: _deps/sfml-external-build/src/SFML/System/CMakeFiles/sfml-system.dir/Unix/SleepImpl.cpp.o
+vendor/OpenCL-SDK/lib/libsfml-system-d.so.2.5.1: _deps/sfml-external-build/src/SFML/System/CMakeFiles/sfml-system.dir/Unix/ThreadImpl.cpp.o
+vendor/OpenCL-SDK/lib/libsfml-system-d.so.2.5.1: _deps/sfml-external-build/src/SFML/System/CMakeFiles/sfml-system.dir/Unix/ThreadLocalImpl.cpp.o
+vendor/OpenCL-SDK/lib/libsfml-system-d.so.2.5.1: _deps/sfml-external-build/src/SFML/System/CMakeFiles/sfml-system.dir/build.make
+vendor/OpenCL-SDK/lib/libsfml-system-d.so.2.5.1: _deps/sfml-external-build/src/SFML/System/CMakeFiles/sfml-system.dir/link.txt
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/tesscat/tracer/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_17) "Linking CXX shared library ../../../../../vendor/OpenCL-SDK/lib/libsfml-system-d.so"
 	cd /home/tesscat/tracer/build/_deps/sfml-external-build/src/SFML/System && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/sfml-system.dir/link.txt --verbose=$(VERBOSE)
-	cd /home/tesscat/tracer/build/_deps/sfml-external-build/src/SFML/System && $(CMAKE_COMMAND) -E cmake_symlink_library ../../../../../vendor/OpenCL-SDK/lib/libsfml-system.so.2.5.1 ../../../../../vendor/OpenCL-SDK/lib/libsfml-system.so.2.5 ../../../../../vendor/OpenCL-SDK/lib/libsfml-system.so
+	cd /home/tesscat/tracer/build/_deps/sfml-external-build/src/SFML/System && $(CMAKE_COMMAND) -E cmake_symlink_library ../../../../../vendor/OpenCL-SDK/lib/libsfml-system-d.so.2.5.1 ../../../../../vendor/OpenCL-SDK/lib/libsfml-system-d.so.2.5 ../../../../../vendor/OpenCL-SDK/lib/libsfml-system-d.so
 
-vendor/OpenCL-SDK/lib/libsfml-system.so.2.5: vendor/OpenCL-SDK/lib/libsfml-system.so.2.5.1
-	@$(CMAKE_COMMAND) -E touch_nocreate vendor/OpenCL-SDK/lib/libsfml-system.so.2.5
+vendor/OpenCL-SDK/lib/libsfml-system-d.so.2.5: vendor/OpenCL-SDK/lib/libsfml-system-d.so.2.5.1
+	@$(CMAKE_COMMAND) -E touch_nocreate vendor/OpenCL-SDK/lib/libsfml-system-d.so.2.5
 
-vendor/OpenCL-SDK/lib/libsfml-system.so: vendor/OpenCL-SDK/lib/libsfml-system.so.2.5.1
-	@$(CMAKE_COMMAND) -E touch_nocreate vendor/OpenCL-SDK/lib/libsfml-system.so
+vendor/OpenCL-SDK/lib/libsfml-system-d.so: vendor/OpenCL-SDK/lib/libsfml-system-d.so.2.5.1
+	@$(CMAKE_COMMAND) -E touch_nocreate vendor/OpenCL-SDK/lib/libsfml-system-d.so
 
 # Rule to build all files generated by this target.
-_deps/sfml-external-build/src/SFML/System/CMakeFiles/sfml-system.dir/build: vendor/OpenCL-SDK/lib/libsfml-system.so
+_deps/sfml-external-build/src/SFML/System/CMakeFiles/sfml-system.dir/build: vendor/OpenCL-SDK/lib/libsfml-system-d.so
 .PHONY : _deps/sfml-external-build/src/SFML/System/CMakeFiles/sfml-system.dir/build
 
 _deps/sfml-external-build/src/SFML/System/CMakeFiles/sfml-system.dir/clean:

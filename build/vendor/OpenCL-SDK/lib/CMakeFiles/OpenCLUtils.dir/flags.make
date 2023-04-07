@@ -6,5 +6,5 @@ C_DEFINES = -DCL_HPP_ENABLE_EXCEPTIONS -DCL_TARGET_OPENCL_VERSION=300 -DOpenCLUt
 
 C_INCLUDES = -I/home/tesscat/tracer/vendor/OpenCL-SDK/lib/include -I/home/tesscat/tracer/build/vendor/OpenCL-SDK/lib -I/home/tesscat/tracer/vendor/OpenCL-SDK/external/OpenCL-Headers
 
-C_FLAGS = -O3 -DNDEBUG -fPIC
+C_FLAGS = -g -fPIC
 
