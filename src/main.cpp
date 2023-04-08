@@ -142,8 +142,8 @@ int main() {
 
   // cl_mem_flags flags = CL_MEM_READ_WRITE;
 
-  int width = 800;
-  int height = 800;
+  int width = 256;
+  int height = 256;
 
   std::vector<double> image (width * height * 4, 1.0);
   std::cout << "Image is " << sizeof(double) * width * height * 4 << " bytes big, with 4x" << sizeof(double) << " bytes per pixel\n";
@@ -175,13 +175,13 @@ int main() {
   m3.emission.r = 3.0;
   m3.emission.g = 3.0;
   m3.emission.b = 3.0;
-  m4.albedo.r = 0.0;
-  m4.albedo.g = 0.0;
-  m4.albedo.b = 0.0;
+  m4.albedo.r = 1.0;
+  m4.albedo.g = 1.0;
+  m4.albedo.b = 1.0;
   m4.emission.r = 0.0;
   m4.emission.g = 0.0;
   m4.emission.b = 0.0;
-  m4.reflection.r = 1.0;
+  m4.reflection.r = 0.5;
   m4.reflection.g = 1.0;
   m4.reflection.b = 1.0;
   // m3.emission.g = 1.0;

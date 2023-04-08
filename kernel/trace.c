@@ -66,7 +66,7 @@ typedef struct State {
   global const int* matIndexes;
   int sphCount;
   int subRays;
-  global uint* image;
+  // global uint* image;
   int idx;
   int maxDepth;
   int iters;
@@ -127,8 +127,9 @@ double3 castRay(double3 orig_, double3 dir_,
   double16 bEmi;
   double3 orig = orig_;
   double3 dir = dir_;
+  int i;
   // float rSeed = seed;
-  for (int i = 0; i < state->maxDepth; i++) {
+  for (i = 0; i < state->maxDepth; i++) {
     double3 result;
     double hit = -1;
     int hitIndex;
@@ -148,11 +149,16 @@ double3 castRay(double3 orig_, double3 dir_,
       double3 norm = normalize(orig - center);
 
       // https://math.stackexchange.com/questions/13261/how-to-get-a-reflection-vector
-      // double3 outgoing = dir - (2 * dot(dir, norm)) * norm;
+      double3 outgoing = normalize(dir - (2 * dot(dir, norm)) * norm);
       // orig = hitPos;
       // dir = normalize(outgoing);
 
       int matIndex = state->matIndexes[hitIndex] * 12;
+
+      double reflectionFactor = (state->materials[matIndex + 8]);
+      double invRF = 1.0-reflectionFactor;
+      double3 newNorm = (invRF) * norm + reflectionFactor * outgoing;
+      newNorm = normalize(newNorm);
       // matIndex *= 12;
 // subrays ^ (depth - 1) total iters
 // iter / (subrays ^ (depth - 1) / subrays) floor of for first
@@ -182,8 +188,13 @@ double3 castRay(double3 orig_, double3 dir_,
       double index = (iterMod * state->subRays) / fromHereCount;
       double idx = floor(index);
       double3 unitPoint = fibLatticeToUnitSphere(fibLattice(idx, state->subRays));
-      unitPoint += norm;
+      // make it shrink
+      double angleBetween = acos(dot(norm, outgoing));
+      double blend = sin(angleBetween) * invRF;
+      unitPoint *= blend;
+      unitPoint += newNorm;
       dir = normalize(unitPoint);
+      // if (invRF == 0) {dir = outgoing;};
         // enqueue_kernel(default, CLK_ENQUEUE_FLAGS_NO_WAIT, range, ^{castRay(hitPos, dir, trace, state, depth + 2)};)
         // result += castRay(hitPos, dir, t2, state, depth + 1);
       // }
@@ -226,12 +237,14 @@ double3 castRay(double3 orig_, double3 dir_,
       // atomic_add(&state->image[imPos + 2], (uint)(final.z) * 4096);
       // atomic_add(&state->contribCount[state->idx], 1);
       // skybox time
+      double elev = asin(dir.y);
+      bEmi[i] = clamp(5.5 * elev, 0.2, 0.5);
       rAlb[i] = 0.0;
       gAlb[i] = 0.0;
       bAlb[i] = 0.0;
-      rEmi[i] = 0.1;
-      gEmi[i] = 0.1;
-      bEmi[i] = 0.1;
+      rEmi[i] = 0.2;
+      gEmi[i] = 0.2;
+      // bEmi[i] = 0.1;
       break;
       // result.x = 0.1;
       // result.y = 0.1;
@@ -243,7 +256,7 @@ double3 castRay(double3 orig_, double3 dir_,
   double r = 0.0;
   double g = 0.0;
   double b = 0.0;
-  for (int i = state->maxDepth - 1; i >= 0; i--) {
+  for (; i >= 0; i--) {
     r *= rAlb[i];
     r += rEmi[i];
     g *= gAlb[i];
@@ -275,14 +288,14 @@ kernel void trace(
   state.matIndexes = objMaterialIndexes;
   state.sphereRadii = sphereRadii;
   state.sphCount = sphCount;
-  state.image = image;
-  state.maxDepth = 2;
+  // state.image = image;
+  state.maxDepth = 4;
   const double focalLength = 1;
   double3 rayOrig = {0, 0, 0};
 
   // int bounceCount = 3;
 
-  state.subRays = 300;
+  state.subRays = 20;
 
   int iters = pow((double)state.subRays, state.maxDepth - 1);
   state.iters = iters;
