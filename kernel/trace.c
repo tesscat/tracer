@@ -289,13 +289,13 @@ kernel void trace(
   state.sphereRadii = sphereRadii;
   state.sphCount = sphCount;
   // state.image = image;
-  state.maxDepth = 4;
+  state.maxDepth = 3;
   const double focalLength = 1;
   double3 rayOrig = {0, 0, 0};
 
   // int bounceCount = 3;
 
-  state.subRays = 20;
+  state.subRays = 80;
 
   int iters = pow((double)state.subRays, state.maxDepth - 1);
   state.iters = iters;
@@ -303,9 +303,10 @@ kernel void trace(
   // int passes = pow((float)state.subRays, bounceCount);
 
   int gid = get_global_id(0);
+  double majorDim = max(height, width);
   state.idx = gid;
   double x = gid % width; 
-  double y = height - (gid - x)/width; 
+  double y = height - (gid - x)/majorDim; 
   double w = width; 
   double h = height;
   double3 pxPos = {(2*x)/w - 1, (2*y)/w - (h/w), focalLength};
@@ -318,7 +319,9 @@ kernel void trace(
   for (int i = 0; i < iters; i++) {
     // seed = wang_hash(4294967295 * (x/w) * i) + wang_hash(4294967295 * (y/h) * i);
     // result += castRay(rayOrig, rayDir, sphCount, sphereCenters, sphereRadii, materials, objMaterialIndexes, bounceCount, iters, subRays, i, seed);
-    result += castRay(rayOrig, rayDir, &state, i); // , iters, i, seed);
+    double2 minorOffs = fibLattice(i, iters);
+    minorOffs /= majorDim;
+    result += castRay(rayOrig, normalize((double3){rayDir.x + minorOffs.x, rayDir.y + minorOffs.y, rayDir.z}), &state, i); // , iters, i, seed);
   }
 
   result /= iters;

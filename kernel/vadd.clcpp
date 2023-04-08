@@ -1,4 +1,0 @@
-kernel void vadd(global const int* a, global const int* b, global int* out) {
-    int idx = get_global_id(0);
-    out[idx] = a[idx] + b[idx];
-}
