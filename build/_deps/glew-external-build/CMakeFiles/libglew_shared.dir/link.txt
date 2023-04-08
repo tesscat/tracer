@@ -1,1 +1,0 @@
-/usr/bin/cc -fPIC -g -shared -Wl,-soname,libglew-sharedd.so.2.2.0 -o lib/libglew-sharedd.so.2.2.0 CMakeFiles/libglew_shared.dir/src/glew.c.o  /usr/lib/libGL.so /usr/lib/libX11.so /usr/lib/libXext.so /usr/lib/libX11.so 

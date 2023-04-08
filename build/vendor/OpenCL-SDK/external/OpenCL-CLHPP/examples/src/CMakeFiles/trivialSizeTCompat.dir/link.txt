@@ -1,1 +1,0 @@
-/usr/bin/c++  -std=c++20 -g -rdynamic CMakeFiles/trivialSizeTCompat.dir/trivialSizeTCompat.cpp.o -o trivialSizeTCompat  -Wl,-rpath,/home/tesscat/tracer/build/vendor/OpenCL-SDK/external/OpenCL-ICD-Loader ../../../OpenCL-ICD-Loader/libOpenCL.so.1.2 -ldl 

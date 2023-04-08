@@ -1,1 +1,0 @@
-/usr/bin/cc -fPIC -g -shared -Wl,-soname,libcargs.so -o libcargs.so CMakeFiles/cargs.dir/src/cargs.c.o 

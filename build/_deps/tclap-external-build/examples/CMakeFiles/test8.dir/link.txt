@@ -1,1 +1,0 @@
-/usr/bin/c++  -std=c++20 -g CMakeFiles/test8.dir/test8.cpp.o -o test8 

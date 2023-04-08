@@ -1,1 +1,0 @@
-/usr/bin/cc -g CMakeFiles/cargstest.dir/test/main.c.o CMakeFiles/cargstest.dir/test/option_test.c.o -o cargstest  -Wl,-rpath,/home/tesscat/tracer/build/_deps/cargs-external-build libcargs.so 

@@ -1,1 +1,0 @@
-/usr/bin/cc -fPIC -g -shared -Wl,-soname,libOpenCLUtilsd.so -o libOpenCLUtilsd.so CMakeFiles/OpenCLUtils.dir/src/Utils/Utils.c.o  -Wl,-rpath,:::::::::::::::::::::::::::::::::::::::::::::::::: -lm /usr/lib/libOpenCL.so 
