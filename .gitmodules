@@ -5,3 +5,9 @@
 [submodule "vendor/stb"]
 	path = vendor/stb
 	url = https://github.com/nothings/stb
+[submodule "vendor/OpenSYCL"]
+	path = vendor/OpenSYCL
+	url = https://github.com/OpenSYCL/OpenSYCL
+[submodule "vendor/argparse"]
+	path = vendor/argparse
+	url = https://github.com/p-ranav/argparse
