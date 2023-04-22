@@ -44,26 +44,30 @@ int WriteImage(std::string filename, std::vector<double> data, size_t width, siz
   return 0;
 }
 
-class RGBA {
+class RGB {
 public:
-  double r, g, b = 0.0;
-  double a = 1.0;
+  double r = 0.0;
+  double g = 0.0;
+  double b = 0.0;
   std::vector<double> Flatten() {
-    return {r, g, b, a};
+    return {r, g, b};
   }
 };
 
 class Material {
 public:
-  RGBA albedo;
-  RGBA emission;
-  RGBA reflection;
+  RGB albedo;
+  RGB emission;
+  double reflection = 0.0;
+  double translucency = 0.0;
+  double refIndex = 1.0;
   std::vector<double> Flatten() {
     std::vector<double> out = albedo.Flatten();
     std::vector<double> tmp = emission.Flatten();
     out.insert(out.end(), tmp.begin(), tmp.end());
-    tmp = reflection.Flatten();
-    out.insert(out.end(), tmp.begin(), tmp.end());
+    out.push_back(reflection);
+    out.push_back(translucency);
+    out.push_back(refIndex);
     return out;
   }
 };
@@ -142,15 +146,15 @@ int main() {
 
   // cl_mem_flags flags = CL_MEM_READ_WRITE;
 
-  int width = 800;
-  int height = 600;
+  int width = 512;
+  int height = 512;
 
   std::vector<double> image (width * height * 4, 1.0);
   std::cout << "Image is " << sizeof(double) * width * height * 4 << " bytes big, with 4x" << sizeof(double) << " bytes per pixel\n";
   
-  int sphCount = 4;
-  std::vector<std::vector<double>> sphCenters = {{3.0, 0.0, 10.0}, {-3.0, 0.0, 10.0}, {0.0, 1.0, 10.0}, {0.0, -401.0, 10}};
-  std::vector<int> sphMatIndexes = {0, 1, 2, 3};
+  int sphCount = 5;
+  std::vector<std::vector<double>> sphCenters = {{3.0, 0.0, 10.0}, {-3.0, 0.0, 10.0}, {0.0, 1.0, 10.0}, {0.0, -401.0, 10}, {-3.0, 3.0, 6.0}};
+  std::vector<int> sphMatIndexes = {1, 2, 3, 4, 5};
   std::vector<cl_double> sphCentersFlat;// (sphCenters.size() * 3, 0);
   for (auto sphCenter : sphCenters) {
     for (double coord: sphCenter) {
@@ -159,12 +163,14 @@ int main() {
     // sphCentersFlat.insert(sphCentersFlat.end(), sphCenter.begin(), sphCenter.end());
   }
   std::cout << "Length of sphere centers flattened: " << sphCentersFlat.size() << "\n";
-  std::vector<cl_double> sphRadii = {1.0, 1.0, 1.5, 400};
+  std::vector<cl_double> sphRadii = {1.0, 1.0, 1.5, 400, 3};
   
+  Material air; // only care abt refInd but makes it easier
   Material m1;
   Material m2;
   Material m3;
   Material m4;
+  Material m5;
   m1.albedo.r = 1.0;
   m1.albedo.g = 1.0;
   m1.albedo.b = 1.0;
@@ -179,15 +185,21 @@ int main() {
   m4.albedo.g = 1.0;
   m4.albedo.b = 1.0;
   m4.emission.r = 0.0;
-  m4.emission.g = 0.0;
-  m4.emission.b = 0.0;
-  m4.reflection.r = 1.0;
-  m4.reflection.g = 1.0;
-  m4.reflection.b = 1.0;
+  m4.emission.g = 1.0;
+  m4.emission.b = 1.0;
+  m4.reflection = 0.0;
+  m5.translucency = 1.0;
+  m5.reflection = 0.0;
+  m5.albedo.r = 1.0;
+  m5.albedo.g = 1.0;
+  m5.albedo.b = 1.0;
+  m5.refIndex = 1.0;
+  // m4.reflection.g = 1.0;
+  // m4.reflection.b = 1.0;
   // m3.emission.g = 1.0;
   // m3.emission.b = 1.0;
   
-  std::vector<Material> materials = {m1, m2, m3, m4};
+  std::vector<Material> materials = {air, m1, m2, m3, m4, m5};
   std::vector<double> materialsFlat;
   for (auto material: materials) {
     std::vector<double> flat = material.Flatten();

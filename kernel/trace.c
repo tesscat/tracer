@@ -1,33 +1,3 @@
-// #pragma OPENCL EXTENSION cl_khr_spir : enable
-// #pragma OPENCL EXTENSION cl_khr_il_program : enable
-//
-// uint wang_hash(uint seed)
-// {
-//     seed = (seed ^ 61) ^ (seed >> 16);
-//     seed *= 9;
-//     seed = seed ^ (seed >> 4);
-//     seed *= 0x27d4eb2d;
-//     seed = seed ^ (seed >> 15);
-//     return seed;
-// }
-//
-// float rand(float seed) {
-//   // pipe float p;
-//   return wang_hash(4294967295*seed)/(float)4294967295;
-// }
-//
-// double3 randSphPos(float seed) {
-//   double3 out = {1, 1, 1};
-//   out.z = seed;
-//   while (length(out) > 1) {
-//     out.x = rand(out.z);
-//     out.y = rand(out.x);
-//     out.z = rand(out.y);
-//   }
-//
-//   return out;
-// }
-
 double2 fibLattice(double i, double N) {
   double x = i/1.618033988749;
   x = x - floor(x);
@@ -49,15 +19,6 @@ double hitSphere(const double3 center, const double radius, const double3 rayOri
   if (discriminant < 0) {return -1.0;}
   else {return (-half_b - sqrt(discriminant))/a;}
 }
-//
-// typedef struct ColourTrace {
-//   double16 rAlb;
-//   double16 gAlb;
-//   double16 bAlb;
-//   double16 rEmi;
-//   double16 gEmi;
-//   double16 bEmi;
-// } ColourTrace;
 
 typedef struct State {
   global const double* sphereCenters;
@@ -66,69 +27,49 @@ typedef struct State {
   global const int* matIndexes;
   int sphCount;
   int subRays;
-  // global uint* image;
   int idx;
   int maxDepth;
   int iters;
 } State;
-//
-// typedef struct Ray {
-//   ColourTrace trace;
-//   double3 orig;
-//   double3 dir;
-// } Ray;
-//
-// subrays ^ (depth - 1) total iters
-// iter / (subrays ^ (depth - 1) / subrays) floor of for first
-// (iter % (sub ^ (depth - 1 - myDepth))) / / (subrays ^ (depth - 1 - myDepth) / subRays) floor for myDepth
-//
-// double3 finishTrace(ColourTrace trace, int bounces) {
-//   double3 result = {0.0, 0.0, 0.0};
-//   for (int i = bounces - 1; i >= 0; i--) {
-//     result.x *= trace.rAlb[i];
-//     result.y *= trace.gAlb[i];
-//     result.z *= trace.bAlb[i];
-//
-//     result.x += trace.rEmi[i];
-//     result.y += trace.gEmi[i];
-//     result.z += trace.bEmi[i];
-//   }
-//   return result;
+
+// double3 refract(const double3 normal, const double3 incident, 
+//                double n1, double n2) 
+// {
+//     const double n = n1 / n2;
+//     const double cosI = -dot(normal, incident);
+//     const double sinT2 = n * n * (1.0 - cosI * cosI);
+//     if(sinT2 > 1.0) return (double3){0, 0}; // TIR
+//     const double cosT = sqrt(1.0 - sinT2);
+//     return n * incident + (n * cosI - cosT) * normal;
 // }
+
+double absolute(double i) {
+  if (i > 0) return i;
+  return -i;
+}
 
 // TODO: nicer recursion
 double3 castRay(double3 orig_, double3 dir_,
-  // const int sphCount,
-  // global const double* sphereCenters,
-  // global const double* sphereRadii,
-  // global const double* materials,
-  // global const int* materialIndexes,
-  // ColourTrace trace,
   private State* state,
-  // int depth,
-  // int iters,
-  // int subRays,
   int iter)
-  // float seed)
 {
-  // if (depth >= state->maxDepth) {
-  //   double3 final = finishTrace(trace, state->maxDepth);
-  //   int imPos = state->idx * 4;
-  //   atomic_add(&state->image[imPos], (uint)(final.x) * 4096);
-  //   atomic_add(&state->image[imPos + 1], (uint)(final.y) * 4096);
-  //   atomic_add(&state->image[imPos + 2], (uint)(final.z) * 4096);
-  //   atomic_add(&state->contribCount[state->idx], 1);
-  // }
   double16 rAlb;
   double16 gAlb;
   double16 bAlb;
   double16 rEmi;
   double16 gEmi;
   double16 bEmi;
+
+  int16 matInds;
+  matInds[0] = 0;
+  int matIndsIndex = 0;
+
   double3 orig = orig_;
   double3 dir = dir_;
   int i;
-  // float rSeed = seed;
+  // double refInd = 1.0;
+  // int lastMatInd = -1;
+
   for (i = 0; i < state->maxDepth; i++) {
     double3 result;
     double hit = -1;
@@ -150,92 +91,110 @@ double3 castRay(double3 orig_, double3 dir_,
 
       // https://math.stackexchange.com/questions/13261/how-to-get-a-reflection-vector
       double3 outgoing = normalize(dir - (2 * dot(dir, norm)) * norm);
-      // orig = hitPos;
-      // dir = normalize(outgoing);
 
-      int matIndex = state->matIndexes[hitIndex] * 12;
+      int matIndex = state->matIndexes[hitIndex] * 9;
 
-      double reflectionFactor = (state->materials[matIndex + 8]);
+      double reflectionFactor = (state->materials[matIndex + 6]);
       double invRF = 1.0-reflectionFactor;
       double3 newNorm = (invRF) * norm + reflectionFactor * outgoing;
       newNorm = normalize(newNorm);
-      // matIndex *= 12;
-// subrays ^ (depth - 1) total iters
-// iter / (subrays ^ (depth - 1) / subrays) floor of for first
-// (iter % (sub ^ (depth - 1 - myDepth))) / (subrays ^ (depth - 1 - myDepth) / subRays) floor for myDepth
-      // EVERYTHING IS DIFFUSE
-      // result.x *= state->materials[matIndex];
-      // result.y *= state->materials[matIndex + 1];
-      // result.z *= state->materials[matIndex + 2];
 
-      // result.x = state->materials[matIndex + 4];
-      // result.y = state->materials[matIndex + 5];
-      // result.z = state->materials[matIndex + 6];
-      // double3 result = {0.0, 0.0, 0.0};
-      // ColourTrace t2 = trace;
       rAlb[i] = state->materials[matIndex];
       gAlb[i] = state->materials[matIndex + 1];
       bAlb[i] = state->materials[matIndex + 2];
 
-      rEmi[i] = state->materials[matIndex + 4];
-      gEmi[i] = state->materials[matIndex + 5];
-      bEmi[i] = state->materials[matIndex + 6];
-      // queue_t default = get_default_queue();
-      // ndrange_t range = ndrange_1D(1);
-      // for (int i = 0; i < state->subRays; i++) {
-      int fromHereCount = floor(state->iters/pow((double)state->subRays, i));
+      rEmi[i] = state->materials[matIndex + 3];
+      gEmi[i] = state->materials[matIndex + 4];
+      bEmi[i] = state->materials[matIndex + 5];
+
+
+      // translucency
+      int subRays = state->subRays;
+      double trans = state->materials[matIndex + 7];
+      // subRays = (int)((double)subRays * (1.0 - trans));
+      int fromHereCount = floor(state->iters/pow((double)subRays, i));
       double iterMod = iter % fromHereCount;
-      double index = (iterMod * state->subRays) / fromHereCount;
+      double index = (iterMod * subRays) / fromHereCount;
       double idx = floor(index);
-      double3 unitPoint = fibLatticeToUnitSphere(fibLattice(idx, state->subRays));
-      // make it shrink
-      double angleBetween = acos(dot(norm, outgoing));
-      double blend = sin(angleBetween) * invRF;
-      unitPoint *= blend;
-      unitPoint += newNorm;
-      dir = normalize(unitPoint);
-      // if (invRF == 0) {dir = outgoing;};
-        // enqueue_kernel(default, CLK_ENQUEUE_FLAGS_NO_WAIT, range, ^{castRay(hitPos, dir, trace, state, depth + 2)};)
-        // result += castRay(hitPos, dir, t2, state, depth + 1);
-      // }
-      // result /= state->subRays;
-      // is a sphere of one-tominusone
-      // unitPoint.y += 1;
-      // double3 unitDir = normalize(unitPoint);
-      // // we suppose the normal is the new y
-      // // so new x is cross
-      // double3 newX = cross(norm, dir);
-      // double3 newZ = cross(norm, newX);
-      // dir = newX * unitDir.x + norm * unitDir.y + newZ * unitDir.z;
-      // and tada new dir
-      // orig = hitPos;
+      // int contRays = state->subRays * trans;
+      // get all the regulars out of the way first
+      double sR = ((double)subRays * (1.0 - trans));
+      if (idx < sR) {
 
-      
-      // if (depth == 1) {return (double3){0.0,0.0, 0.0};}
-      // double3 inbound;
-      // if (depth > 1) {
-        // inbound = castRay(orig, dir, sphCount, sphereCenters, sphereRadii, materials, materialIndexes, depth - 1);
-      // } else {
-        // inbound = (double3){0.0, 0.0, 0.0};
-      // }
-
-
-      // return inbound;
+  // subrays ^ (depth - 1) total iters
+  // iter / (subrays ^ (depth - 1) / subrays) floor of for first
+  // (iter % (sub ^ (depth - 1 - myDepth))) / (subrays ^ (depth - 1 - myDepth) / subRays) floor for myDepth
+        
+        // EVERYTHING IS DIFFUSE
+        
+        
+        double3 unitPoint = fibLatticeToUnitSphere(fibLattice(idx, sR));
+        // make it shrink
+        double angleBetween = acos(dot(norm, outgoing));
+        double blend = sin(angleBetween) * invRF;
+        unitPoint *= blend;
+        unitPoint += newNorm;
+        dir = normalize(unitPoint);
+      } else {
+        // dir unchanged; point updated;
+        // so like nothing actually happens
+        // wait no! refraction time
+        // n1 sin i = n2 sin r
+        // n1 is current refIndex, n2 is new
+        // i is incidence, and r is outgoing
+        // therefore r = asin ((n1 sin i)/n2)
+        //
+        bool isEntering = dot(norm, dir) < 0;
+        int newMatIndsIndex;
+        if (isEntering) {
+          newMatIndsIndex = matIndsIndex + 1;
+          matInds[newMatIndsIndex] = matIndex;
+        } else {
+          newMatIndsIndex = matIndsIndex - 1;
+        }
+        //
+        // BIG TODO: things like TIR
+        // double incidence = acos(dot(norm, dir));
+        double n1 = state->materials[matInds[matIndsIndex] * 9 + 8];
+        double n2 = state->materials[matInds[newMatIndsIndex] * 9 + 8];
+        // if (matIndex != lastMatInd) n2 = state->materials[matIndex + 8];
+        // cope with air re-entry
+        // we do need to do this better though
+        // https://stackoverflow.com/questions/29758545/how-to-find-refraction-vector-from-incoming-vector-and-surface-normal
+        // bool isEnteringMoreDense = n2 > n1;
+        // double factor = (((double)isEnteringMoreDense) * 2) - 1;
+        // always alignes
+        if (dot(norm, dir) > 0) {
+          norm = -norm;
+          double a = n1;
+          n1 = n2;
+          n2 = a;
+        }
+        double n = n1 / n2;
+        // if (n != 1.0) {return (double3){1.0, 0.0, 0.0};}
+        // n = 1.2/1;
+        // n = 1;
+        double cosI = -dot(norm, dir);
+        double sinT2 = n * n * (1.0 - (cosI * cosI));
+        if(sinT2 > 1.0) return (double3){1.0, 0, 0}; // TIR
+        double cosT = sqrt(1.0 - sinT2);
+        double3 outgoing = normalize((n * dir) + (((n * cosI) - cosT) * norm));
+        dir = outgoing;
+        // refInd = n2;
+        // TODO: don't abs uhh
+        
+        // // double outgoingAngle = asin((refInd/n2) * sin(incidence));
+        // if (isEntering) {
+        //   matIndsIndex += 1;
+        //   matInds[matIndsIndex] = matIndex;
+        // }
+        // else matIndsIndex -= 1
+        matIndsIndex = newMatIndsIndex;
+        
+      }
+      // lastMatInd = matIndex;
+      // matInds[i + 1] = matIndex;
     } else {
-      // t2.rAlb[depth] = state->materials[matIndex];
-      // t2.gAlb[depth] = state->materials[matIndex + 1];
-      // t2.bAlb[depth] = state->materials[matIndex + 2];
-      // ColourTrace t2 = trace;
-      // t2.rEmi[depth] = 0.1; // state->materials[matIndex + 4];
-      // t2.gEmi[depth] = 0.1; // state->materials[matIndex + 5];
-      // t2.bEmi[depth] = 0.1; // state->materials[matIndex + 6];
-      //
-      // double3 final = finishTrace(t2, depth);
-      // int imPos = state->idx * 4;
-      // atomic_add(&state->image[imPos], (uint)(final.x) * 4096);
-      // atomic_add(&state->image[imPos + 1], (uint)(final.y) * 4096);
-      // atomic_add(&state->image[imPos + 2], (uint)(final.z) * 4096);
-      // atomic_add(&state->contribCount[state->idx], 1);
       // skybox time
       double elev = asin(dir.y);
       bEmi[i] = clamp(5.5 * elev, 0.2, 0.5);
@@ -244,13 +203,7 @@ double3 castRay(double3 orig_, double3 dir_,
       bAlb[i] = 0.0;
       rEmi[i] = 0.2;
       gEmi[i] = 0.2;
-      // bEmi[i] = 0.1;
       break;
-      // result.x = 0.1;
-      // result.y = 0.1;
-      // result.z = 0.1;
-      // break;
-      // return (double3){0.1, 0.1, 0.1};
     }
   }
   double r = 0.0;
@@ -265,10 +218,8 @@ double3 castRay(double3 orig_, double3 dir_,
     b += bEmi[i];
   }
   return (double3){r, g, b};
-  // return result;
 }
 
-// State state;
 // TODO: figure out how to get double3s across
 kernel void trace(
   const int width,
@@ -282,25 +233,19 @@ kernel void trace(
 )
 {
   State state;
-  // ColourTrace trace;
   state.materials = materials;
   state.sphereCenters = sphereCenters;
   state.matIndexes = objMaterialIndexes;
   state.sphereRadii = sphereRadii;
   state.sphCount = sphCount;
-  // state.image = image;
-  state.maxDepth = 3;
+  state.maxDepth = 4;
   const double focalLength = 1;
   double3 rayOrig = {0, 0, 0};
 
-  // int bounceCount = 3;
-
-  state.subRays = 80;
+  state.subRays = 5;
 
   int iters = pow((double)state.subRays, state.maxDepth - 1);
   state.iters = iters;
-
-  // int passes = pow((float)state.subRays, bounceCount);
 
   int gid = get_global_id(0);
   double majorDim = max(height, width);
@@ -314,19 +259,13 @@ kernel void trace(
   
   double3 result = {0, 0, 0};
 
-  // float seed;
-
   for (int i = 0; i < iters; i++) {
-    // seed = wang_hash(4294967295 * (x/w) * i) + wang_hash(4294967295 * (y/h) * i);
-    // result += castRay(rayOrig, rayDir, sphCount, sphereCenters, sphereRadii, materials, objMaterialIndexes, bounceCount, iters, subRays, i, seed);
     double2 minorOffs = fibLattice(i, iters);
     minorOffs /= majorDim;
     result += castRay(rayOrig, normalize((double3){rayDir.x + minorOffs.x, rayDir.y + minorOffs.y, rayDir.z}), &state, i); // , iters, i, seed);
   }
 
   result /= iters;
-  // double3 result = castRay((double3){0, 0, 0}, (double3){0, 0, 0}, 0, NULL, NULL, NULL, NULL, 0);
-  // double3 result;
   
   int id = gid * 4; 
   image[id] = result.x;
