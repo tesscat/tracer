@@ -1,3 +1,5 @@
+#include "hipSYCL/sycl/libkernel/builtins.hpp"
+#include <algorithm>
 #include <cstdlib>
 #include <fstream>
 #include <iostream>
@@ -12,6 +14,14 @@ using double2 = Vec<double, 2>;
 using double3 = Vec<double, 3>;
 
 #define PI 3.141592653589793238462643383279502884197169399
+
+// TODO: branchless
+template<typename T>
+T clamp(T a, T lo, T hi) {
+  if (a < lo) return lo;
+  if (a > hi) return hi;
+  return a;
+}
 
 template<typename T>
 using ClArr = cl::sycl::accessor<T, 1, cl::sycl::access::mode::read>;
@@ -117,6 +127,10 @@ double absolute(double i) {
   return -i;
 }
 
+RGB getEnvLighting(double3 _orig, double3 dir) {
+  return RGB({0.0, (dir.normalized()[1] + 1)*0.5, 0.0});
+}
+
 // TODO: nicer recursion
 double3 castRay(double3 orig_, double3 dir_,
   State* state,
@@ -145,11 +159,11 @@ double3 castRay(double3 orig_, double3 dir_,
     double3 result;
     double hit = -1;
     Sphere sphere;
-    for (int i = 0; i < state->sphCount; i++) {
-      double hit2 = hitSphere(state->spheres[i], orig, dir);
+    for (int i_ = 0; i_ < state->sphCount; i_++) {
+      double hit2 = hitSphere(state->spheres[i_], orig, dir);
       if (hit2 > 0.0 && (hit2 < hit || hit < 0.0)) {
         hit = hit2;
-        sphere = state->spheres[i];
+        sphere = state->spheres[i_];
         // hitIndex = i;
       }
     }
@@ -164,7 +178,7 @@ double3 castRay(double3 orig_, double3 dir_,
 
       double reflectionFactor = (state->materials[matIndex].reflection);
       double invRF = 1.0-reflectionFactor;
-      double3 newNorm = (norm *invRF + outgoing * reflectionFactor).normalized();
+      double3 newNorm = (norm * invRF + outgoing * reflectionFactor).normalized();
       // newNorm = normalize(newNorm);
 
       // rAlb[i] = state->materials[matIndex];
@@ -232,7 +246,7 @@ double3 castRay(double3 orig_, double3 dir_,
         // we do need to do this better though
         // https://stackoverflow.com/questions/29758545/how-to-find-refraction-vector-from-incoming-vector-and-surface-normal
         // bool isEnteringMoreDense = n2 > n1;
-        // double factor = (((double)isEnteringMoreDense) * 2) - 1;
+        // double factor = (((double)isEnteringMoreDense) * 2) - 1j89aha1woh;
         // always alignes
         if (dot(norm, dir) > 0) {
           norm = (norm * (-1));
@@ -265,9 +279,30 @@ double3 castRay(double3 orig_, double3 dir_,
       // lastMatInd = matIndex;
       // matInds[i + 1] = matIndex;
     } else {
+      // if (i != 0) {
+        // HOT PINK TIME
+        // return (double3){1.0, 0.0, 1.0};
+      // }
       // skybox time
-      double elev = asin(dir[1]);
-      emission[i].b = std::clamp(5.5 * elev, 0.2, 0.5);
+      // double elev = dir[1];
+      // emission[i].b = 5.5*elev;
+      // if (emission[i].b > 0.5) { emission[i].b = 0.5; }
+      // else if (emission[i].b < 0.3) { emission[i].b = 0.3; }
+      // emission[i].b = 3 * std::abs(dir[1]);
+      // if (emission[i].b > 1.0) {
+        // emission[i].b = 1.0;
+      // }
+      // emission[i].b = clamp(((double)(dir[1] * 4)), 0.2, 0.6);
+      // if (emission[i].b < 0.0) {
+        // emission[i].b = -emission[i].b;
+      // }
+      // emission[i].r = 0.2;
+      // emission[i].g = 0.2;
+      emission[i] = getEnvLighting(orig ,dir);
+      albedo[i].r = 0;
+      albedo[i].g = 0;
+      albedo[i].b = 0;
+      // emission[i].b = std::clamp(5.5 * elev, 0.2, 0.5);
       break;
     }
   }
@@ -304,8 +339,8 @@ void trace(
   State state = (State){.materials = materials,
   .spheres = spheres,
   .sphCount = sphCount,
-  .maxDepth = 4,
-  .subRays = 5,
+  .maxDepth = maxDepth,
+  .subRays = subRays,
   };
   // state.materials = materials;
   // state.sphereCenters = sphereCenters;
@@ -340,11 +375,16 @@ void trace(
   }
 
   result *= (1/(double)iters);
+  result *= 0.5;
   
   // int id = gid * 4; 
   // image[id] = result.x;
   // image[id + 1] = result.y;
   // image[id + 2] = result.z;
   // image[id + 3] = 1.0;
-  image[gid] = result;
+  RGB res (result);
+  // res.r -= std::min({res.r, 1.0});
+  // res.g -= std::min({res.r, 1.0});
+  // res.b -= std::min({res.r, 1.0});
+  image[gid]= res; //  = RGB(result);
 }

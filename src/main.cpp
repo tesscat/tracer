@@ -31,6 +31,8 @@ int WriteImage(std::string filename, std::vector<RGB> data, size_t width, size_t
       int rval = std::round(data[idx].r * imageColourDepth);
       int gval = std::round(data[idx].g * imageColourDepth);
       int bval = std::round(data[idx].b * imageColourDepth);
+      if ((rval > imageColourDepth) || (gval > imageColourDepth) || (bval > imageColourDepth))
+        std::cout << "Warning: violation of imageColourDepth by " << (rval - imageColourDepth) << '/' << (gval - imageColourDepth) << '/' << (bval - imageColourDepth) << '\n';
       // int alphaval = std::round(alpha * imageColourDepth);
       file << rval << ' ' << gval <<  ' ' << bval << '\n';
     }
@@ -72,10 +74,12 @@ int main(int argc, char** argv) {
   int subRays = std::stoi(parser.get<std::string>("--subrays"));
   int bounces = std::stoi(parser.get<std::string>("--bounces"));
 
+  std::cout << "Dimensions: " << width << "x" << height << "; " << subRays << " subrays and " << bounces << " bounces.\n";
+
   std::vector<RGB> image (width * height);
   std::cout << "Image is " << sizeof(RGB) * width * height << " bytes big, with " << sizeof(RGB) << " bytes per pixel\n";
   
-  int sphCount = 1;
+  int sphCount = 0;
   // std::vector<std::vector<double>> sphCenters = {{3.0, 0.0, 10.0}, {-3.0, 0.0, 10.0}, {0.0, 1.0, 10.0}, {0.0, -401.0, 10}, {-3.0, 3.0, 6.0}};
   // std::vector<int> sphMatIndexes = {1, 2, 3, 4, 5};
   // std::vector<double> sphCentersFlat;// (sphCenters.size() * 3, 0);
@@ -89,7 +93,8 @@ int main(int argc, char** argv) {
   // std::vector<double> sphRadii = {1.0, 1.0, 1.5, 400, 3};
   std::vector<Sphere> spheres;
   spheres.push_back(Sphere({0.0, 1.0, 10.0}, 1.5, 3));
-  spheres.push_back(Sphere({3.0, 0.0, 10.0}, 1, 2));
+  // spheres.push_back(Sphere({3.0, 0.0, 10.0}, 1, 2));
+  // spheres.push_back(Sphere({3.0, 3.0, 6.0}, 3, 5));
   
   Material air; // only care abt refInd but makes it easier
   Material m1;
