@@ -16,27 +16,37 @@
 int imageColourDepth = 1024;
 int workGroupSize = 1;
 
-int WriteImage(std::string filename, std::vector<RGB> data, size_t width, size_t height) {
+int WriteImage(std::string filename, std::vector<Colour> data, size_t width, size_t height) {
   std::ofstream file (filename, std::ios::binary);
+
+  int maxlen = 0;
 
   file << "P3\n" << width << ' ' << height << '\n' << imageColourDepth << '\n';
   for (int i = height - 1; i >= 0; i--) {
     for (int j = 0; j < width; j++) {
       int idx = (i*width + j);
+      if (data[idx].poly.coefficients.size() > maxlen)
+        maxlen = data[idx].poly.coefficients.size();
+      // std::cout << "poly ";
+      // for (auto coeff : data[idx].poly.coefficients)
+        // std::cout << coeff << ' ';
+      // std::cout << '\n';
       // double r = data[idx];
       // double g = data[idx + 1];
       // double b = data[idx + 2];
       // double alpha = data[idx + 4];
       // data is 0 to 1 range
-      int rval = std::round(data[idx].r * imageColourDepth);
-      int gval = std::round(data[idx].g * imageColourDepth);
-      int bval = std::round(data[idx].b * imageColourDepth);
+      int rval = std::round(data[idx].flatR() * imageColourDepth);
+      int gval = std::round(data[idx].flatG() * imageColourDepth);
+      int bval = std::round(data[idx].flatB() * imageColourDepth);
       if ((rval > imageColourDepth) || (gval > imageColourDepth) || (bval > imageColourDepth))
         std::cout << "Warning: violation of imageColourDepth by " << (rval - imageColourDepth) << '/' << (gval - imageColourDepth) << '/' << (bval - imageColourDepth) << '\n';
       // int alphaval = std::round(alpha * imageColourDepth);
       file << rval << ' ' << gval <<  ' ' << bval << '\n';
     }
   }
+
+  std::cout << maxlen << '\n';
 
   file.close();
 
@@ -76,8 +86,8 @@ int main(int argc, char** argv) {
 
   std::cout << "Dimensions: " << width << "x" << height << "; " << subRays << " subrays and " << bounces << " bounces.\n";
 
-  std::vector<RGB> image (width * height);
-  std::cout << "Image is " << sizeof(RGB) * width * height << " bytes big, with " << sizeof(RGB) << " bytes per pixel\n";
+  std::vector<Colour> image (width * height);
+  std::cout << "Image is " << sizeof(Colour) * width * height << " bytes big, with " << sizeof(Colour) << " bytes per pixel, maybe\n";
   
   int sphCount = 0;
   // std::vector<std::vector<double>> sphCenters = {{3.0, 0.0, 10.0}, {-3.0, 0.0, 10.0}, {0.0, 1.0, 10.0}, {0.0, -401.0, 10}, {-3.0, 3.0, 6.0}};
@@ -92,41 +102,43 @@ int main(int argc, char** argv) {
   // std::cout << "Length of sphere centers flattened: " << sphCentersFlat.size() << "\n";
   // std::vector<double> sphRadii = {1.0, 1.0, 1.5, 400, 3};
   std::vector<Sphere> spheres;
-  spheres.push_back(Sphere({0.0, 1.0, 10.0}, 1.5, 3));
+  spheres.push_back(Sphere({0.0, 1.0, 10.0}, 1.5, 1));
   // spheres.push_back(Sphere({3.0, 0.0, 10.0}, 1, 2));
   // spheres.push_back(Sphere({3.0, 3.0, 6.0}, 3, 5));
   
   Material air; // only care abt refInd but makes it easier
   Material m1;
-  Material m2;
-  Material m3;
-  Material m4;
-  Material m5;
-  m1.albedo.r = 1.0;
-  m1.albedo.g = 1.0;
-  m1.albedo.b = 1.0;
-  m2.albedo.g = 1.0;
-  m3.albedo.r = 1.0;
-  m3.albedo.g = 1.0;
-  m3.albedo.b = 1.0;
-  m3.emission.r = 3.0;
-  m3.emission.g = 3.0;
-  m3.emission.b = 3.0;
-  m4.albedo.r = 1.0;
-  m4.albedo.g = 1.0;
-  m4.albedo.b = 1.0;
-  m4.emission.r = 0.0;
-  m4.emission.g = 1.0;
-  m4.emission.b = 1.0;
-  m4.reflection = 0.0;
-  m5.translucency = 1.0;
-  m5.reflection = 0.0;
-  m5.albedo.r = 1.0;
-  m5.albedo.g = 1.0;
-  m5.albedo.b = 1.0;
-  m5.refIndex = 1.0;
+  m1.albedo = Colour(std::vector<double>({0.0}));
+  m1.emission = Colour(std::vector<double>({1.0, -1.0}));
+  // Material m2;
+  // Material m3;
+  // Material m4;
+  // Material m5;
+  // m1.albedo.r = 1.0;
+  // m1.albedo.g = 1.0;
+  // m1.albedo.b = 1.0;
+  // m2.albedo.g = 1.0;
+  // m3.albedo.r = 1.0;
+  // m3.albedo.g = 1.0;
+  // m3.albedo.b = 1.0;
+  // m3.emission.r = 3.0;
+  // m3.emission.g = 3.0;
+  // m3.emission.b = 3.0;
+  // m4.albedo.r = 1.0;
+  // m4.albedo.g = 1.0;
+  // m4.albedo.b = 1.0;
+  // m4.emission.r = 0.0;
+  // m4.emission.g = 1.0;
+  // m4.emission.b = 1.0;
+  // m4.reflection = 0.0;
+  // m5.translucency = 1.0;
+  // m5.reflection = 0.0;
+  // m5.albedo.r = 1.0;
+  // m5.albedo.g = 1.0;
+  // m5.albedo.b = 1.0;
+  // m5.refIndex = 1.0;
 
-  std::vector<Material> materials = {air, m1, m2, m3, m4, m5};
+  std::vector<Material> materials = {air, m1}; // , m1, m2, m3, m4, m5};
 
   cl::sycl::context ctx;
   std::cout << "Available devices:\n";
@@ -143,7 +155,7 @@ int main(int argc, char** argv) {
 
   {
       
-      cl::sycl::buffer<RGB, 1> img_sycl(image.data(), cl::sycl::range<1>(width * height));
+      cl::sycl::buffer<Colour, 1> img_sycl(image.data(), cl::sycl::range<1>(width * height));
       cl::sycl::buffer<Material, 1> mats_sycl(materials.data(), cl::sycl::range<1>{materials.size()});
       // cl::sycl::buffer<int, 1> matidx_sycl(sphMatIndexes.data(), cl::sycl::range<1>{sphMatIndexes.size()});
       // cl::sycl::buffer<double, 1> sph_centers_sycl(sphCentersFlat.data(), cl::sycl::range<1>{sphCentersFlat.size()});
@@ -159,7 +171,7 @@ int main(int argc, char** argv) {
         cgh.parallel_for(cl::sycl::range<1>(width * height), [=](cl::sycl::id<1> pos){
           int x = pos.get(0) % width;
           int y = floor(pos.get(0) / width);
-          img[pos.get(0)].r = x/(double)width;
+          // img[pos.get(0)].r = x/(double)width;
           trace(width, height, bounces, subRays, spheres.size(), spheres, mats, img, x, y);
           // c_acc[id] = t_acc[id].b;
         });

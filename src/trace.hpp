@@ -10,41 +10,26 @@
 
 #include <vec.hpp>
 
+#include <poly.hpp>
+
 using double2 = Vec<double, 2>;
 using double3 = Vec<double, 3>;
 
-#define PI 3.141592653589793238462643383279502884197169399
+#define PI 3.14159265
 
-// TODO: branchless
-template<typename T>
-T clamp(T a, T lo, T hi) {
-  if (a < lo) return lo;
-  if (a > hi) return hi;
-  return a;
-}
 
 template<typename T>
 using ClArr = cl::sycl::accessor<T, 1, cl::sycl::access::mode::read>;
 
-class RGB {
-public:
-  double r = 0.0;
-  double g = 0.0;
-  double b = 0.0;
-  std::vector<double> Flatten() {
-    return {r, g, b};
-  }
-  RGB() = default;
-  RGB(Vec<double, 3> v) : r {v[0]}, g{v[1]}, b{v[2]} {}
-};
 
 class Material {
 public:
-  RGB albedo;
-  RGB emission;
+  Colour albedo;
+  Colour emission;
   double reflection = 0.0;
   double translucency = 0.0;
   double refIndex = 1.0;
+/*
   std::vector<double> Flatten() {
     std::vector<double> out = albedo.Flatten();
     std::vector<double> tmp = emission.Flatten();
@@ -54,6 +39,7 @@ public:
     out.push_back(refIndex);
     return out;
   }
+*/
 };
 
 class Sphere {
@@ -127,33 +113,28 @@ double absolute(double i) {
   return -i;
 }
 
-RGB getEnvLighting(double3 _orig, double3 dir) {
-  return RGB({0.0, (dir.normalized()[1] + 1)*0.5, 0.0});
+Colour getEnvLighting(double3 _orig, double3 dir) {
+  return Colour(std::vector<double>({0.0, 3.0, -3.0}));
+  // return RGB({0.0, (dir.normalized()[1] + 1)*0.5, 0.0});
 }
 
 // TODO: nicer recursion
-double3 castRay(double3 orig_, double3 dir_,
+Colour castRay(double3 orig_, double3 dir_,
   State* state,
   int iter)
 {
-  std::vector<RGB> albedo (state->maxDepth);
-  std::vector<RGB> emission (state->maxDepth);
-  // double16 rAlb;
-  // double16 gAlb;
-  // double16 bAlb;
-  // double16 rEmi;
-  // double16 gEmi;
-  // double16 bEmi;
+  Colour rayColour(1.0);
+  Colour incomingLight(0.0);
+  std::vector<Colour> albedo (state->maxDepth);
+  std::vector<Colour> emission (state->maxDepth);
+
   std::vector<int> matInds (state->maxDepth);
-  // int16 matInds;
   matInds[0] = 0;
   int matIndsIndex = 0;
 
   double3 orig = orig_;
   double3 dir = dir_;
   int i;
-  // double refInd = 1.0;
-  // int lastMatInd = -1;
 
   for (i = 0; i < state->maxDepth; i++) {
     double3 result;
@@ -179,20 +160,10 @@ double3 castRay(double3 orig_, double3 dir_,
       double reflectionFactor = (state->materials[matIndex].reflection);
       double invRF = 1.0-reflectionFactor;
       double3 newNorm = (norm * invRF + outgoing * reflectionFactor).normalized();
-      // newNorm = normalize(newNorm);
 
-      // rAlb[i] = state->materials[matIndex];
-      // gAlb[i] = state->materials[matIndex + 1];
-      // bAlb[i] = state->materials[matIndex + 2];
-      albedo[i] = state->materials[matIndex].albedo;
-      emission[i] = state->materials[matIndex].emission;
+      incomingLight += rayColour * state->materials[matIndex].emission;
+      rayColour *= state->materials[matIndex].albedo;
 
-      // rEmi[i] = state->materials[matIndex + 3];
-      // gEmi[i] = state->materials[matIndex + 4];
-      // bEmi[i] = state->materials[matIndex + 5];
-
-
-      // translucency
       int subRays = state->subRays;
       double trans = state->materials[matIndex].translucency;
       // subRays = (int)((double)subRays * (1.0 - trans));
@@ -200,17 +171,10 @@ double3 castRay(double3 orig_, double3 dir_,
       double iterMod = iter % fromHereCount;
       double index = (iterMod * subRays) / fromHereCount;
       double idx = floor(index);
-      // int contRays = state->subRays * trans;
-      // get all the regulars out of the way first
+
       double sR = ((double)subRays * (1.0 - trans));
       if (idx < sR) {
-
-  // subrays ^ (depth - 1) total iters
-  // iter / (subrays ^ (depth - 1) / subrays) floor of for first
-  // (iter % (sub ^ (depth - 1 - myDepth))) / (subrays ^ (depth - 1 - myDepth) / subRays) floor for myDepth
-        
         // EVERYTHING IS DIFFUSE
-        
         
         double3 unitPoint = fibLatticeToUnitSphere(fibLattice(idx, sR));
         // make it shrink
@@ -260,7 +224,7 @@ double3 castRay(double3 orig_, double3 dir_,
         // n = 1;
         double cosI = -dot(norm, dir);
         double sinT2 = n * n * (1.0 - (cosI * cosI));
-        if(sinT2 > 1.0) return (double3){1.0, 0, 0}; // TIR
+        if(sinT2 > 1.0) return Colour(0.0); // TIR
         double cosT = sqrt(1.0 - sinT2);
         double3 outgoing = ((dir * n) + (norm * ((n * cosI) - cosT))).normalized();
         dir = outgoing;
@@ -279,45 +243,13 @@ double3 castRay(double3 orig_, double3 dir_,
       // lastMatInd = matIndex;
       // matInds[i + 1] = matIndex;
     } else {
-      // if (i != 0) {
-        // HOT PINK TIME
-        // return (double3){1.0, 0.0, 1.0};
-      // }
-      // skybox time
-      // double elev = dir[1];
-      // emission[i].b = 5.5*elev;
-      // if (emission[i].b > 0.5) { emission[i].b = 0.5; }
-      // else if (emission[i].b < 0.3) { emission[i].b = 0.3; }
-      // emission[i].b = 3 * std::abs(dir[1]);
-      // if (emission[i].b > 1.0) {
-        // emission[i].b = 1.0;
-      // }
-      // emission[i].b = clamp(((double)(dir[1] * 4)), 0.2, 0.6);
-      // if (emission[i].b < 0.0) {
-        // emission[i].b = -emission[i].b;
-      // }
-      // emission[i].r = 0.2;
-      // emission[i].g = 0.2;
-      emission[i] = getEnvLighting(orig ,dir);
-      albedo[i].r = 0;
-      albedo[i].g = 0;
-      albedo[i].b = 0;
+      incomingLight += getEnvLighting(orig, dir) * rayColour;
       // emission[i].b = std::clamp(5.5 * elev, 0.2, 0.5);
       break;
     }
   }
-  double r = 0.0;
-  double g = 0.0;
-  double b = 0.0;
-  for (; i >= 0; i--) {
-    r *= albedo[i].r;
-    r += emission[i].r;
-    g *= albedo[i].g;
-    g += emission[i].g;
-    b *= albedo[i].b;
-    b += emission[i].b;
-  }
-  return (double3){r, g, b};
+
+  return incomingLight;
 }
 
 // TODO: figure out how to get double3s across
@@ -330,7 +262,7 @@ void trace(
   ClArr<Sphere> spheres,
   ClArr<Material> materials,
   // RGB* image,
-  cl::sycl::accessor<RGB, 1, cl::sycl::access::mode::discard_write> image,
+  cl::sycl::accessor<Colour, 1, cl::sycl::access::mode::discard_write> image,
   // ClArr<RGB> image,
   int x,
   int y
@@ -366,7 +298,7 @@ void trace(
   double3 pxPos = {(2*x)/w - 1, (2*y)/w - (h/w), focalLength};
   double3 rayDir = pxPos.normalized();
   
-  double3 result = {0, 0, 0};
+  Colour result(0.0);
 
   for (int i = 0; i < iters; i++) {
     double2 minorOffs = fibLattice(i, iters);
@@ -375,16 +307,15 @@ void trace(
   }
 
   result *= (1/(double)iters);
-  result *= 0.5;
+
   
   // int id = gid * 4; 
   // image[id] = result.x;
   // image[id + 1] = result.y;
   // image[id + 2] = result.z;
   // image[id + 3] = 1.0;
-  RGB res (result);
   // res.r -= std::min({res.r, 1.0});
   // res.g -= std::min({res.r, 1.0});
   // res.b -= std::min({res.r, 1.0});
-  image[gid]= res; //  = RGB(result);
+  image[gid]= result; //  = RGB(result);
 }
