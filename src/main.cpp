@@ -1,12 +1,3 @@
-// #pragma OPENCL EXTENSION cl_khr_spir : enable
-// #pragma OPENCL EXTENSION cl_khr_il_program : enable
-// #define CL_HPP_ENABLE_EXCEPTIONS
-// #define CL_HPP_USE_IL_KHR
-// #define CL_HPP_TARGET_OPENCL_VERSION 300
-
-// #include <CL/opencl.hpp>
-// #include <CL/cl.h>
-
 #include <trace.hpp>
 #include <argparse/argparse.hpp>
 
@@ -16,17 +7,14 @@
 int imageColourDepth = 1024;
 int workGroupSize = 1;
 
-int WriteImage(std::string filename, std::vector<Colour> data, size_t width, size_t height) {
+int WriteImage(std::string filename, std::vector<double> r, std::vector<double> g, std::vector<double> b, size_t width, size_t height) {
   std::ofstream file (filename, std::ios::binary);
-
-  int maxlen = 0;
 
   file << "P3\n" << width << ' ' << height << '\n' << imageColourDepth << '\n';
   for (int i = height - 1; i >= 0; i--) {
     for (int j = 0; j < width; j++) {
       int idx = (i*width + j);
-      if (data[idx].poly.coefficients.size() > maxlen)
-        maxlen = data[idx].poly.coefficients.size();
+
       // std::cout << "poly ";
       // for (auto coeff : data[idx].poly.coefficients)
         // std::cout << coeff << ' ';
@@ -36,17 +24,15 @@ int WriteImage(std::string filename, std::vector<Colour> data, size_t width, siz
       // double b = data[idx + 2];
       // double alpha = data[idx + 4];
       // data is 0 to 1 range
-      int rval = std::round(data[idx].flatR() * imageColourDepth);
-      int gval = std::round(data[idx].flatG() * imageColourDepth);
-      int bval = std::round(data[idx].flatB() * imageColourDepth);
+      int rval = std::round(r[idx] * imageColourDepth);
+      int gval = std::round(g[idx] * imageColourDepth);
+      int bval = std::round(b[idx] * imageColourDepth);
       if ((rval > imageColourDepth) || (gval > imageColourDepth) || (bval > imageColourDepth))
         std::cout << "Warning: violation of imageColourDepth by " << (rval - imageColourDepth) << '/' << (gval - imageColourDepth) << '/' << (bval - imageColourDepth) << '\n';
       // int alphaval = std::round(alpha * imageColourDepth);
       file << rval << ' ' << gval <<  ' ' << bval << '\n';
     }
   }
-
-  std::cout << maxlen << '\n';
 
   file.close();
 
@@ -86,21 +72,13 @@ int main(int argc, char** argv) {
 
   std::cout << "Dimensions: " << width << "x" << height << "; " << subRays << " subrays and " << bounces << " bounces.\n";
 
-  std::vector<Colour> image (width * height);
-  std::cout << "Image is " << sizeof(Colour) * width * height << " bytes big, with " << sizeof(Colour) << " bytes per pixel, maybe\n";
+  std::vector<double> r (width * height);
+  std::vector<double> g (width * height);
+  std::vector<double> b (width * height);
+  std::cout << "Image is " << sizeof(double) * width * height *3 << " bytes big, with " << sizeof(double) * 3 << " effective bytes per pixel, maybe\n";
   
   int sphCount = 0;
-  // std::vector<std::vector<double>> sphCenters = {{3.0, 0.0, 10.0}, {-3.0, 0.0, 10.0}, {0.0, 1.0, 10.0}, {0.0, -401.0, 10}, {-3.0, 3.0, 6.0}};
-  // std::vector<int> sphMatIndexes = {1, 2, 3, 4, 5};
-  // std::vector<double> sphCentersFlat;// (sphCenters.size() * 3, 0);
-  // for (auto sphCenter : sphCenters) {
-    // for (double coord: sphCenter) {
-      // sphCentersFlat.push_back(coord);
-    // }
-    // sphCentersFlat.insert(sphCentersFlat.end(), sphCenter.begin(), sphCenter.end());
-  // }
-  // std::cout << "Length of sphere centers flattened: " << sphCentersFlat.size() << "\n";
-  // std::vector<double> sphRadii = {1.0, 1.0, 1.5, 400, 3};
+
   std::vector<Sphere> spheres;
   spheres.push_back(Sphere({0.0, 1.0, 10.0}, 1.5, 1));
   // spheres.push_back(Sphere({3.0, 0.0, 10.0}, 1, 2));
@@ -108,8 +86,8 @@ int main(int argc, char** argv) {
   
   Material air; // only care abt refInd but makes it easier
   Material m1;
-  m1.albedo = Colour(std::vector<double>({0.0}));
-  m1.emission = Colour(std::vector<double>({1.0, -1.0}));
+  m1.albedo = Colour(std::vector<double>({1.0, 0.0}));
+  m1.emission = Colour(std::vector<double>({0.0, 0.0}));
   // Material m2;
   // Material m3;
   // Material m4;
@@ -154,63 +132,40 @@ int main(int argc, char** argv) {
              << "\n";
 
   {
-      
-      cl::sycl::buffer<Colour, 1> img_sycl(image.data(), cl::sycl::range<1>(width * height));
-      cl::sycl::buffer<Material, 1> mats_sycl(materials.data(), cl::sycl::range<1>{materials.size()});
-      // cl::sycl::buffer<int, 1> matidx_sycl(sphMatIndexes.data(), cl::sycl::range<1>{sphMatIndexes.size()});
-      // cl::sycl::buffer<double, 1> sph_centers_sycl(sphCentersFlat.data(), cl::sycl::range<1>{sphCentersFlat.size()});
-      // cl::sycl::buffer<double, 1> sph_;radii_sycl(sphRadii.data(), cl::sycl::range<1>{sphRadii.size()});
-      cl::sycl::buffer<Sphere, 1> sph_sycl(spheres.data(), cl::sycl::range<1>{spheres.size()});
+    cl::sycl::buffer<double, 1> rimg_sycl(r.data(), cl::sycl::range<1>(width * height));
+    cl::sycl::buffer<double, 1> gimg_sycl(g.data(), cl::sycl::range<1>(width * height));
+    cl::sycl::buffer<double, 1> bimg_sycl(b.data(), cl::sycl::range<1>(width * height));
+    cl::sycl::buffer<Material, 1> mats_sycl(materials.data(), cl::sycl::range<1>{materials.size()});
+    // cl::sycl::buffer<int, 1> matidx_sycl(sphMatIndexes.data(), cl::sycl::range<1>{sphMatIndexes.size()});
+    // cl::sycl::buffer<double, 1> sph_centers_sycl(sphCentersFlat.data(), cl::sycl::range<1>{sphCentersFlat.size()});
+    // cl::sycl::buffer<double, 1> sph_;radii_sycl(sphRadii.data(), cl::sycl::range<1>{sphRadii.size()});
+    cl::sycl::buffer<Sphere, 1> sph_sycl(spheres.data(), cl::sycl::range<1>{spheres.size()});
+
+    std::vector<double> wavelengths {nmToVisiRange(630), nmToVisiRange(532), nmToVisiRange(467)};
+    std::vector<cl::sycl::buffer<double, 1>> ibuffers {rimg_sycl, gimg_sycl, bimg_sycl};
+
+    for (int i = 0; i < wavelengths.size(); i++) {
+      auto ibuffer = ibuffers[i];
       queue.submit([&] (cl::sycl::handler& cgh) {
-        auto img = img_sycl.get_access<cl::sycl::access::mode::discard_write>(cgh);
         auto mats = mats_sycl.get_access<cl::sycl::access::mode::read>(cgh);
-        // auto matsidx = matidx_sycl.get_access<cl::sycl::access::mode::read>(cgh);
-        // auto centers = sph_centers_sycl.get_access<cl::sycl::access::mode::read>(cgh);
-        // auto radii = sph_radii_sycl.get_access<cl::sycl::access::mode::read>(cgh);
         auto spheres = sph_sycl.get_access<cl::sycl::access::mode::read>(cgh);
+
+        // TODO: Deduplicate
+        // R=630nm, G=532nm, and B=467nm
+        auto img = ibuffer.get_access<cl::sycl::access::mode::discard_write>(cgh);
         cgh.parallel_for(cl::sycl::range<1>(width * height), [=](cl::sycl::id<1> pos){
           int x = pos.get(0) % width;
           int y = floor(pos.get(0) / width);
-          // img[pos.get(0)].r = x/(double)width;
-          trace(width, height, bounces, subRays, spheres.size(), spheres, mats, img, x, y);
-          // c_acc[id] = t_acc[id].b;
+
+          // call the damn thing
+          trace(width, height, bounces, subRays, spheres.size(), spheres, mats, img, x, y, wavelengths[i]);
         });
       });
-   }
+    }
+  }
 
   std::cout << "Finished executing\n";
 
-  WriteImage(parser.get<std::string>("--output"), image, width, height);
-
-  // stbi_write_png("out.png", width, height, 0, image.data(), sizeof(float) * 4);
-  // program.build(device);
-  // // cl::Kernel kernel {program, "vadd"};
-  //
-  //
-  // int n = 10;
-  //
-  //
-  // // cl::Buffer bufferC {context, CL_MEM_READ_WRITE, sizeof(int) * n};
-  //
-  // std::valarray<cl_int> a = {1, 2, 3, 4, 5, 6, 7, 8, 9, 0};
-  // std::valarray<cl_int> b = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
-  // std::valarray<cl_int> c = {0, 2, 0, 2, 0, 2, 0, 2, 0, 2};
-  // cl::Buffer bufferA {context, std::begin(a), std::end(a), true};
-  // cl::Buffer bufferB {context, std::begin(b), std::end(b), true};
-  // cl::Buffer bufferC {context, std::begin(c), std::end(c), false};
-  //
-  // cl::KernelFunctor<cl::Buffer, cl::Buffer, cl::Buffer> functor {program, "vadd"};
-  // // cl::KernelFunctor<cl::Buffer, cl::Buffer, cl::Buffer> functor {kernel, bufferA, bufferB, bufferC};
-  // cl::EnqueueArgs args {queue, cl::NDRange(10)};
-  // functor(args, bufferA, bufferB, bufferC);
-  //
-  // cl::copy(queue, bufferC, std::begin(c), std::end(c));
-  // // queue.enqueueReadBuffer(bufferC, CL_TRUE, 0, sizeof(int) * n, c);
-  //
-  // for (int x : output) {
-    // std::cout << x << " ";
-  // }
-  // std::cout << "\n";
-
+  WriteImage(parser.get<std::string>("--output"), r, g, b, width, height);
   return 0;
 }

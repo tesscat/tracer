@@ -3,5 +3,6 @@ build
 *.ppm
 *.png
 *.json
+*.out
 .cache
 cache

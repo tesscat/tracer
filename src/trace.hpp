@@ -9,8 +9,9 @@
 #include <CL/sycl.hpp>
 
 #include <vec.hpp>
+#include <colour.hpp>
 
-#include <poly.hpp>
+// #include <poly.hpp>
 
 using double2 = Vec<double, 2>;
 using double3 = Vec<double, 3>;
@@ -113,20 +114,26 @@ double absolute(double i) {
   return -i;
 }
 
-Colour getEnvLighting(double3 _orig, double3 dir) {
-  return Colour(std::vector<double>({0.0, 3.0, -3.0}));
+double getEnvLighting(double3 _orig, double3 dir, double wavelength) {
+  return 0.5; // Colour(std::vector<double>({0.0, 3.0, 0.5}));
   // return RGB({0.0, (dir.normalized()[1] + 1)*0.5, 0.0});
 }
 
 // TODO: nicer recursion
-Colour castRay(double3 orig_, double3 dir_,
+double castRay(
+  double3 orig_,
+  double3 dir_,
   State* state,
-  int iter)
+  int iter,
+  double wavelength
+  )
 {
-  Colour rayColour(1.0);
-  Colour incomingLight(0.0);
-  std::vector<Colour> albedo (state->maxDepth);
-  std::vector<Colour> emission (state->maxDepth);
+  // accumulated brightness so far
+  double brightness = 0.0;
+  // how much of the light from here makes it back
+  // fully dependant on albedo
+  double transmittance = 1.0;
+
 
   std::vector<int> matInds (state->maxDepth);
   matInds[0] = 0;
@@ -135,8 +142,10 @@ Colour castRay(double3 orig_, double3 dir_,
   double3 orig = orig_;
   double3 dir = dir_;
   int i;
+  
+  for (i = 0; (i < state->maxDepth); i++) {
 
-  for (i = 0; i < state->maxDepth; i++) {
+    // Calculate where we hit a sphere
     double3 result;
     double hit = -1;
     Sphere sphere;
@@ -148,35 +157,50 @@ Colour castRay(double3 orig_, double3 dir_,
         // hitIndex = i;
       }
     }
+
+    // If we hit one,
     if (hit >= 0.0) {
+      // Find where
       orig = dir * hit + orig;
+      // Find the normal
       double3 norm = (orig - sphere.center).normalized();
 
       // https://math.stackexchange.com/questions/13261/how-to-get-a-reflection-vector
       double3 outgoing = (dir - (norm * 2 * dot(dir, norm))).normalized();
 
+      // Get material...
       int matIndex = sphere.matIdx;
-
-      double reflectionFactor = (state->materials[matIndex].reflection);
+      Material mat = state->materials[matIndex];
+      // and some extra stuff
+      double reflectionFactor = mat.reflection;
       double invRF = 1.0-reflectionFactor;
       double3 newNorm = (norm * invRF + outgoing * reflectionFactor).normalized();
+      double translucency = mat.translucency;
 
-      incomingLight += rayColour * state->materials[matIndex].emission;
-      rayColour *= state->materials[matIndex].albedo;
-
+      // How much does this light add to us?
+      //            how much this thing emits       * how much makes it back
+      brightness += mat.emission.Sample(wavelength) * transmittance;
+      transmittance *= mat.albedo.Sample(wavelength);
+      // if no transmittance, no point simulating further
+      if (transmittance <= 0.0) break;
+      
+      // how many sub rays should we cast?
       int subRays = state->subRays;
-      double trans = state->materials[matIndex].translucency;
-      // subRays = (int)((double)subRays * (1.0 - trans));
+
+      // ugly af maths to figure out which ray we're on
       int fromHereCount = floor(state->iters/pow((double)subRays, i));
       double iterMod = iter % fromHereCount;
       double index = (iterMod * subRays) / fromHereCount;
       double idx = floor(index);
 
-      double sR = ((double)subRays * (1.0 - trans));
-      if (idx < sR) {
-        // EVERYTHING IS DIFFUSE
+      // TODO: better modelling for partially-transparent, partially-reflective materials
+      
+      // which index of ray should we start computing translucency?
+      double translucency_thresh = ((double)subRays * (1.0 - translucency));
+      if (idx < translucency_thresh) {
+        // We're calculating a diffuse/reflect ray
         
-        double3 unitPoint = fibLatticeToUnitSphere(fibLattice(idx, sR));
+        double3 unitPoint = fibLatticeToUnitSphere(fibLattice(idx, translucency_thresh));
         // make it shrink
         double angleBetween = acos(dot(norm, outgoing));
         double blend = sin(angleBetween) * invRF;
@@ -184,6 +208,8 @@ Colour castRay(double3 orig_, double3 dir_,
         unitPoint += newNorm;
         dir = unitPoint.normalized();
       } else {
+        // EDITOR'S NOTE: i do not understand this
+        // TODO: rewrite
         // dir unchanged; point updated;
         // so like nothing actually happens
         // wait no! refraction time
@@ -224,7 +250,7 @@ Colour castRay(double3 orig_, double3 dir_,
         // n = 1;
         double cosI = -dot(norm, dir);
         double sinT2 = n * n * (1.0 - (cosI * cosI));
-        if(sinT2 > 1.0) return Colour(0.0); // TIR
+        if(sinT2 > 1.0) return 0.0; // TIR
         double cosT = sqrt(1.0 - sinT2);
         double3 outgoing = ((dir * n) + (norm * ((n * cosI) - cosT))).normalized();
         dir = outgoing;
@@ -243,13 +269,13 @@ Colour castRay(double3 orig_, double3 dir_,
       // lastMatInd = matIndex;
       // matInds[i + 1] = matIndex;
     } else {
-      incomingLight += getEnvLighting(orig, dir) * rayColour;
+      brightness += getEnvLighting(orig, dir, wavelength);
       // emission[i].b = std::clamp(5.5 * elev, 0.2, 0.5);
       break;
     }
   }
 
-  return incomingLight;
+  return brightness;
 }
 
 // TODO: figure out how to get double3s across
@@ -262,17 +288,19 @@ void trace(
   ClArr<Sphere> spheres,
   ClArr<Material> materials,
   // RGB* image,
-  cl::sycl::accessor<Colour, 1, cl::sycl::access::mode::discard_write> image,
+  cl::sycl::accessor<double, 1, cl::sycl::access::mode::discard_write> image,
   // ClArr<RGB> image,
   int x,
-  int y
+  int y,
+  double wavelength
 )
 {
-  State state = (State){.materials = materials,
+  State state = (State){
   .spheres = spheres,
+  .materials = materials,
   .sphCount = sphCount,
-  .maxDepth = maxDepth,
   .subRays = subRays,
+  .maxDepth = maxDepth,
   };
   // state.materials = materials;
   // state.sphereCenters = sphereCenters;
@@ -298,24 +326,15 @@ void trace(
   double3 pxPos = {(2*x)/w - 1, (2*y)/w - (h/w), focalLength};
   double3 rayDir = pxPos.normalized();
   
-  Colour result(0.0);
+  double result = 0.0;
 
   for (int i = 0; i < iters; i++) {
     double2 minorOffs = fibLattice(i, iters);
     minorOffs *= (1/majorDim);
-    result += castRay(rayOrig, ((double3){rayDir[0] + minorOffs[0], rayDir[1] + minorOffs[1], rayDir[2]}).normalized(), &state, i); // , iters, i, seed);
+    result += castRay(rayOrig, ((double3){rayDir[0] + minorOffs[0], rayDir[1] + minorOffs[1], rayDir[2]}).normalized(), &state, i, wavelength);
   }
 
   result *= (1/(double)iters);
 
-  
-  // int id = gid * 4; 
-  // image[id] = result.x;
-  // image[id + 1] = result.y;
-  // image[id + 2] = result.z;
-  // image[id + 3] = 1.0;
-  // res.r -= std::min({res.r, 1.0});
-  // res.g -= std::min({res.r, 1.0});
-  // res.b -= std::min({res.r, 1.0});
-  image[gid]= result; //  = RGB(result);
+  image[gid] = result;
 }
