@@ -1,0 +1,29 @@
+#include <iostream>
+#include <colour.hpp>
+
+// TODO: should I just use tick increments? probably. Will I? no.
+int doCacheMath(int subRays, int maxDepth, int iter) {
+  // complicated. good luck figuring this out
+  // draw up a tree diagram lol
+  // this tries to work out, for a given iteration i,
+  // how far it deviates (in nodes from the end) from the previous
+  //
+  // Check if it lies on a boundary, if so, which one?
+  for(int i = 1; i < maxDepth; i++) {
+    int groupSize = std::pow(subRays, i);
+    // we're really just checking if iter is a multiple
+    if ((iter % groupSize) != 0) {return i;}
+    // if (((iter % groupSize) - 1) == ((iter - 1) % groupSize)) {
+      // not on boundary
+      // return i;
+    // }
+  }
+  return maxDepth;
+}
+
+int main() {
+  Colour c ({0.5, 0.5, 0.0});
+  std::cout << c.Sample(0.2) << ' ' << c.Sample(0.8) << ' ' << c.Sample(nmToVisiRange(630));
+  // std::cout << (((8%4)-1) == ((8-1)%4)) << '\n';
+  // std::cout << doCacheMath(4, 3, 0) << ' ' << doCacheMath(4, 3, 4) << '\n';
+}

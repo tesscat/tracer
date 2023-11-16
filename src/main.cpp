@@ -81,14 +81,18 @@ int main(int argc, char** argv) {
 
   std::vector<Sphere> spheres;
   spheres.push_back(Sphere({0.0, 1.0, 10.0}, 1.5, 1));
-  // spheres.push_back(Sphere({3.0, 0.0, 10.0}, 1, 2));
-  // spheres.push_back(Sphere({3.0, 3.0, 6.0}, 3, 5));
+  spheres.push_back(Sphere({3.0, 0.0, 10.0}, 1, 1));
+  spheres.push_back(Sphere({0.0, -101.0, 0.0}, 100, 2));
   
   Material air; // only care abt refInd but makes it easier
   Material m1;
+  m1.reflection = 0.0;
   m1.albedo = Colour(std::vector<double>({1.0, 0.0}));
-  m1.emission = Colour(std::vector<double>({0.0, 0.0}));
-  // Material m2;
+  m1.emission = Colour(std::vector<double>({0.5, 0.5, 0.0}));
+  Material m2;
+  m2.reflection = 0.0;
+  m2.albedo = Colour(std::vector<double>({1.0, 1.0}));
+  m2.emission = Colour(std::vector<double>({0.0, 0.0, 0.0}));
   // Material m3;
   // Material m4;
   // Material m5;
@@ -116,13 +120,15 @@ int main(int argc, char** argv) {
   // m5.albedo.b = 1.0;
   // m5.refIndex = 1.0;
 
-  std::vector<Material> materials = {air, m1}; // , m1, m2, m3, m4, m5};
+  std::vector<Material> materials = {air, m1, m2}; // , m1, m2, m3, m4, m5};
 
+  // exit(1);
   cl::sycl::context ctx;
   std::cout << "Available devices:\n";
   for (auto dev : ctx.get_devices()) {
     std::cout << '\t' << dev.get_info<cl::sycl::info::device::name>() << '\n';
   }
+
 
   cl::sycl::default_selector device_selector;
 

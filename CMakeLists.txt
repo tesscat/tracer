@@ -5,13 +5,16 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O3")
 
 project(tracer VERSION 0.0)
 
+# set(CMAKE_PREFIX_PATH ${CMAKE_PREFIX_PATH})
+# set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${PROJECT_SOURCE_DIR}/vendor/AdaptiveCpp/build/)
+# set(AdaptiveCpp_DIR vendor/AdaptiveCpp/build)
+
 set(SOURCE_FILES src/main.cpp)
 
-find_package(OpenCL REQUIRED)
-add_subdirectory("vendor/OpenSYCL")
-find_package(OpenSYCL REQUIRED)
+# add_subdirectory("vendor/AdaptiveCpp")
+find_package(AdaptiveCpp REQUIRED)
 add_subdirectory("vendor/argparse")
-# find_package(wild REQUIRED) TODO: make work
+
 add_executable(tracer ${SOURCE_FILES})
 
 add_sycl_to_target(TARGET tracer)

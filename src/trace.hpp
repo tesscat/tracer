@@ -1,4 +1,4 @@
-#include "hipSYCL/sycl/libkernel/builtins.hpp"
+// #include "hipSYCL/sycl/libkernel/builtins.hpp"
 #include <algorithm>
 #include <cstdlib>
 #include <fstream>
@@ -78,7 +78,7 @@ double3 fibLatticeToUnitSphere(double2 pos) {
   return (double3){cos(theta) * sinorb, sin(theta) * sinorb, cos(orb)};
 }
 
-double hitSphere(Sphere sphere, double3 rayOrig, const double3 rayDir) {
+double hitSphere(const Sphere sphere, double3 rayOrig, const double3 rayDir) {
   double3 ac = rayOrig - sphere.center;
   double a = pow(rayDir.length(), 2);
   double half_b = dot(ac, rayDir);
@@ -98,181 +98,269 @@ typedef struct State {
   int iters;
 } State;
 
-// double3 refract(const double3 normal, const double3 incident, 
-//                double n1, double n2) 
-// {
-//     const double n = n1 / n2;
-//     const double cosI = -dot(normal, incident);
-//     const double sinT2 = n * n * (1.0 - cosI * cosI);
-//     if(sinT2 > 1.0) return (double3){0, 0}; // TIR
-//     const double cosT = sqrt(1.0 - sinT2);
-//     return n * incident + (n * cosI - cosT) * normal;
-// }
+typedef struct CachedPoint {
+  double3 point;
+  double3 indir;
+  double brightness;
+  double transmittance;
+  bool hitSky;
+  const Sphere* sphere;
+} CachedPoint;
+
 
 double absolute(double i) {
   if (i > 0) return i;
   return -i;
 }
-
+Colour EnvC (std::vector<double>({0.5, 0.5, 0.9}));
 double getEnvLighting(double3 _orig, double3 dir, double wavelength) {
+  return EnvC.Sample(wavelength);
   return 0.5; // Colour(std::vector<double>({0.0, 3.0, 0.5}));
-  // return RGB({0.0, (dir.normalized()[1] + 1)*0.5, 0.0});
+}
+// TODO: should I just use tick increments? probably. Will I? no.
+int doCacheMath(int subRays, int maxDepth, int iter) {
+  // complicated. good luck figuring this out
+  // draw up a tree diagram lol
+  // this tries to work out, for a given iteration i,
+  // how far it deviates (in nodes from the end) from the previous
+  //
+  // Check if it lies on a boundary, if so, which one?
+  // TODO: cache POW calls for easier (cheap) thingys
+  for(int i = 1; i < maxDepth; i++) {
+    int groupSize = std::pow(subRays, i);
+    // we're really just checking if iter is a multiple
+    // TODO: why +1?
+    if ((iter % groupSize) != 0) {return i + 1;}
+  }
+  return maxDepth;
+}
+
+
+struct DidWeHitSomethingInfo {
+  double pos;
+  const Sphere* sphere;
+};
+
+DidWeHitSomethingInfo didWeHitSomething(double3 orig, double3 dir, int sphCount, ClArr<Sphere> spheres) {
+  // Calculate where we hit a sphere
+  double hit = -1;
+  const Sphere* sphere;
+  for (int i_ = 0; i_ < sphCount; i_++) {
+    double hit2 = hitSphere(spheres[i_], orig, dir);
+    if (hit2 > 0.0 && (hit2 < hit || hit < 0.0)) {
+      hit = hit2;
+      sphere = &spheres[i_];
+      // hitIndex = i;
+    }
+  }
+  return (DidWeHitSomethingInfo){.pos = hit, .sphere = sphere};
 }
 
 // TODO: nicer recursion
 double castRay(
-  double3 orig_,
-  double3 dir_,
   State* state,
   int iter,
-  double wavelength
+  double wavelength,
+  CachedPoint cache[]
   )
 {
+  int backtrack = doCacheMath(state->subRays, state->maxDepth, iter);
+  CachedPoint backtrack_pt = cache[state->maxDepth - backtrack];
+
+  // we only need to run backtrack iterations! wooo!!
   // accumulated brightness so far
-  double brightness = 0.0;
+  double brightness = backtrack_pt.brightness;
   // how much of the light from here makes it back
   // fully dependant on albedo
-  double transmittance = 1.0;
+  double transmittance = backtrack_pt.transmittance;
+
+  if (backtrack_pt.hitSky) {
+    return brightness;
+  }
 
 
-  std::vector<int> matInds (state->maxDepth);
-  matInds[0] = 0;
-  int matIndsIndex = 0;
+  // std::vector<int> matInds (state->maxDepth);
+  // matInds[0] = 0;
+  // int matIndsIndex = 0;
 
-  double3 orig = orig_;
-  double3 dir = dir_;
+  double3 contact_pt = backtrack_pt.point;
+  double3 indir = backtrack_pt.indir;
+  const Sphere* sphere = backtrack_pt.sphere;
   int i;
+  bool first = true;
   
-  for (i = 0; (i < state->maxDepth); i++) {
+  for (i = (state->maxDepth - backtrack); (i < state->maxDepth); i++) {
 
     // Calculate where we hit a sphere
-    double3 result;
-    double hit = -1;
-    Sphere sphere;
-    for (int i_ = 0; i_ < state->sphCount; i_++) {
-      double hit2 = hitSphere(state->spheres[i_], orig, dir);
-      if (hit2 > 0.0 && (hit2 < hit || hit < 0.0)) {
-        hit = hit2;
-        sphere = state->spheres[i_];
-        // hitIndex = i;
+    // // ugly hack, TODO: make nicer
+    // if (!first) {
+    //   DidWeHitSomethingInfo hitInfo = didWeHitSomething(orig, dir, state->sphCount, state->spheres);
+    // }
+
+
+    // Assume we hit one (we did)
+    // if (hitInfo.pos >= 0.0) {
+    // Get material
+    int matIndex = sphere->matIdx;
+    Material mat = state->materials[matIndex];
+    // How much does this light add to us?
+    //            how much this thing emits       * how much makes it back
+    brightness += mat.emission.Sample(wavelength) * transmittance;
+    transmittance *= mat.albedo.Sample(wavelength);
+    // if no transmittance, no point simulating further
+    if (transmittance <= 0.0) break;
+    // or if no next iter
+    if ((i + 1) == state->maxDepth) break;
+
+    // Find where we hit
+    // orig = dir * hitInfo.pos + orig;
+    // Find the normal
+    double3 norm = (contact_pt - sphere->center).normalized();
+
+    // https://math.stackexchange.com/questions/13261/how-to-get-a-reflection-vector
+    double3 outgoing = (indir - (norm * 2 * dot(indir, norm))).normalized();
+
+
+    // and some extra stuff
+    double reflectionFactor = mat.reflection;
+    double invRF = 1.0-reflectionFactor;
+    double3 newNorm = (norm * invRF + outgoing * reflectionFactor).normalized();
+    double translucency = mat.translucency;
+
+    
+    
+    // how many sub rays should we cast?
+    int subRays = state->subRays;
+
+    // ugly af maths to figure out which ray we're on
+    int fromHereCount = floor(state->iters/pow((double)subRays, i));
+    double iterMod = iter % fromHereCount;
+    double index = (iterMod * subRays) / fromHereCount;
+    double idx = floor(index);
+
+    // TODO: better modelling for partially-transparent, partially-reflective materials
+    
+    // which index of ray should we start computing translucency?
+    double translucency_thresh = ((double)subRays * (1.0 - translucency));
+    if (idx < translucency_thresh) {
+      // We're calculating a diffuse/reflect ray
+      
+      double3 unitPoint = fibLatticeToUnitSphere(fibLattice(idx, translucency_thresh));
+      // make it shrink
+      double angleBetween = acos(dot(norm, outgoing));
+      double blend = sin(angleBetween) * invRF;
+      unitPoint *= blend;
+      unitPoint += newNorm;
+      indir = unitPoint.normalized();
+    } else {
+      // refraction!!
+      // TODO: diffraction with either Anne number or Sellmeier constants
+      return 1.0;
+      // EDITOR'S NOTE: i do not understand this
+      // TODO: rewrite
+      // get angle o incidence
+      double incidence = std::acos(dot(norm, indir));
+      // n1 sin i = n2 sin r moment
+      // ie sin r = n1/n2 (sin i)
+
+      // dir unchanged; point updated;
+      // so like nothing actually happens
+      // wait no! refraction time
+      // n1 sin i = n2 sin r
+      // n1 is current refIndex, n2 is new
+      // i is incidence, and r is outgoing
+      // therefore r = asin ((n1 sin i)/n2)
+      //
+      /*
+      bool isEntering = dot(norm, indir) < 0;
+      int newMatIndsIndex;
+      if (isEntering) {
+        newMatIndsIndex = matIndsIndex + 1;
+        matInds[newMatIndsIndex] = matIndex;
+      } else {
+        newMatIndsIndex = matIndsIndex - 1;
       }
+      //
+      // BIG TODO: things like TIR
+      // double incidence = acos(dot(norm, dir));
+      double n1 = state->materials[matInds[matIndsIndex]].refIndex;
+      double n2 = state->materials[matInds[newMatIndsIndex]].refIndex;
+      // if (matIndex != lastMatInd) n2 = state->materials[matIndex + 8];
+      // cope with air re-entry
+      // we do need to do this better though
+      // https://stackoverflow.com/questions/29758545/how-to-find-refraction-vector-from-incoming-vector-and-surface-normal
+      // bool isEnteringMoreDense = n2 > n1;
+      // double factor = (((double)isEnteringMoreDense) * 2) - 1j89aha1woh;
+      // always alignes
+      if (dot(norm, indir) > 0) {
+        norm = (norm * (-1));
+        double a = n1;
+        n1 = n2;
+        n2 = a;
+      }
+      double n = n1 / n2;
+      // if (n != 1.0) {return (double3){1.0, 0.0, 0.0};}
+      // n = 1.2/1;
+      // n = 1;
+      double cosI = -dot(norm, indir);
+      double sinT2 = n * n * (1.0 - (cosI * cosI));
+      if(sinT2 > 1.0) return 0.0; // TIR
+      double cosT = sqrt(1.0 - sinT2);
+      double3 outgoing = ((indir * n) + (norm * ((n * cosI) - cosT))).normalized();
+      indir = outgoing;
+      // refInd = n2;
+      // TODO: don't abs uhh
+      
+      // // double outgoingAngle = asin((refInd/n2) * sin(incidence));
+      // if (isEntering) {
+      //   matIndsIndex += 1;
+      //   matInds[matIndsIndex] = matIndex;
+      // }
+      // else matIndsIndex -= 1
+      matIndsIndex = newMatIndsIndex; */
+      
     }
 
-    // If we hit one,
-    if (hit >= 0.0) {
-      // Find where
-      orig = dir * hit + orig;
-      // Find the normal
-      double3 norm = (orig - sphere.center).normalized();
-
-      // https://math.stackexchange.com/questions/13261/how-to-get-a-reflection-vector
-      double3 outgoing = (dir - (norm * 2 * dot(dir, norm))).normalized();
-
-      // Get material...
-      int matIndex = sphere.matIdx;
-      Material mat = state->materials[matIndex];
-      // and some extra stuff
-      double reflectionFactor = mat.reflection;
-      double invRF = 1.0-reflectionFactor;
-      double3 newNorm = (norm * invRF + outgoing * reflectionFactor).normalized();
-      double translucency = mat.translucency;
-
-      // How much does this light add to us?
-      //            how much this thing emits       * how much makes it back
-      brightness += mat.emission.Sample(wavelength) * transmittance;
-      transmittance *= mat.albedo.Sample(wavelength);
-      // if no transmittance, no point simulating further
-      if (transmittance <= 0.0) break;
-      
-      // how many sub rays should we cast?
-      int subRays = state->subRays;
-
-      // ugly af maths to figure out which ray we're on
-      int fromHereCount = floor(state->iters/pow((double)subRays, i));
-      double iterMod = iter % fromHereCount;
-      double index = (iterMod * subRays) / fromHereCount;
-      double idx = floor(index);
-
-      // TODO: better modelling for partially-transparent, partially-reflective materials
-      
-      // which index of ray should we start computing translucency?
-      double translucency_thresh = ((double)subRays * (1.0 - translucency));
-      if (idx < translucency_thresh) {
-        // We're calculating a diffuse/reflect ray
-        
-        double3 unitPoint = fibLatticeToUnitSphere(fibLattice(idx, translucency_thresh));
-        // make it shrink
-        double angleBetween = acos(dot(norm, outgoing));
-        double blend = sin(angleBetween) * invRF;
-        unitPoint *= blend;
-        unitPoint += newNorm;
-        dir = unitPoint.normalized();
-      } else {
-        // EDITOR'S NOTE: i do not understand this
-        // TODO: rewrite
-        // dir unchanged; point updated;
-        // so like nothing actually happens
-        // wait no! refraction time
-        // n1 sin i = n2 sin r
-        // n1 is current refIndex, n2 is new
-        // i is incidence, and r is outgoing
-        // therefore r = asin ((n1 sin i)/n2)
-        //
-        bool isEntering = dot(norm, dir) < 0;
-        int newMatIndsIndex;
-        if (isEntering) {
-          newMatIndsIndex = matIndsIndex + 1;
-          matInds[newMatIndsIndex] = matIndex;
-        } else {
-          newMatIndsIndex = matIndsIndex - 1;
-        }
-        //
-        // BIG TODO: things like TIR
-        // double incidence = acos(dot(norm, dir));
-        double n1 = state->materials[matInds[matIndsIndex]].refIndex;
-        double n2 = state->materials[matInds[newMatIndsIndex]].refIndex;
-        // if (matIndex != lastMatInd) n2 = state->materials[matIndex + 8];
-        // cope with air re-entry
-        // we do need to do this better though
-        // https://stackoverflow.com/questions/29758545/how-to-find-refraction-vector-from-incoming-vector-and-surface-normal
-        // bool isEnteringMoreDense = n2 > n1;
-        // double factor = (((double)isEnteringMoreDense) * 2) - 1j89aha1woh;
-        // always alignes
-        if (dot(norm, dir) > 0) {
-          norm = (norm * (-1));
-          double a = n1;
-          n1 = n2;
-          n2 = a;
-        }
-        double n = n1 / n2;
-        // if (n != 1.0) {return (double3){1.0, 0.0, 0.0};}
-        // n = 1.2/1;
-        // n = 1;
-        double cosI = -dot(norm, dir);
-        double sinT2 = n * n * (1.0 - (cosI * cosI));
-        if(sinT2 > 1.0) return 0.0; // TIR
-        double cosT = sqrt(1.0 - sinT2);
-        double3 outgoing = ((dir * n) + (norm * ((n * cosI) - cosT))).normalized();
-        dir = outgoing;
-        // refInd = n2;
-        // TODO: don't abs uhh
-        
-        // // double outgoingAngle = asin((refInd/n2) * sin(incidence));
-        // if (isEntering) {
-        //   matIndsIndex += 1;
-        //   matInds[matIndsIndex] = matIndex;
-        // }
-        // else matIndsIndex -= 1
-        matIndsIndex = newMatIndsIndex;
-        
+    // Okay, now calculate for next iter where we hit
+    DidWeHitSomethingInfo hitInfo = didWeHitSomething(contact_pt, indir, state->sphCount, state->spheres);
+    if (hitInfo.pos <= 0.0) {
+      // no hit
+      brightness += getEnvLighting(contact_pt, indir, wavelength) * transmittance;
+      CachedPoint pt;
+      // pt.indir = dir;
+      // pt.point = orig;
+      // pt.transmittance = transmittance;
+      pt.brightness = brightness;
+      pt.hitSky = true;
+      for (i += 1; (i < state->maxDepth); i++) {
+        cache[i] = pt;
       }
-      // lastMatInd = matIndex;
-      // matInds[i + 1] = matIndex;
-    } else {
-      brightness += getEnvLighting(orig, dir, wavelength);
-      // emission[i].b = std::clamp(5.5 * elev, 0.2, 0.5);
       break;
     }
+    // recompute
+    contact_pt = (indir * hitInfo.pos) + contact_pt;
+    sphere = hitInfo.sphere;
+    cache[i+1].brightness = brightness;
+    cache[i+1].transmittance = transmittance;
+    cache[i+1].hitSky = false;
+    cache[i+1].point = contact_pt;
+    cache[i+1].sphere = sphere;
+    cache[i+1].indir = indir;
+
+    // } else {
+    //   brightness += getEnvLighting(orig, dir, wavelength) * transmittance;
+    //   CachedPoint pt;
+    //   // pt.indir = dir;
+    //   // pt.point = orig;
+    //   // pt.transmittance = transmittance;
+    //   pt.brightness = brightness;
+    //   pt.hitSky = true;
+    //   for (; (i < state->maxDepth); i++) {
+    //     cache[i] = pt;
+    //   }
+    //
+    //   break;
+    // }
   }
 
   return brightness;
@@ -287,9 +375,7 @@ void trace(
   int sphCount,
   ClArr<Sphere> spheres,
   ClArr<Material> materials,
-  // RGB* image,
   cl::sycl::accessor<double, 1, cl::sycl::access::mode::discard_write> image,
-  // ClArr<RGB> image,
   int x,
   int y,
   double wavelength
@@ -302,16 +388,8 @@ void trace(
   .subRays = subRays,
   .maxDepth = maxDepth,
   };
-  // state.materials = materials;
-  // state.sphereCenters = sphereCenters;
-  // state.matIndexes = objMaterialIndexes;
-  // state.sphereRadii = sphereRadii;
-  // state.sphCount = sphCount;
-  // state.maxDepth = 4;
   const double focalLength = 1;
   double3 rayOrig = {0, 0, 0};
-
-  // state.subRays = 5;
 
   int iters = pow((double)state.subRays, state.maxDepth - 1);
   state.iters = iters;
@@ -319,8 +397,6 @@ void trace(
   int gid = y * width + x;
   double majorDim = fmax(height, width);
   state.idx = gid;
-  // double x = gid % width; 
-  // double y = height - (gid - x)/majorDim; 
   double w = width; 
   double h = height;
   double3 pxPos = {(2*x)/w - 1, (2*y)/w - (h/w), focalLength};
@@ -328,10 +404,25 @@ void trace(
   
   double result = 0.0;
 
+  DidWeHitSomethingInfo hitInfo = didWeHitSomething(rayOrig, rayDir, state.sphCount, state.spheres);
+  if (hitInfo.pos <= 0.0) {
+    image[gid] = getEnvLighting(rayOrig, rayDir, wavelength);
+    return;
+  }
+
+  CachedPoint cache[maxDepth];
+  cache[0].indir = rayDir;
+  // don't need to add rayOrig since is 0
+  cache[0].point = rayDir * hitInfo.pos;
+  cache[0].transmittance = 1.0;
+  cache[0].brightness = 0.0;
+  cache[0].hitSky = false;
+  cache[0].sphere = hitInfo.sphere;
+
   for (int i = 0; i < iters; i++) {
-    double2 minorOffs = fibLattice(i, iters);
-    minorOffs *= (1/majorDim);
-    result += castRay(rayOrig, ((double3){rayDir[0] + minorOffs[0], rayDir[1] + minorOffs[1], rayDir[2]}).normalized(), &state, i, wavelength);
+    // double2 minorOffs = fibLattice(i, iters);
+    // minorOffs *= (1/majorDim);
+    result += castRay(&state, i, wavelength, cache);
   }
 
   result *= (1/(double)iters);
