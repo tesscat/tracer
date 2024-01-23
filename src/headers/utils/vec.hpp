@@ -1,19 +1,23 @@
+#ifndef VEC_HPP
+#define VEC_HPP
+
 #include <cmath>
 #include <initializer_list>
-#include <vector>
+#include <array>
 template<typename T, int len>
 class Vec {
 public:
-  std::vector<T> data;
+  std::array<T, len> data;
   // T operator[](int idx) {return data[idx];}
-  Vec(std::initializer_list<T> d) : data{d} {}
+  template<typename... T_>
+  Vec(T_... d) : data{static_cast<T>(d)...} {}
     // for (int i = 0; i < len; i++) {
       // data[i] = d[i];
     // }
   // }
   T& operator[](int idx) {return data[idx];}
   Vec() {
-    data = std::vector<T>(len);
+    data = std::array<T, len>();
   };
   Vec(const Vec<T, len>& other) {
     data = other.data;
@@ -56,7 +60,9 @@ public:
     }
     return std::sqrt(sum);
   };
-  Vec<T, len> normalized() {
+    Vec<T, len> normalized() {
     return Vec<T, len>(*this) * (1/length());
   }
 };
+
+#endif // !VEC_HPP

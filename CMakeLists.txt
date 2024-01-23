@@ -21,6 +21,4 @@ add_sycl_to_target(TARGET tracer)
 file(GLOB_RECURSE sources src/*.cpp)
 target_sources(tracer PRIVATE ${sources})
 
-target_include_directories(${PROJECT_NAME} PUBLIC "src/" "vendor/argparse/include" "vendor/OpenSYCL/include" "include/" "vendor/OpenCL-SDK/lib/include" "vendor/OpenCL-SDK/include/cpp" "vendor") # "wild/include" "wild/src/include") # hack to make assimp work
-# target_link_libraries(tracer OpenCL::OpenCL)
-# target_link_libraries(tame wild) # bgfx bx bimg glfw)
+target_include_directories(${PROJECT_NAME} PUBLIC "src/" "src/headers" "vendor/argparse/include" "vendor/OpenSYCL/include" "include/" "vendor/OpenCL-SDK/lib/include" "vendor/OpenCL-SDK/include/cpp" "vendor")
