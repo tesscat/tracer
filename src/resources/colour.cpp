@@ -5,7 +5,7 @@ double Colour::Sample(double point_) {
     double point = point_;
     // std::cout << '\n' << segments << '\n';
     // for (auto point: points)
-      // std::cout << point << ' ';
+    // std::cout << point << ' ';
     if (point >= 1.0) point = 0.999;
     point *= segments;
     int index = std::floor(point);

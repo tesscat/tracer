@@ -9,7 +9,7 @@ namespace tracer::colour {
 // https://computergraphics.stackexchange.com/questions/10547/what-wavelengthsdominant-the-primary-rgb-colors-are-supposed-to-be-in-srgb-col
 // R=630nm, G=532nm, and B=467nm
 constexpr double nmToVisiRange(double nm) {
-  return (nm - 380)/370;
+    return (nm - 380)/370;
 }
 
 constexpr double visiRangeToNm(double visi) {
@@ -22,13 +22,13 @@ constexpr double visiRangeToUm(double visi) {
 
 class Colour {
 public:
-  double segments = 4;
-  std::vector<double> points;
-  double Sample(double point_);
+    double segments = 4;
+    std::vector<double> points;
+    double Sample(double point_);
 
-  Colour(std::vector<double> points_);
-  Colour(double brightness);
-  Colour();
+    Colour(std::vector<double> points_);
+    Colour(double brightness);
+    Colour();
 };
 }
 #endif

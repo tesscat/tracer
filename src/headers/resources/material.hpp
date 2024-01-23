@@ -17,11 +17,11 @@ public:
 
 class Material {
 public:
-  Colour albedo;
-  Colour emission;
-  double reflection = 0.0;
-  double translucency = 0.0;
-  SellmeierCoeffs refract = AIR;
+    Colour albedo;
+    Colour emission;
+    double reflection = 0.0;
+    double translucency = 0.0;
+    SellmeierCoeffs refract = AIR;
 };
 
 

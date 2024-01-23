@@ -156,7 +156,7 @@ double castRay(
     bool first = true;
 
     for (i = (state->maxDepth - backtrack); (i < state->maxDepth); i++) {
-        
+
         int matIndex = sphere->matIdx;
         Material mat = state->materials[matIndex];
         // How much does this light add to us?
