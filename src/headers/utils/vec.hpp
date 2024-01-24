@@ -4,6 +4,7 @@
 #include <cmath>
 #include <initializer_list>
 #include <array>
+#include <utility>
 template<typename T, int len>
 class Vec {
 public:
@@ -25,7 +26,7 @@ public:
         // data[i] = other[i];
         // }
     }
-    Vec<T, len> operator * (T scalar) {
+    Vec<T, len> operator * (const T scalar) const {
         Vec<T, len> result (*this);
         result *= scalar;
         return result;
@@ -41,7 +42,7 @@ public:
         }
     }
     // TODO: general optim
-    Vec<T, len> operator + (Vec<T, len> other) {
+    Vec<T, len> operator + (const Vec<T, len> other) const {
         Vec<T, len> result (*this);
         result += other;
         return result;
@@ -62,6 +63,19 @@ public:
     };
     Vec<T, len> normalized() {
         return Vec<T, len>(*this) * (1/length());
+    }
+    T dot(Vec<T, len> other) const {
+        T sum = 0;
+        for (int i = 0; i < len; i++) {
+            sum += data[i]*other[i];
+        }
+
+        return sum;
+    }
+    std::pair<Vec<T, len>, Vec<T, len>> split_orth_parallel_to_normal(Vec<T, len> normal) {
+        Vec<T, len> orth = dot(normal).dot(normal);
+        Vec<T, len> para = this - orth;
+        return std::make_pair(orth, para);
     }
 };
 

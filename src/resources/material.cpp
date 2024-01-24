@@ -5,7 +5,7 @@ SellmeierCoeffs::SellmeierCoeffs(double b1_, double b2_, double b3_, double c1_,
     b1{b1_}, b2{b2_}, b3{b3_},
     c1{c1_}, c2{c2_}, c3{c3_} {}
 
-double SellmeierCoeffs::Calculate(double wavelength_visirange) {
+double SellmeierCoeffs::Calculate(const double wavelength_visirange) const {
     double wl = visiRangeToUm(wavelength_visirange);
     double wl2 = wl*wl;
     double t1 = (b1*wl2)/(wl2 - c1);

@@ -49,9 +49,11 @@ int main(int argc, char** argv) {
     int sphCount = 0;
 
     std::vector<Sphere> spheres;
-    spheres.push_back(Sphere({0.0, 1.0, 10.0}, 1.5, 1));
-    spheres.push_back(Sphere({3.0, 0.0, 10.0}, 1, 1));
-    spheres.push_back(Sphere({0.0, -21.0, 0.0}, 20, 2));
+    // spheres.push_back(Sphere({0.0, 1.0, 10.0}, 1.5, 2));
+    // spheres.push_back(Sphere({3.0, 0.0, 10.0}, 1, 2));
+    // spheres.push_back(Sphere({0.0, -21.0, 0.0}, 20, 2));
+    spheres.push_back(Sphere({0.0, 0.0, 10.0}, 3.0, 2));
+    spheres.push_back(Sphere({0.0, 0.0, -15.0}, 1.0, 1));
 
     // sellmeier test
     // std::cout << "sell test " << BK7.Calculate(nmToVisiRange(630)) << "\n";
@@ -60,14 +62,14 @@ int main(int argc, char** argv) {
     air.refract = AIR; // TODO: update with actual value
     Material m1;
     m1.reflection = 0.0;
-    m1.albedo = Colour(std::vector<double>({1.0, 0.0}));
-    m1.emission = Colour(std::vector<double>({0.5, 0.5, 0.0}));
+    m1.albedo = Colour(std::vector<double>({1.0, 1.0}));
+    m1.emission = Colour(std::vector<double>({1.0, 1.0, 1.0}));
     Material m2;
     m2.reflection = 0.0;
     m2.albedo = Colour(std::vector<double>({1.0, 1.0}));
     m2.emission = Colour(std::vector<double>({0.0, 0.0, 0.0}));
-    // m2.translucency = 1.0;
-    // m2.refract = BK7;
+    m2.translucency = 1.0;
+    m2.refract = BK7;
 
     std::vector<Material> materials = {air, m1, m2}; // , m1, m2, m3, m4, m5};
 

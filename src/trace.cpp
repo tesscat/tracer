@@ -6,6 +6,8 @@
 #include <cstdlib>
 #include <fstream>
 #include <iostream>
+#include <math.h>
+#include <optional>
 #include <valarray>
 #include <vector>
 #include <cmath>
@@ -22,6 +24,7 @@ using double3 = Vec<double, 3>;
 
 using namespace tracer::colour;
 
+// fibLattice stuff {{{
 
 double2 fibLattice(double i, double N) {
     double x = i/1.618033988749;
@@ -37,75 +40,18 @@ double3 fibLatticeToUnitSphere(double2 pos) {
     return (double3){cos(theta) * sinorb, sin(theta) * sinorb, cos(orb)};
 }
 
+// }}}
+
+// hit stuff {{{
 double hitSphere(const Sphere sphere, double3 rayOrig, const double3 rayDir) {
     double3 ac = rayOrig - sphere.center;
     double a = pow(rayDir.length(), 2);
-    double half_b = dot(ac, rayDir);
+    double half_b = ac.dot(rayDir);
     double c = pow(ac.length(), 2) - pow(sphere.radius, 2);
     double discriminant = pow(half_b, 2) - a * c;
     if (discriminant < 0) {return -1.0;}
     else {return (-half_b - sqrt(discriminant))/a;}
 }
-
-double absolute(double i) {
-    if (i > 0) return i;
-    return -i;
-}
-
-// #ifdef OLD
-
-typedef struct State {
-    ClArr<Sphere> spheres;
-    ClArr<Material> materials;
-    int sphCount;
-    int subRays;
-    int idx;
-    int maxDepth;
-    int iters;
-} State;
-
-typedef struct CachedPoint {
-    double3 point;
-    double3 indir;
-    double brightness;
-    double transmittance;
-    bool hitSky;
-    size_t rfCacheStartPoint;
-    const Sphere* sphere;
-} CachedPoint;
-
-typedef struct RefractionCachedPoint {
-    bool isEntering;
-    size_t materialIndex;
-} RefractionCachedPoint;
-
-// Colour EnvC (std::vector<double>({0.5, 0.5, 0.9}));
-double getEnvLighting(double3 _orig, double3 dir, double wavelength) {
-    // dot =
-    auto dotprod = dot(dir.normalized(), {0.0, 1.0, 0.0});
-    double angle = std::acos(dotprod);
-    // if
-    return Colour({0.3, 0.3}).Sample(wavelength)*(angle) + Colour({0.0, 0.0}).Sample(wavelength)*(PI-angle);
-    // return EnvC.Sample(wavelength);
-}
-// TODO: should I just use tick increments? probably. Will I? no.
-int doCacheMath(int subRays, int maxDepth, int iter) {
-    // complicated. good luck figuring this out
-    // draw up a tree diagram lol
-    // this tries to work out, for a given iteration i,
-    // how far it deviates (in nodes from the end) from the previous
-    //
-    // Check if it lies on a boundary, if so, which one?
-    // TODO: cache POW calls for easier (cheap) thingys
-    for(int i = 1; i < maxDepth; i++) {
-        int groupSize = std::pow(subRays, i);
-        // we're really just checking if iter is a multiple
-        // TODO: why +1?
-        if ((iter % groupSize) != 0) {return i + 1;}
-    }
-    return maxDepth;
-}
-
 
 struct DidWeHitSomethingInfo {
     double pos;
@@ -126,6 +72,97 @@ DidWeHitSomethingInfo didWeHitSomething(double3 orig, double3 dir, int sphCount,
     return (DidWeHitSomethingInfo){.pos = hit, .sphere = sphere};
 }
 
+// }}}
+
+typedef struct State {
+    ClArr<Sphere> spheres;
+    ClArr<Material> materials;
+    int sphCount;
+    int subRays;
+    int idx;
+    int maxDepth;
+    int iters;
+} State;
+
+
+// cache stuff {{{
+typedef struct CachedPoint {
+    double3 point;
+    double3 indir;
+    double brightness;
+    double transmittance;
+    bool hitSky;
+    size_t rfCacheStartPoint;
+    const Sphere* sphere;
+} CachedPoint;
+
+typedef struct RefractionCachedPoint {
+    size_t materialIndex;
+} RefractionCachedPoint;
+
+// TODO: should I just use tick increments? probably. Will I? no.
+int doCacheMath(int subRays, int maxDepth, int iter) {
+    // complicated. good luck figuring this out
+    // draw up a tree diagram lol
+    // this tries to work out, for a given iteration i,
+    // how far it deviates (in nodes from the end) from the previous
+    //
+    // Check if it lies on a boundary, if so, which one?
+    // TODO: cache POW calls for easier (cheap) thingys
+    for(int i = 1; i < maxDepth; i++) {
+        int groupSize = std::pow(subRays, i);
+        // we're really just checking if iter is a multiple
+        // TODO: why +1?
+        if ((iter % groupSize) != 0) {return i + 1;}
+    }
+    return maxDepth;
+}
+
+// }}}
+
+double getEnvLighting(double3 _orig, double3 dir, double wavelength) {
+    auto dotprod = dir.normalized().dot({0.0, 1.0, 0.0});
+    double angle = std::acos(dotprod);
+    return Colour({0.3, 0.3}).Sample(wavelength)*(angle) + Colour({0.0, 0.0}).Sample(wavelength)*(PI-angle);
+}
+
+double3 reflect (const double3 normal, const double3 incident) {
+    const double cosI = -normal.dot(incident);
+    return incident + normal*(2.0*cosI);
+}
+double3 refract(const double3 normal, const double3 incident, double n1, double n2) {
+    const double n = n1/n2;
+    if (n == 1.0) { return incident; }
+    const double cosI = -normal.dot(incident);
+    const double sinT2 = n*n*(1.0 - cosI*cosI);
+    if (sinT2 > 1.0) {
+        // return reflect(normal, incident);
+        return normal*0.0;
+    }
+    const double cosT = sqrt(1.0 - sinT2);
+    return incident*n + normal*(n*cosI - cosT);
+}
+
+// normal points from n1 to n2
+// double3 refract(const double3 normal, const double3 incident, double n1, double n2) {
+//     double ni = normal.dot(incident);
+//     double ni2 = ni*ni;
+//     double mew = n1/n2;
+//     double mew2 = mew*mew;
+//     double mew2sqbr = mew2*(1.0 - ni2);
+//     if (mew2sqbr > 1.0) {
+//         // TIR
+//         return normal*0;
+//     }
+//     double under_sqrt = 1.0 - mew2sqbr;
+//     double sq = sqrt(under_sqrt);
+//     double3 nsq = normal*sq;
+//     double3 mewi = incident*mew;
+//     double3 mewnni = normal*(mew*ni);
+//     return mewi + nsq - mewnni;
+// }
+
+
 // TODO: nicer recursion
 double castRay(
     State* state,
@@ -135,7 +172,7 @@ double castRay(
     RefractionCachedPoint rfCache[]
 )
 {
-    int backtrack = doCacheMath(state->subRays, state->maxDepth, iter);
+    const int backtrack = doCacheMath(state->subRays, state->maxDepth, iter);
     CachedPoint backtrack_pt = cache[state->maxDepth - backtrack];
 
     // we only need to run backtrack iterations! wooo!!
@@ -152,8 +189,11 @@ double castRay(
     double3 contact_pt = backtrack_pt.point;
     double3 indir = backtrack_pt.indir;
     const Sphere* sphere = backtrack_pt.sphere;
+    int rfStartPoint = backtrack_pt.rfCacheStartPoint;
     int i;
     bool first = true;
+
+    const int subRays = state->subRays;
 
     for (i = (state->maxDepth - backtrack); (i < state->maxDepth); i++) {
 
@@ -170,21 +210,11 @@ double castRay(
 
         // Find the normal
         double3 norm = (contact_pt - sphere->center).normalized();
-
-        // https://math.stackexchange.com/questions/13261/how-to-get-a-reflection-vector
-        double3 outgoing = (indir - (norm * 2 * dot(indir, norm))).normalized();
+        double dot_norm_indir = norm.dot(indir);
 
 
-        // and some extra stuff
-        double reflectionFactor = mat.reflection;
-        double invRF = 1.0-reflectionFactor;
-        double3 newNorm = (norm * invRF + outgoing * reflectionFactor).normalized();
         double translucency = mat.translucency;
 
-
-
-        // how many sub rays should we cast?
-        int subRays = state->subRays;
 
         // ugly af maths to figure out which ray we're on
         int fromHereCount = floor(state->iters/pow((double)subRays, i));
@@ -196,24 +226,60 @@ double castRay(
 
         // which index of ray should we start computing translucency?
         double translucency_thresh = ((double)subRays * (1.0 - translucency));
-        if (idx < translucency_thresh) {
+        if (idx < translucency_thresh && matIndex != 2 && false) {
             // We're calculating a diffuse/reflect ray
+            // TODO: use reflect() for this
+            // https://math.stackexchange.com/questions/13261/how-to-get-a-reflection-vector
+            const double3 outgoing = (indir - (norm * 2 * dot_norm_indir)).normalized();
+
+            // and some extra stuff
+            const double reflectionFactor = mat.reflection;
+            const double invRF = 1.0-reflectionFactor;
+            const double3 newNorm = (norm * invRF + outgoing * reflectionFactor).normalized();
 
             double3 unitPoint = fibLatticeToUnitSphere(fibLattice(idx, translucency_thresh));
             // make it shrink
-            double angleBetween = acos(dot(norm, outgoing));
-            double blend = sin(angleBetween) * invRF;
+            const double angleBetween = acos(norm.dot(outgoing));
+            const double blend = sin(angleBetween) * invRF;
             unitPoint *= blend;
             unitPoint += newNorm;
             indir = unitPoint.normalized();
         } else {
             // refraction!!
             // TODO: diffraction with either Anne number or Sellmeier constants
-            return 1.0;
-            // EDITOR'S NOTE: i do not understand this
-            // TODO: rewrite
-            // get angle o incidence
-            double incidence = std::acos(dot(norm, indir));
+            double3 normal = norm;
+            const bool isEntering = dot_norm_indir > 0.0;
+            if (!isEntering) {
+                // flip normal
+                normal *= -1;
+            }
+            // n1 is material we are in
+            double n1, n2;
+            
+            // since normal points from n1 to n2, n1 is always the material we hit
+            // n1 = mat.refract.Calculate(wavelength);
+            // n2 = state->materials[rfCache[rfStartPoint-1].materialIndex].refract.Calculate(wavelength);
+            // if we're entering, its rfStart - 1
+            if (isEntering) {
+                int n1_idx = rfCache[rfStartPoint - 1].materialIndex;
+                n1 = state->materials[n1_idx].refract.Calculate(wavelength);
+                n2 = mat.refract.Calculate(wavelength);
+                // push to the stack
+                rfCache[rfStartPoint].materialIndex = matIndex;
+                rfStartPoint += 1;
+            } else {
+                n1 = mat.refract.Calculate(wavelength);
+                int n2_idx = rfCache[rfStartPoint - 1].materialIndex;
+                n2 = state->materials[n2_idx].refract.Calculate(wavelength);
+                // pop from the stack
+                rfStartPoint -= 1;
+            }
+
+
+
+
+            // okay now do the math
+            indir = refract(normal.normalized(), indir.normalized(), n2, n1);
         }
 
         // TODO: blend between translucent and non-translucent better
@@ -243,6 +309,7 @@ double castRay(
         cache[i+1].point = contact_pt;
         cache[i+1].sphere = sphere;
         cache[i+1].indir = indir;
+        cache[i+1].rfCacheStartPoint = rfStartPoint;
     }
 
     return brightness;
@@ -293,7 +360,7 @@ void trace(
         return;
     }
 
-    CachedPoint* cache = new CachedPoint[maxDepth];// {static_cast<size_t>(maxDepth)};
+    CachedPoint* cache = new CachedPoint[maxDepth];
     cache[0].indir = rayDir;
     // don't need to add rayOrig since is 0
     cache[0].point = rayDir * hitInfo.pos;
@@ -301,17 +368,13 @@ void trace(
     cache[0].brightness = 0.0;
     cache[0].hitSky = false;
     cache[0].sphere = hitInfo.sphere;
-    // std::cout << "midx" << hitInfo.sphere->matIdx << std::endl;
     cache[0].rfCacheStartPoint = 1;
 
-    RefractionCachedPoint* rfCache = new RefractionCachedPoint[maxDepth]; //  {static_cast<size_t>(maxDepth + 1)};
-    rfCache[0].isEntering = true;
+    RefractionCachedPoint* rfCache = new RefractionCachedPoint[maxDepth];
     // mat 0 is air
     rfCache[0].materialIndex = 0;
 
     for (int i = 0; i < iters; i++) {
-        // double2 minorOffs = fibLattice(i, iters);
-        // minorOffs *= (1/majorDim);
         result += castRay(&state, i, wavelength, cache, rfCache);
     }
 

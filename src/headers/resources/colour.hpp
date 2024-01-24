@@ -24,10 +24,10 @@ class Colour {
 public:
     double segments = 4;
     std::vector<double> points;
-    double Sample(double point_);
+    double Sample(const double point_) const;
 
     Colour(std::vector<double> points_);
-    Colour(double brightness);
+    Colour(const double brightness);
     Colour();
 };
 }

@@ -1,7 +1,7 @@
 #include <resources/colour.hpp>
 
 namespace tracer::colour {
-double Colour::Sample(double point_) {
+double Colour::Sample(const double point_) const {
     double point = point_;
     // std::cout << '\n' << segments << '\n';
     // for (auto point: points)

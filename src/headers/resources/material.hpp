@@ -12,7 +12,7 @@ public:
     double c1, c2, c3;
     SellmeierCoeffs(double b1, double b2, double b3, double c1, double c2, double c3);
 
-    double Calculate(double wavelength_visirange);
+    double Calculate(const double wavelength_visirange) const;
 };
 
 class Material {
