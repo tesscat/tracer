@@ -48,30 +48,57 @@ int main(int argc, char** argv) {
 
     int sphCount = 0;
 
-    std::vector<Sphere> spheres;
+    std::vector<Sphere> spheres = std::vector<Sphere>();
     // spheres.push_back(Sphere({0.0, 1.0, 10.0}, 1.5, 2));
     // spheres.push_back(Sphere({3.0, 0.0, 10.0}, 1, 2));
     // spheres.push_back(Sphere({0.0, -21.0, 0.0}, 20, 2));
-    spheres.push_back(Sphere({0.0, 0.0, 10.0}, 3.0, 2));
-    spheres.push_back(Sphere({0.0, 0.0, -15.0}, 1.0, 1));
+    // spheres.push_back(Sphere({0.0, 0.0, 10.0}, 3.0, 2));
+    // spheres.push_back(Sphere({0.0, 0.0, -15.0}, 1.0, 1));
+    // spheres.push_back(Sphere({0.0, 0.0, 200.0}, 180.0, 3));
+    spheres.push_back(Sphere({-5.0, 0.0, 20.0}, 3.0, 1));
+    // spheres.push_back(Sphere({0.0, 2.1, 20.0}, 1.8, 4));
+    // spheres.push_back(Sphere({0.0, -2.1, 20.0}, 1.8, 4));
+    spheres.push_back(Sphere({200, 0.0, 20}, 194, 3));
+    spheres.push_back(Sphere({3.0, 0.0, 20.0}, 2.0, 5));
+    spheres.push_back(Sphere({3.0, 0.0, 20.0}, 1.0, 0));
 
     // sellmeier test
     // std::cout << "sell test " << BK7.Calculate(nmToVisiRange(630)) << "\n";
 
     Material air; // only care abt refInd but makes it easier
     air.refract = AIR; // TODO: update with actual value
+    air.albedo = Colour({1.0, 1.0});
+    air.emission = Colour({0.0, 0.0});
+    air.translucency = 1.0;
+    air.reflection = 0.0;
     Material m1;
     m1.reflection = 0.0;
     m1.albedo = Colour(std::vector<double>({1.0, 1.0}));
-    m1.emission = Colour(std::vector<double>({1.0, 1.0, 1.0}));
+    m1.emission = Colour(std::vector<double>({2.0, 2.0, 2.0}));
     Material m2;
     m2.reflection = 0.0;
     m2.albedo = Colour(std::vector<double>({1.0, 1.0}));
     m2.emission = Colour(std::vector<double>({0.0, 0.0, 0.0}));
     m2.translucency = 1.0;
     m2.refract = BK7;
+    Material m3;
+    m3.reflection = 0.3;
+    m3.albedo = Colour({0.8, 0.8});
+    m3.emission = Colour({0.1, 0.1});
+    m3.translucency = 0.0;
+    Material m4;
+    m4.reflection = 0.0;
+    m4.albedo = Colour({0.0, 0.0});
+    m4.emission = Colour({0.0, 0.0, 0.0});
+    m4.translucency = 0.0;
+    Material m5;
+    m5.reflection = 0.0;
+    m5.albedo = Colour({1.0, 1.0});
+    m4.emission = Colour({0.0, 0.0, 0.0});
+    m5.translucency = 1.0;
+    m5.refract = BK7;
 
-    std::vector<Material> materials = {air, m1, m2}; // , m1, m2, m3, m4, m5};
+    std::vector<Material> materials = {air, m1, m2, m3, m4, m5}; // , m1, m2, m3, m4, m5};
 
     // exit(1);
     cl::sycl::context ctx;

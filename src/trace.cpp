@@ -121,6 +121,7 @@ int doCacheMath(int subRays, int maxDepth, int iter) {
 // }}}
 
 double getEnvLighting(double3 _orig, double3 dir, double wavelength) {
+    // return 0.0;
     auto dotprod = dir.normalized().dot({0.0, 1.0, 0.0});
     double angle = std::acos(dotprod);
     return Colour({0.3, 0.3}).Sample(wavelength)*(angle) + Colour({0.0, 0.0}).Sample(wavelength)*(PI-angle);
@@ -136,8 +137,8 @@ double3 refract(const double3 normal, const double3 incident, double n1, double 
     const double cosI = -normal.dot(incident);
     const double sinT2 = n*n*(1.0 - cosI*cosI);
     if (sinT2 > 1.0) {
-        // return reflect(normal, incident);
-        return normal*0.0;
+        return reflect(normal, incident);
+        // return normal*0.0;
     }
     const double cosT = sqrt(1.0 - sinT2);
     return incident*n + normal*(n*cosI - cosT);
@@ -204,7 +205,7 @@ double castRay(
         brightness += mat.emission.Sample(wavelength) * transmittance;
         transmittance *= mat.albedo.Sample(wavelength);
         // if no transmittance, no point simulating further
-        if (transmittance <= 0.0) break;
+        // if (transmittance <= 0.0) break;
         // or if no next iter
         if ((i + 1) == state->maxDepth) break;
 
@@ -226,7 +227,7 @@ double castRay(
 
         // which index of ray should we start computing translucency?
         double translucency_thresh = ((double)subRays * (1.0 - translucency));
-        if (idx < translucency_thresh && matIndex != 2 && false) {
+        if (idx < translucency_thresh) {
             // We're calculating a diffuse/reflect ray
             // TODO: use reflect() for this
             // https://math.stackexchange.com/questions/13261/how-to-get-a-reflection-vector
